@@ -214,7 +214,7 @@ export function Ide({ program, programs }: { program: Program; programs: Program
           <IconButton icon={leftOpen ? LayoutLeftIcon : LayoutAlignLeftIcon} label={leftOpen ? 'Nascondi programmi' : 'Mostra programmi'} onClick={() => togglePanel('left')} />
           <Button type="button" variant="ghost" size="sm" className="max-w-36 font-medium sm:max-w-48" onClick={() => { setNewName(program.name); setRenameOpen(true) }}><span className="truncate">{program.name}</span></Button>
           <UiSeparator orientation="vertical" className="mx-1 h-5!" />
-          <nav aria-label="File aperti" className="ide-file-tabs flex min-w-0 flex-1 items-center gap-1 overflow-x-auto py-1">
+          <nav aria-label="File aperti" className="ide-file-tabs flex min-w-0 max-w-[min(40vw,640px)] flex-[0_1_auto] items-center gap-1 overflow-x-auto py-1">
             {openFileIds.map((id) => {
               const file = autosave.files.find((item) => item.id === id)
               if (!file) return null
@@ -229,6 +229,7 @@ export function Ide({ program, programs }: { program: Program; programs: Program
               <DropdownMenuGroup>{autosave.files.map((file) => <DropdownMenuItem key={file.id} onSelect={() => openFile(file.id)}><Icon icon={File01Icon} /><span className="min-w-0 flex-1 truncate">{file.name}</span>{file.id === activeFileId && <span className="text-[10px] text-muted-foreground">Aperto</span>}</DropdownMenuItem>)}</DropdownMenuGroup>
             </DropdownMenuContent>
           </DropdownMenu>
+          <div className="min-w-0 flex-1" />
           <div className="hidden text-xs text-muted-foreground md:block">{python.status === 'loading' ? 'Caricamento Python…' : python.status === 'error' ? 'Python non disponibile' : ''}</div>
           <Button type="button" size="sm" className="min-w-23" disabled={python.status === 'loading' || python.status === 'error' || python.status === 'stopping'} onClick={() => running ? python.stop() : python.run(mainFile.code, autosave.files.filter((file) => file.id !== MAIN_FILE_ID).map(({ name, code }) => ({ name, code })))}>
             <Icon icon={running ? StopIcon : PlayIcon} />{running ? 'STOP' : 'START'}
