@@ -4,7 +4,7 @@ import { useTheme } from 'next-themes'
 import { Group, Panel, Separator, useGroupRef, usePanelRef } from 'react-resizable-panels'
 import { HugeiconsIcon } from '@hugeicons/react'
 import {
-  Delete02Icon, Edit02Icon, File01Icon, Files01Icon, Logout01Icon,
+  ChangeScreenModeIcon, Delete02Icon, Edit02Icon, File01Icon, Logout01Icon,
   Menu01Icon, Moon02Icon, MoreHorizontalIcon, PanelLeftIcon, PanelRightIcon,
   PlayIcon, PlusSignIcon, StopIcon, Sun03Icon, TerminalIcon, UserGroupIcon,
 } from '@hugeicons/core-free-icons'
@@ -124,7 +124,7 @@ export function Ide({ program, programs }: { program: Program; programs: Program
         <ScrollArea className="min-h-0 flex-1">
           <nav aria-label="Programmi" className="p-1.5">
             {programs.map((item) => <div key={item.id} className={`ide-program-row group flex items-center rounded ${item.id === program.id ? 'ide-program-row-active' : ''}`}>
-              <button type="button" onClick={() => void openProgram(item.id)} className="flex min-w-0 flex-1 items-center gap-2 px-2 py-1.5 text-left text-[13px]"><Icon icon={Files01Icon} className="size-3.5 shrink-0" /><span className="truncate">{item.name}</span></button>
+              <button type="button" onClick={() => void openProgram(item.id)} className="flex min-w-0 flex-1 items-center gap-2 px-2 py-1.5 text-left text-[13px]"><Icon icon={ChangeScreenModeIcon} className="size-3.5 shrink-0" /><span className="truncate">{item.name}</span></button>
               {item.id === program.id && <DropdownMenu><DropdownMenuTrigger asChild><Button variant="ghost" size="icon-xs" aria-label="Azioni programma" className="mr-2"><Icon icon={MoreHorizontalIcon} /></Button></DropdownMenuTrigger><DropdownMenuContent align="end"><DropdownMenuGroup><DropdownMenuItem onSelect={() => { setNewName(program.name); setRenameOpen(true) }}><Icon icon={Edit02Icon} /> Rinomina</DropdownMenuItem><DropdownMenuItem variant="destructive" onSelect={() => setDeleteOpen(true)}><Icon icon={Delete02Icon} /> Elimina</DropdownMenuItem></DropdownMenuGroup></DropdownMenuContent></DropdownMenu>}
             </div>)}
           </nav>
