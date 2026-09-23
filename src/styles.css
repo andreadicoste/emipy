@@ -18,7 +18,7 @@
   --destructive: #c93434; --border: #dcdcd8;
   --input: #d4d4d0; --ring: #8a8a91;
   --brand-soft: #f3f3f1;
-  --radius: .65rem; --panel: #f7f7f5; --toolbar: #fafaf9; --files-panel: #f7f7f5; --code-bg: #ffffff; --monaco-bg: #ffffff; --ide-canvas: #f1f1ef; --ide-row: #ececea; --ide-row-hover: #eeeeec;
+  --radius: .65rem; --panel: #f1f1ef; --toolbar: #ffffff; --files-panel: #ffffff; --code-bg: #ffffff; --monaco-bg: #f1f1ef; --ide-canvas: #ffffff; --ide-row: #e8e8e6; --ide-row-hover: #eaeae8;
 }
 
 .dark {

@@ -9,9 +9,9 @@ loader.config({ monaco })
 monaco.editor.defineTheme('emipy-light', {
   base: 'vs', inherit: true, rules: [],
   colors: {
-    'editor.background': '#ffffff',
-    'editorGutter.background': '#ffffff',
-    'editor.lineHighlightBackground': '#f5f5f3',
+    'editor.background': '#f1f1ef',
+    'editorGutter.background': '#f1f1ef',
+    'editor.lineHighlightBackground': '#e8e8e6',
     'editor.selectionBackground': '#d9e6f7',
   },
 })
