@@ -197,7 +197,7 @@ export function Ide({ program, programs }: { program: Program; programs: Program
         <Group orientation="horizontal" groupRef={workspaceRef} className={`min-h-0 flex-1 ${animatedPanel === 'right' ? 'ide-toggle-motion' : ''}`} onLayoutChanged={(layout) => { if (layoutReady.current) localStorage.setItem('emipy-layout-workspace', JSON.stringify(layout)) }}>
           <Panel id="workspace" minSize="35%" className="flex min-w-0 flex-col">
             <Group orientation="vertical" groupRef={verticalRef} className={`min-h-0 flex-1 ${animatedPanel === 'output' ? 'ide-toggle-motion' : ''}`} onLayoutChanged={(layout) => { if (layoutReady.current) localStorage.setItem('emipy-layout-vertical', JSON.stringify(layout)) }}>
-              <Panel id="editor" defaultSize="70%" minSize="25%" className="flex min-h-0 flex-col pb-1 pl-2 pr-0 pt-0">
+              <Panel id="editor" defaultSize="70%" minSize="25%" className="flex min-h-0 flex-col pb-1 pl-2 pr-2 pt-0">
                 <section aria-label="Editor main.py" className="ide-surface flex min-h-0 flex-1 flex-col overflow-hidden rounded-md border border-border bg-[var(--monaco-bg)]">
                   <div className="flex h-8 shrink-0 items-center gap-1.5 border-b border-border px-3 text-[11px] text-muted-foreground"><Icon icon={File01Icon} className="size-3.5" /><span className="font-semibold text-foreground">main.py</span><span className="ml-auto">Python</span></div>
                   <div className="min-h-0 flex-1">{mounted && <Suspense fallback={<div className="p-5 text-sm text-muted-foreground">Caricamento editor…</div>}><CodeEditor value={autosave.code} onChange={autosave.update} dark={resolvedTheme === 'dark'} /></Suspense>}</div>
@@ -215,10 +215,10 @@ export function Ide({ program, programs }: { program: Program; programs: Program
           </Panel>
           <Separator className="ide-handle ide-side-handle ide-files-handle w-px" />
           <Panel id="files" panelRef={rightRef} defaultSize="16%" minSize={145} maxSize="30%" collapsible collapsedSize={0} onResize={(size) => setRightOpen(size.inPixels > 0)} className="ide-files-panel min-w-0">
-            <div className="flex h-8 items-center px-3 text-[11px] font-bold uppercase tracking-wider text-muted-foreground">File</div>
-            <div className="px-3 pb-1.5"><Input aria-label="Cerca file" placeholder="Cerca file" value={fileSearch} onChange={(event) => setFileSearch(event.target.value)} className="h-7 bg-background text-xs" /></div>
-            <div className="px-1.5">{'main.py'.includes(fileSearch.trim().toLowerCase()) && <div className="ide-project-file flex items-center gap-2 rounded px-2 py-1.5 text-[13px]"><Icon icon={File01Icon} className="size-3.5 shrink-0 text-ring" /><span>main.py</span></div>}</div>
-            <p className="px-3 pt-1.5 text-[11px] text-muted-foreground">Modificato {new Date(program.updatedAt).toLocaleDateString('it-IT', { day: 'numeric', month: 'short', year: 'numeric' })}</p>
+            <div className="flex h-8 items-center pr-3 text-[11px] font-bold uppercase tracking-wider text-muted-foreground">File</div>
+            <div className="pr-3 pb-1.5"><Input aria-label="Cerca file" placeholder="Cerca file" value={fileSearch} onChange={(event) => setFileSearch(event.target.value)} className="h-7 bg-background text-xs" /></div>
+            <div className="pr-1.5">{'main.py'.includes(fileSearch.trim().toLowerCase()) && <div className="ide-project-file flex items-center gap-2 rounded pr-2 py-1.5 text-[13px]"><Icon icon={File01Icon} className="size-3.5 shrink-0 text-ring" /><span>main.py</span></div>}</div>
+            <p className="pr-3 pt-1.5 text-[11px] text-muted-foreground">Modificato {new Date(program.updatedAt).toLocaleDateString('it-IT', { day: 'numeric', month: 'short', year: 'numeric' })}</p>
           </Panel>
         </Group>
       </Panel>
