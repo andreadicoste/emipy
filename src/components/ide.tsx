@@ -175,8 +175,8 @@ export function Ide({ program, programs }: { program: Program; programs: Program
               </Panel>
             </Group>
           </Panel>
-          <Separator className="ide-handle w-1" />
-          <Panel id="files" panelRef={rightRef} defaultSize="18%" minSize={160} maxSize="30%" collapsible collapsedSize={0} className="ide-panel min-w-0">
+          <Separator className="ide-handle ide-files-handle w-1" />
+          <Panel id="files" panelRef={rightRef} defaultSize="18%" minSize={160} maxSize="30%" collapsible collapsedSize={0} className="min-w-0">
             <div className="flex h-12 items-center px-4 text-xs font-bold uppercase tracking-wider text-muted-foreground">File</div>
             <div className="p-2"><div className="ide-file-active flex items-center gap-2 rounded-md px-3 py-2.5 text-sm"><Icon icon={File01Icon} className="size-4" /> main.py</div></div>
             <p className="px-5 pt-2 text-xs text-muted-foreground">Modificato {new Date(program.updatedAt).toLocaleDateString('it-IT', { day: 'numeric', month: 'short', year: 'numeric' })}</p>
