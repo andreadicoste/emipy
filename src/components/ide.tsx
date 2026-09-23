@@ -129,7 +129,7 @@ export function Ide({ program, programs }: { program: Program; programs: Program
         </ScrollArea>
         <div className="border-t border-border px-4 py-3 text-xs text-muted-foreground">{programs.length} {programs.length === 1 ? 'programma' : 'programmi'}</div>
       </Panel>
-      <Separator className="ide-handle w-1" />
+      <Separator className="ide-handle ide-side-handle w-px" />
       <Panel id="shell" minSize="45%" className="flex min-w-0 flex-col">
         <header className="flex h-14 shrink-0 items-center gap-2 px-3 sm:gap-3 sm:px-4">
           <IconButton icon={PanelLeftIcon} label="Mostra o nascondi programmi" onClick={() => leftRef.current?.isCollapsed() ? leftRef.current.expand() : leftRef.current?.collapse()} />
@@ -175,7 +175,7 @@ export function Ide({ program, programs }: { program: Program; programs: Program
               </Panel>
             </Group>
           </Panel>
-          <Separator className="ide-handle ide-files-handle w-1" />
+          <Separator className="ide-handle ide-side-handle ide-files-handle w-px" />
           <Panel id="files" panelRef={rightRef} defaultSize="18%" minSize={160} maxSize="30%" collapsible collapsedSize={0} className="min-w-0">
             <div className="flex h-12 items-center px-4 text-xs font-bold uppercase tracking-wider text-muted-foreground">File</div>
             <div className="p-2"><div className="ide-file-active flex items-center gap-2 rounded-md px-3 py-2.5 text-sm"><Icon icon={File01Icon} className="size-4" /> main.py</div></div>

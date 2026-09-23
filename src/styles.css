@@ -57,6 +57,7 @@ button { cursor: pointer; }
 .ide-handle { background: var(--border); transition: background .15s; }
 .ide-output-handle, .ide-files-handle { background: transparent; }
 .ide-handle:hover, .ide-handle[data-resize-handle-active] { background: var(--ring); }
+.ide-side-handle:hover, .ide-side-handle[data-resize-handle-active] { box-shadow: 0 0 0 1px var(--ring); }
 .ide-file-active { background: var(--accent); color: var(--accent-foreground); }
 .output-scroll { white-space: pre-wrap; overflow-wrap: anywhere; font: 13px/1.55 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
 .dark .brand-symbol, .dark .brand-wordmark { filter: invert(1); }
