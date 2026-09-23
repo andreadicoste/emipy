@@ -1,0 +1,60 @@
+
+@import '@fontsource/manrope/400.css';
+@import '@fontsource/manrope/500.css';
+@import '@fontsource/manrope/600.css';
+@import '@fontsource/manrope/700.css';
+@import 'tailwindcss';
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  --background: #ffffff; --foreground: #171113;
+  --card: #ffffff; --card-foreground: #171113;
+  --popover: #ffffff; --popover-foreground: #171113;
+  --primary: #171113; --primary-foreground: #ffffff;
+  --secondary: #fff5f8; --secondary-foreground: #171113;
+  --muted: #fff5f8; --muted-foreground: #75686d;
+  --accent: #ffc0d4; --accent-foreground: #171113;
+  --destructive: #bc365b; --border: #e9e1e4;
+  --input: #e9e1e4; --ring: #e584a5;
+  --radius: .65rem; --panel: #fffafb; --code-bg: #ffffff;
+}
+
+.dark {
+  --background: #171113; --foreground: #fff5f8;
+  --card: #20181b; --card-foreground: #fff5f8;
+  --popover: #251b1f; --popover-foreground: #fff5f8;
+  --primary: #ffc0d4; --primary-foreground: #171113;
+  --secondary: #2d2226; --secondary-foreground: #fff5f8;
+  --muted: #2b2125; --muted-foreground: #c7b5bc;
+  --accent: #573540; --accent-foreground: #fff5f8;
+  --destructive: #f17b9d; --border: #423039;
+  --input: #423039; --ring: #ffc0d4;
+  --panel: #1d1518; --code-bg: #1b1518;
+}
+
+@theme inline {
+  --font-sans: 'Manrope', sans-serif;
+  --color-background: var(--background); --color-foreground: var(--foreground);
+  --color-card: var(--card); --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover); --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary); --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary); --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted); --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent); --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive); --color-border: var(--border);
+  --color-input: var(--input); --color-ring: var(--ring);
+  --radius-sm: calc(var(--radius) - 4px); --radius-md: calc(var(--radius) - 2px); --radius-lg: var(--radius);
+}
+
+* { box-sizing: border-box; }
+html, body, #app { min-height: 100%; }
+body { margin: 0; background: var(--background); color: var(--foreground); font-family: 'Manrope', sans-serif; }
+button { cursor: pointer; }
+.ide-root { height: 100dvh; min-height: 500px; overflow: hidden; }
+.ide-panel { background: var(--panel); }
+.ide-handle { background: var(--border); transition: background .15s; }
+.ide-handle:hover, .ide-handle[data-resize-handle-active] { background: var(--ring); }
+.ide-file-active { background: var(--accent); color: var(--accent-foreground); }
+.output-scroll { white-space: pre-wrap; overflow-wrap: anywhere; font: 13px/1.55 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+.dark .brand-symbol, .dark .brand-wordmark { filter: invert(1); }

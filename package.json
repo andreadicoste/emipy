@@ -1,0 +1,69 @@
+{
+  "name": "emipy",
+  "private": true,
+  "type": "module",
+  "imports": {
+    "#/*": "./src/*"
+  },
+  "scripts": {
+    "dev": "vite dev --port 3000",
+    "generate-routes": "tsr generate",
+    "build": "vite build",
+    "preview": "vite preview",
+    "start": "bun .output/server/index.mjs",
+    "typecheck": "tsc --noEmit",
+    "test": "bun test",
+    "db:generate": "prisma generate",
+    "db:migrate": "prisma migrate dev",
+    "db:deploy": "prisma migrate deploy",
+    "admin:create": "bun scripts/create-admin.ts"
+  },
+  "dependencies": {
+    "@better-auth/prisma-adapter": "^1.7.5",
+    "@fontsource/manrope": "^5.3.0",
+    "@hugeicons/core-free-icons": "^4.3.5",
+    "@hugeicons/react": "^1.1.10",
+    "@monaco-editor/react": "^4.7.0",
+    "@prisma/adapter-libsql": "^7.10.0",
+    "@prisma/client": "7.10.0",
+    "@tailwindcss/vite": "^4.1.18",
+    "@tanstack/react-devtools": "latest",
+    "@tanstack/react-router": "latest",
+    "@tanstack/react-router-devtools": "latest",
+    "@tanstack/react-start": "latest",
+    "better-auth": "^1.7.5",
+    "class-variance-authority": "^0.7.1",
+    "cn": "^0.4.0",
+    "lucide-react": "^1.47.0",
+    "monaco-editor": "^0.56.0",
+    "next-themes": "^0.4.6",
+    "nitro": "3.0.260610-beta",
+    "pyodide": "^314.0.7",
+    "radix-ui": "^1.6.7",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "react-resizable-panels": "^4.13.2",
+    "sonner": "^2.0.8",
+    "tailwindcss": "^4.1.18",
+    "zod": "^4.6.5"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.63.0",
+    "@tanstack/devtools-vite": "latest",
+    "@tanstack/router-cli": "^1.132.0",
+    "@types/bun": "^1.4.2",
+    "@types/node": "^22.10.2",
+    "@types/react": "^19.2.0",
+    "@types/react-dom": "^19.2.0",
+    "@vitejs/plugin-react": "^6.0.1",
+    "prisma": "7.10.0",
+    "typescript": "^6.0.2",
+    "vite": "^8.0.0"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "esbuild",
+      "lightningcss"
+    ]
+  }
+}

@@ -1,0 +1,50 @@
+import { createServerFn } from '@tanstack/react-start'
+import { getRequestHeaders } from '@tanstack/react-start/server'
+import { auth } from './auth'
+import { prisma } from './prisma'
+import { createSchema, idSchema, renameSchema, saveSchema } from './validation'
+
+async function userId() {
+  const session = await auth.api.getSession({ headers: getRequestHeaders() })
+  if (!session) throw new Error('Accesso richiesto')
+  return session.user.id
+}
+
+const summary = { id: true, name: true, createdAt: true, updatedAt: true } as const
+
+export const listPrograms = createServerFn({ method: 'GET' }).handler(async () => {
+  const owner = await userId()
+  return prisma.program.findMany({ where: { userId: owner }, select: summary, orderBy: { updatedAt: 'desc' } })
+})
+
+export const getProgram = createServerFn({ method: 'GET' }).validator(idSchema).handler(async ({ data }) => {
+  const owner = await userId()
+  const program = await prisma.program.findFirst({ where: { id: data.id, userId: owner } })
+  if (!program) throw new Error('Programma non trovato')
+  return program
+})
+
+export const createProgram = createServerFn({ method: 'POST' }).validator(createSchema).handler(async ({ data }) => {
+  const owner = await userId()
+  return prisma.program.create({ data: { userId: owner, name: data.name ?? 'Senza titolo', code: 'print("Ciao, Emipy!")\n' } })
+})
+
+export const renameProgram = createServerFn({ method: 'POST' }).validator(renameSchema).handler(async ({ data }) => {
+  const owner = await userId()
+  const result = await prisma.program.updateMany({ where: { id: data.id, userId: owner }, data: { name: data.name } })
+  if (!result.count) throw new Error('Programma non trovato')
+  return prisma.program.findFirstOrThrow({ where: { id: data.id, userId: owner }, select: summary })
+})
+
+export const saveProgramCode = createServerFn({ method: 'POST' }).validator(saveSchema).handler(async ({ data }) => {
+  const owner = await userId()
+  const result = await prisma.program.updateMany({ where: { id: data.id, userId: owner }, data: { code: data.code } })
+  if (!result.count) throw new Error('Programma non trovato')
+  return prisma.program.findFirstOrThrow({ where: { id: data.id, userId: owner }, select: { updatedAt: true } })
+})
+
+export const deleteProgram = createServerFn({ method: 'POST' }).validator(idSchema).handler(async ({ data }) => {
+  const owner = await userId()
+  const result = await prisma.program.deleteMany({ where: { id: data.id, userId: owner } })
+  if (!result.count) throw new Error('Programma non trovato')
+})
