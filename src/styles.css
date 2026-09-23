@@ -12,11 +12,12 @@
   --card: #ffffff; --card-foreground: #171113;
   --popover: #ffffff; --popover-foreground: #171113;
   --primary: #171113; --primary-foreground: #ffffff;
-  --secondary: #fff5f8; --secondary-foreground: #171113;
-  --muted: #fff5f8; --muted-foreground: #75686d;
-  --accent: #ffc0d4; --accent-foreground: #171113;
+  --secondary: #f6f5f4; --secondary-foreground: #171113;
+  --muted: #f6f5f4; --muted-foreground: #75686d;
+  --accent: #f2f0ef; --accent-foreground: #171113;
   --destructive: #bc365b; --border: #e9e1e4;
   --input: #e9e1e4; --ring: #e584a5;
+  --brand-soft: #fff5f8;
   --radius: .65rem; --panel: #fffafb; --code-bg: #ffffff; --monaco-bg: #fffafb; --ide-canvas: #ffffff; --ide-row: #f6f5f4; --ide-row-hover: #faf9f8;
 }
 
@@ -25,11 +26,12 @@
   --card: #20181b; --card-foreground: #fff5f8;
   --popover: #251b1f; --popover-foreground: #fff5f8;
   --primary: #ffc0d4; --primary-foreground: #171113;
-  --secondary: #2d2226; --secondary-foreground: #fff5f8;
-  --muted: #2b2125; --muted-foreground: #c7b5bc;
-  --accent: #573540; --accent-foreground: #fff5f8;
+  --secondary: #302b2d; --secondary-foreground: #fff5f8;
+  --muted: #2b2628; --muted-foreground: #c7b5bc;
+  --accent: #373134; --accent-foreground: #fff5f8;
   --destructive: #f17b9d; --border: #423039;
   --input: #423039; --ring: #ffc0d4;
+  --brand-soft: #2a2024;
   --panel: #1d1518; --code-bg: #1b1518; --monaco-bg: #1d1518; --ide-canvas: #1b1518; --ide-row: #30282b; --ide-row-hover: #292125;
 }
 
@@ -42,6 +44,7 @@
   --color-secondary: var(--secondary); --color-secondary-foreground: var(--secondary-foreground);
   --color-muted: var(--muted); --color-muted-foreground: var(--muted-foreground);
   --color-accent: var(--accent); --color-accent-foreground: var(--accent-foreground);
+  --color-brand-soft: var(--brand-soft);
   --color-destructive: var(--destructive); --color-border: var(--border);
   --color-input: var(--input); --color-ring: var(--ring);
   --radius-sm: calc(var(--radius) - 4px); --radius-md: calc(var(--radius) - 2px); --radius-lg: var(--radius);

@@ -31,7 +31,7 @@ function Login() {
     finally { setBusy(false) }
   }
 
-  return <main className="flex min-h-dvh items-center justify-center bg-secondary px-5 py-12">
+  return <main className="flex min-h-dvh items-center justify-center bg-brand-soft px-5 py-12">
     <div className="w-full max-w-[390px] rounded-2xl border border-border bg-background p-8 shadow-sm sm:p-10">
       <img src="/assets/emipy-wordmark.svg" alt="Emipy" className="brand-wordmark h-12 w-auto" />
       <h1 className="mt-10 text-2xl font-semibold tracking-tight">Bentornato.</h1>
