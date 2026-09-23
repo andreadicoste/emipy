@@ -6,13 +6,27 @@ import editorWorker from 'monaco-editor/editor/editor.worker.js?worker'
 self.MonacoEnvironment = { getWorker: () => new editorWorker() }
 loader.config({ monaco })
 
+monaco.editor.defineTheme('emipy-light', {
+  base: 'vs', inherit: true, rules: [],
+  colors: { 'editor.background': '#ffffff', 'editorGutter.background': '#ffffff' },
+})
+monaco.editor.defineTheme('emipy-dark', {
+  base: 'vs-dark', inherit: true, rules: [],
+  colors: {
+    'editor.background': '#1b1518',
+    'editorGutter.background': '#1b1518',
+    'editor.lineHighlightBackground': '#2d2226',
+    'editor.selectionBackground': '#573540',
+  },
+})
+
 export function CodeEditor({ value, onChange, dark }: { value: string; onChange: (code: string) => void; dark: boolean }) {
   return <Editor
     height="100%"
     language="python"
     path="main.py"
     value={value}
-    theme={dark ? 'vs-dark' : 'vs'}
+    theme={dark ? 'emipy-dark' : 'emipy-light'}
     onChange={(next) => onChange(next ?? '')}
     options={{
       fontSize: 14,
