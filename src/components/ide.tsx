@@ -4,7 +4,7 @@ import { useTheme } from 'next-themes'
 import { Group, Panel, Separator, useGroupRef, usePanelRef } from 'react-resizable-panels'
 import { HugeiconsIcon } from '@hugeicons/react'
 import {
-  Delete02Icon, Edit02Icon, File01Icon, Files01Icon, FloppyDiskIcon, Logout01Icon,
+  Delete02Icon, Edit02Icon, File01Icon, Files01Icon, Logout01Icon,
   Menu01Icon, Moon02Icon, MoreHorizontalIcon, PanelLeftIcon, PanelRightIcon,
   PlayIcon, PlusSignIcon, StopIcon, Sun03Icon, TerminalIcon, UserGroupIcon,
 } from '@hugeicons/core-free-icons'
@@ -73,6 +73,7 @@ export function Ide({ program, programs }: { program: Program; programs: Program
   }, [shellRef, workspaceRef, leftRef, rightRef, verticalRef])
 
   useEffect(() => { outputEnd.current?.scrollIntoView({ block: 'end' }) }, [python.output])
+  useEffect(() => { if (autosave.status === 'error') toast.error('Salvataggio non riuscito. Modifica il codice per riprovare.') }, [autosave.status])
 
   async function openProgram(id: string) {
     if (id === program.id) return
@@ -155,7 +156,6 @@ export function Ide({ program, programs }: { program: Program; programs: Program
               </DropdownMenuGroup>
             </DropdownMenuContent>
           </DropdownMenu>
-          <Tooltip><TooltipTrigger asChild><Button type="button" variant="ghost" size="icon-sm" aria-label={saveLabel} onClick={() => void autosave.flush().catch(() => toast.error('Salvataggio non riuscito.'))} className={autosave.status === 'error' ? 'text-destructive' : 'text-muted-foreground'}><Icon icon={FloppyDiskIcon} className={autosave.status === 'saving' ? 'animate-pulse' : ''} /></Button></TooltipTrigger><TooltipContent>{saveLabel}</TooltipContent></Tooltip>
           <span className="sr-only" role="status" aria-live="polite">{saveLabel}</span>
         </header>
         <Group orientation="horizontal" groupRef={workspaceRef} className="min-h-0 flex-1" onLayoutChanged={(layout) => { if (layoutReady.current) localStorage.setItem('emipy-layout-workspace', JSON.stringify(layout)) }}>
