@@ -109,6 +109,11 @@ button { cursor: pointer; }
 .lesson-callout { border-left: 3px solid var(--ring); border-radius: .45rem; background: var(--brand-soft); padding: .85rem 1rem; }
 .lesson-callout[data-variant="warning"] { border-left-color: #d49424; }
 .lesson-callout[data-variant="success"] { border-left-color: #3d9b67; }
+.tutor-markdown > * { margin: 0; }
+.tutor-markdown > * + * { margin-top: .45rem; }
+.tutor-markdown ul, .tutor-markdown ol { padding-left: 1rem; }
+.tutor-markdown code { border-radius: .25rem; background: var(--ide-row); padding: .05rem .2rem; font: .9em ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+.tutor-markdown pre { overflow-x: auto; border-radius: .4rem; background: var(--code-bg); padding: .55rem; }
 
 @media (prefers-reduced-motion: reduce) {
   .app-view-enter { animation: none; }

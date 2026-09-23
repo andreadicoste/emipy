@@ -23,7 +23,7 @@ function Lesson() {
     } catch { toast.error('Impossibile aprire esercizio.') }
     finally { setBusy(null) }
   }
-  return <LearningShell active="courses" course={data.course} lessons={data.lessons} currentLessonId={data.lesson.externalId} showTutor>
+  return <LearningShell active="courses" course={data.course} lessons={data.lessons} currentLessonId={data.lesson.externalId} showTutor tutorContext={{ programId: null, courseId: data.course.externalId, lessonId: data.lesson.externalId, snapshot: null, lastExecution: '' }}>
     <div className="flex h-full flex-col"><header className="ide-toolbar flex h-12 shrink-0 items-center border-b px-3"><div className="ide-file-tab ide-file-tab-active flex h-8 items-center gap-2 rounded px-3 text-xs"><HugeiconsIcon icon={File01Icon} className="size-3.5" /> lezione.md</div></header><div className="min-h-0 flex-1 overflow-y-auto"><LessonDocument lesson={data.lesson} onStart={(id) => void start(id)} busyExercise={busy} /></div></div>
   </LearningShell>
 }

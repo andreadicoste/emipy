@@ -55,5 +55,11 @@ export type LessonBlock = Lesson['blocks'][number]
 
 export type CourseSummary = Course & { lessonCount: number; visitedCount: number }
 export type StudentExerciseDTO = Pick<Exercise, 'externalId' | 'title' | 'instructions' | 'language' | 'learningObjectives'>
-export type StudentLessonDTO = Lesson & { exercises: StudentExerciseDTO[] }
+export type StudentExerciseView = StudentExerciseDTO & { progress: null | {
+  attempts: number
+  completed: boolean
+  feedback: string | null
+  submissionStatus: string | null
+} }
+export type StudentLessonDTO = Lesson & { exercises: StudentExerciseView[] }
 export type GraderExerciseSpec = Exercise

@@ -3,7 +3,9 @@ import { getRequestHeaders } from '@tanstack/react-start/server'
 import { auth } from './auth'
 import { prisma } from './prisma'
 import { findExerciseContext, loadRegistry, studentExercise } from './curriculum.server'
-import { courseIdSchema, lessonIdSchema, startExerciseSchema, submitExerciseSchema, workspaceSchema } from './validation'
+import { beginGradingSchema, finishGradingSchema, programSnapshotSchema } from './agent-contract'
+import { judgeGraderResult, planGraderRun } from './agents.server'
+import { courseIdSchema, lessonIdSchema, startExerciseSchema, workspaceSchema } from './validation'
 
 async function ownerId() {
   const session = await auth.api.getSession({ headers: getRequestHeaders() })
@@ -55,9 +57,19 @@ async function lessonView(owner: string, courseId: string, lessonId: string, tou
     update: { lastOpenedAt: new Date() }, create: { userId: owner, lessonId },
   })
   const lessons = registry.lessons.filter((item) => item.courseId === courseId)
-  const progress = await prisma.lessonProgress.findMany({ where: { userId: owner, lessonId: { in: lessons.map((item) => item.externalId) } }, select: { lessonId: true } })
-  const visited = new Set(progress.map((item) => item.lessonId))
-  const exercises = lesson.exerciseIds.map((id) => registry.exercises.find((item) => item.externalId === id)).filter((item) => item !== undefined).map(studentExercise)
+  const [lessonProgress, exerciseProgress, submissions] = await Promise.all([
+    prisma.lessonProgress.findMany({ where: { userId: owner, lessonId: { in: lessons.map((item) => item.externalId) } }, select: { lessonId: true } }),
+    prisma.exerciseProgress.findMany({ where: { userId: owner, exerciseId: { in: lesson.exerciseIds } } }),
+    prisma.exerciseSubmission.findMany({ where: { userId: owner, exerciseId: { in: lesson.exerciseIds } }, orderBy: { createdAt: 'desc' }, select: { exerciseId: true, status: true } }),
+  ])
+  const visited = new Set(lessonProgress.map((item) => item.lessonId))
+  const progressByExercise = new Map(exerciseProgress.map((item) => [item.exerciseId, item]))
+  const latestStatus = new Map<string, string>()
+  for (const submission of submissions) if (!latestStatus.has(submission.exerciseId)) latestStatus.set(submission.exerciseId, submission.status)
+  const exercises = lesson.exerciseIds.map((id) => registry.exercises.find((item) => item.externalId === id)).filter((item) => item !== undefined).map((exercise) => {
+    const progress = progressByExercise.get(exercise.externalId)
+    return { ...studentExercise(exercise), progress: progress ? { attempts: progress.attempts, completed: !!progress.completedAt, feedback: progress.lastFeedback, submissionStatus: latestStatus.get(exercise.externalId) ?? null } : null }
+  })
   return {
     course,
     lesson: { ...lesson, exercises },
@@ -107,20 +119,62 @@ export const getExerciseWorkspace = createServerFn({ method: 'GET' }).validator(
   return { ...view, program, exercise }
 })
 
-export const submitExercise = createServerFn({ method: 'POST' }).validator(submitExerciseSchema).handler(async ({ data }) => {
+export const beginExerciseGrading = createServerFn({ method: 'POST' }).validator(beginGradingSchema).handler(async ({ data }) => {
   const owner = await ownerId()
-  return prisma.$transaction(async (tx) => {
+  const registry = await publishedRegistry()
+  const program = await prisma.program.findFirst({ where: { id: data.programId, userId: owner }, select: { id: true, exerciseId: true } })
+  if (!program?.exerciseId) throw new Error('Questo programma non è un esercizio')
+  const exercise = registry.exercises.find((item) => item.externalId === program.exerciseId)
+  if (!exercise || !findExerciseContext(registry, exercise.externalId)) throw new Error('Esercizio non disponibile')
+  const snapshot = programSnapshotSchema.parse(data.snapshot)
+  const submission = await prisma.$transaction(async (tx) => {
     const existing = await tx.exerciseSubmission.findUnique({ where: { userId_idempotencyKey: { userId: owner, idempotencyKey: data.idempotencyKey } } })
-    if (existing) return { id: existing.id, status: existing.status }
-    const program = await tx.program.findFirst({ where: { id: data.programId, userId: owner }, include: { files: { orderBy: { createdAt: 'asc' } } } })
-    if (!program?.exerciseId) throw new Error('Questo programma non è un esercizio')
-    const submission = await tx.exerciseSubmission.create({ data: {
-      userId: owner, programId: program.id, exerciseId: program.exerciseId, idempotencyKey: data.idempotencyKey,
-      code: program.code, filesJson: JSON.stringify(program.files.map(({ name, code }) => ({ name, code }))),
+    if (existing) return existing
+    const created = await tx.exerciseSubmission.create({ data: {
+      userId: owner, programId: program.id, exerciseId: exercise.externalId, idempotencyKey: data.idempotencyKey,
+      code: snapshot.mainCode, filesJson: JSON.stringify(snapshot.files),
     } })
-    await tx.exerciseProgress.update({ where: { userId_exerciseId: { userId: owner, exerciseId: program.exerciseId } }, data: { attempts: { increment: 1 } } })
-    return { id: submission.id, status: submission.status }
+    await tx.exerciseProgress.upsert({
+      where: { userId_exerciseId: { userId: owner, exerciseId: exercise.externalId } },
+      update: { attempts: { increment: 1 } },
+      create: { userId: owner, exerciseId: exercise.externalId, attempts: 1 },
+    })
+    return created
   })
+  if (submission.status !== 'PENDING') throw new Error('Consegna già elaborata')
+  try {
+    const input = await planGraderRun({ exercise, snapshot: { mainCode: submission.code, files: JSON.parse(submission.filesJson) }, userId: owner })
+    return { submissionId: submission.id, stdin: input.stdin ?? [] }
+  } catch (error) {
+    await prisma.exerciseSubmission.updateMany({ where: { id: submission.id, userId: owner, status: 'PENDING' }, data: { status: 'ERROR', feedback: 'Grader temporaneamente non disponibile.' } })
+    throw error
+  }
+})
+
+export const finishExerciseGrading = createServerFn({ method: 'POST' }).validator(finishGradingSchema).handler(async ({ data }) => {
+  const owner = await ownerId()
+  const submission = await prisma.exerciseSubmission.findFirst({ where: { id: data.submissionId, userId: owner } })
+  if (!submission) throw new Error('Consegna non trovata')
+  if (submission.status !== 'PENDING') return { completed: submission.status === 'COMPLETED', feedback: submission.feedback ?? '', status: submission.status }
+  const exercise = (await publishedRegistry()).exercises.find((item) => item.externalId === submission.exerciseId)
+  if (!exercise) throw new Error('Esercizio non disponibile')
+  const snapshot = programSnapshotSchema.parse({ mainCode: submission.code, files: JSON.parse(submission.filesJson) })
+  try {
+    const result = await judgeGraderResult({ exercise, snapshot, evaluation: data.evaluation, userId: owner })
+    const status = result.completed ? 'COMPLETED' : 'NEEDS_WORK'
+    await prisma.$transaction(async (tx) => {
+      const updated = await tx.exerciseSubmission.updateMany({ where: { id: submission.id, userId: owner, status: 'PENDING' }, data: { status, feedback: result.feedback, gradedAt: new Date() } })
+      if (!updated.count) return
+      await tx.exerciseProgress.update({
+        where: { userId_exerciseId: { userId: owner, exerciseId: submission.exerciseId } },
+        data: { lastFeedback: result.feedback, ...(result.completed ? { completedAt: new Date() } : {}) },
+      })
+    })
+    return { ...result, status }
+  } catch (error) {
+    await prisma.exerciseSubmission.updateMany({ where: { id: submission.id, userId: owner, status: 'PENDING' }, data: { status: 'ERROR', feedback: 'Valutazione non riuscita.' } })
+    throw error
+  }
 })
 
 export const listLibrary = createServerFn({ method: 'GET' }).handler(async () => {

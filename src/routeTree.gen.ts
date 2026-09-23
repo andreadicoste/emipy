@@ -14,6 +14,7 @@ import { Route as AdminRouteImport } from './routes/admin'
 import { Route as AppRouteRouteImport } from './routes/app/route'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as ApiHealthRouteImport } from './routes/api/health'
+import { Route as ApiTutorRouteImport } from './routes/api/tutor'
 import { Route as AppIndexRouteImport } from './routes/app/index'
 import { Route as AppProgramIdRouteImport } from './routes/app/$programId'
 import { Route as AppLibraryRouteImport } from './routes/app/library'
@@ -47,6 +48,11 @@ const LoginRoute = LoginRouteImport.update({
 const ApiHealthRoute = ApiHealthRouteImport.update({
   id: '/api/health',
   path: '/api/health',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiTutorRoute = ApiTutorRouteImport.update({
+  id: '/api/tutor',
+  path: '/api/tutor',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AppIndexRoute = AppIndexRouteImport.update({
@@ -103,6 +109,7 @@ export interface FileRoutesByFullPath {
   '/admin': typeof AdminRoute
   '/login': typeof LoginRoute
   '/api/health': typeof ApiHealthRoute
+  '/api/tutor': typeof ApiTutorRoute
   '/app/$programId': typeof AppProgramIdRoute
   '/app/library': typeof AppLibraryRoute
   '/app/': typeof AppIndexRoute
@@ -118,6 +125,7 @@ export interface FileRoutesByTo {
   '/admin': typeof AdminRoute
   '/login': typeof LoginRoute
   '/api/health': typeof ApiHealthRoute
+  '/api/tutor': typeof ApiTutorRoute
   '/app/$programId': typeof AppProgramIdRoute
   '/app/library': typeof AppLibraryRoute
   '/app': typeof AppIndexRoute
@@ -135,6 +143,7 @@ export interface FileRoutesById {
   '/admin': typeof AdminRoute
   '/login': typeof LoginRoute
   '/api/health': typeof ApiHealthRoute
+  '/api/tutor': typeof ApiTutorRoute
   '/app/$programId': typeof AppProgramIdRoute
   '/app/library': typeof AppLibraryRoute
   '/app/': typeof AppIndexRoute
@@ -153,6 +162,7 @@ export interface FileRouteTypes {
     | '/admin'
     | '/login'
     | '/api/health'
+    | '/api/tutor'
     | '/app/$programId'
     | '/app/library'
     | '/app/'
@@ -168,6 +178,7 @@ export interface FileRouteTypes {
     | '/admin'
     | '/login'
     | '/api/health'
+    | '/api/tutor'
     | '/app/$programId'
     | '/app/library'
     | '/app'
@@ -184,6 +195,7 @@ export interface FileRouteTypes {
     | '/admin'
     | '/login'
     | '/api/health'
+    | '/api/tutor'
     | '/app/$programId'
     | '/app/library'
     | '/app/'
@@ -201,6 +213,7 @@ export interface RootRouteChildren {
   AdminRoute: typeof AdminRoute
   LoginRoute: typeof LoginRoute
   ApiHealthRoute: typeof ApiHealthRoute
+  ApiTutorRoute: typeof ApiTutorRoute
   ApiAuthSplatRoute: typeof ApiAuthSplatRoute
 }
 
@@ -239,6 +252,13 @@ declare module '@tanstack/react-router' {
       path: '/api/health'
       fullPath: '/api/health'
       preLoaderRoute: typeof ApiHealthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/tutor': {
+      id: '/api/tutor'
+      path: '/api/tutor'
+      fullPath: '/api/tutor'
+      preLoaderRoute: typeof ApiTutorRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/app/': {
@@ -340,6 +360,7 @@ const rootRouteChildren: RootRouteChildren = {
   AdminRoute: AdminRoute,
   LoginRoute: LoginRoute,
   ApiHealthRoute: ApiHealthRoute,
+  ApiTutorRoute: ApiTutorRoute,
   ApiAuthSplatRoute: ApiAuthSplatRoute,
 }
 export const routeTree = rootRouteImport
