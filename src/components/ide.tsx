@@ -133,7 +133,7 @@ export function Ide({ program, programs }: { program: Program; programs: Program
       </Panel>
       <Separator className="ide-handle ide-side-handle w-px" />
       <Panel id="shell" minSize="45%" className="flex min-w-0 flex-col">
-        <header className="ide-toolbar flex h-12 shrink-0 items-center gap-1.5 border-b border-border px-2.5 sm:gap-2 sm:px-3">
+        <header className="ide-toolbar flex h-12 shrink-0 items-center gap-1.5 px-2.5 sm:gap-2 sm:px-3">
           <IconButton icon={PanelLeftIcon} label="Mostra o nascondi programmi" onClick={() => leftRef.current?.isCollapsed() ? leftRef.current.expand() : leftRef.current?.collapse()} />
           <div className="min-w-0 flex-1">
             <Button type="button" variant="ghost" size="sm" className="max-w-full font-medium" onClick={() => { setNewName(program.name); setRenameOpen(true) }}><span className="truncate">{program.name}</span></Button>
@@ -177,10 +177,10 @@ export function Ide({ program, programs }: { program: Program; programs: Program
           </Panel>
           <Separator className="ide-handle ide-side-handle ide-files-handle w-px" />
           <Panel id="files" panelRef={rightRef} defaultSize="16%" minSize={145} maxSize="30%" collapsible collapsedSize={0} className="ide-files-panel min-w-0">
-            <div className="flex h-10 items-center px-3 text-[11px] font-bold uppercase tracking-wider text-muted-foreground">File</div>
-            <div className="px-2 pb-1.5"><Input aria-label="Cerca file" placeholder="Cerca file" value={fileSearch} onChange={(event) => setFileSearch(event.target.value)} className="h-7 bg-background text-xs" /></div>
-            <div className="px-1.5">{'main.py'.includes(fileSearch.trim().toLowerCase()) && <div className="ide-project-file flex items-center gap-2 rounded px-2 py-1.5 text-[13px]"><Icon icon={File01Icon} className="size-3.5 shrink-0 text-ring" /><span>main.py</span></div>}</div>
-            <p className="px-2.5 pt-1.5 text-[11px] text-muted-foreground">Modificato {new Date(program.updatedAt).toLocaleDateString('it-IT', { day: 'numeric', month: 'short', year: 'numeric' })}</p>
+            <div className="flex h-10 items-center pr-3 text-[11px] font-bold uppercase tracking-wider text-muted-foreground">File</div>
+            <div className="pr-2 pb-1.5"><Input aria-label="Cerca file" placeholder="Cerca file" value={fileSearch} onChange={(event) => setFileSearch(event.target.value)} className="h-7 bg-background text-xs" /></div>
+            <div className="pr-1.5">{'main.py'.includes(fileSearch.trim().toLowerCase()) && <div className="ide-project-file flex items-center gap-2 rounded pr-2 py-1.5 text-[13px]"><Icon icon={File01Icon} className="size-3.5 shrink-0 text-ring" /><span>main.py</span></div>}</div>
+            <p className="pr-2.5 pt-1.5 text-[11px] text-muted-foreground">Modificato {new Date(program.updatedAt).toLocaleDateString('it-IT', { day: 'numeric', month: 'short', year: 'numeric' })}</p>
           </Panel>
         </Group>
       </Panel>

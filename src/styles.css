@@ -60,7 +60,7 @@ button { cursor: pointer; }
 .ide-files-panel { background: var(--files-panel); }
 .ide-surface { box-shadow: 0 1px 3px rgb(0 0 0 / 5%); }
 .ide-handle { background: var(--border); transition: background .15s; }
-.ide-output-handle { background: transparent; }
+.ide-output-handle, .ide-files-handle { background: transparent; }
 .ide-handle:hover, .ide-handle[data-resize-handle-active] { background: var(--ring); }
 .ide-side-handle:hover, .ide-side-handle[data-resize-handle-active] { box-shadow: 0 0 0 1px var(--ring); }
 .ide-program-row { color: var(--muted-foreground); border: 1px solid transparent; }
