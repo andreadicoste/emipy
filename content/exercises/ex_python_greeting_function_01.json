@@ -1,0 +1,12 @@
+{
+  "externalId": "ex_python_greeting_function_01",
+  "title": "Saluto personalizzato",
+  "instructions": "Crea una funzione `crea_saluto(nome, momento)` che restituisca una frase con entrambi i valori. Chiamala due volte e stampa i risultati.",
+  "language": "python",
+  "starterCode": "def crea_saluto(nome, momento):\n    # Restituisci il saluto\n    pass\n\nprint(crea_saluto(\"Ada\", \"mattina\"))\nprint(crea_saluto(\"Mia\", \"sera\"))\n",
+  "starterFiles": [],
+  "learningObjectives": ["Definire una funzione con due parametri", "Richiamare una funzione più volte"],
+  "expectedBehavior": "Le due righe di output contengono rispettivamente Ada e mattina, poi Mia e sera.",
+  "graderInstructions": "Richiedere la funzione indicata e verificare che il risultato dipenda dai parametri, senza imporre una frase esatta.",
+  "status": "published"
+}

@@ -1,0 +1,15 @@
+{
+  "externalId": "lesson_project_classifier",
+  "courseId": "course_python_projects",
+  "slug": "classificatore-numeri",
+  "title": "Progetto: classificatore di numeri",
+  "description": "Combina input, conversioni e condizioni in un piccolo strumento.",
+  "order": 1,
+  "status": "published",
+  "blocks": [
+    { "type": "markdown", "body": "# Dal requisito al codice\n\nUn progetto parte da regole chiare. Scomponi il problema: leggi il numero, controlla il segno, poi stabilisci se è pari usando il resto `%`." },
+    { "type": "code", "language": "python", "filename": "main.py", "code": "numero = 7\nif numero % 2 == 0:\n    parita = \"pari\"\nelse:\n    parita = \"dispari\"\nprint(parita)", "caption": "Una parte del classificatore" },
+    { "type": "callout", "variant": "tip", "title": "Costruisci per passi", "body": "Fai funzionare una regola alla volta, poi prova numeri positivi, negativi e zero." }
+  ],
+  "exerciseIds": ["ex_project_classifier_01"]
+}

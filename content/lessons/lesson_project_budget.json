@@ -1,0 +1,15 @@
+{
+  "externalId": "lesson_project_budget",
+  "courseId": "course_python_projects",
+  "slug": "riepilogo-spese",
+  "title": "Progetto: riepilogo spese",
+  "description": "Analizza una lista di spese con funzioni e aggregazioni.",
+  "order": 2,
+  "status": "published",
+  "blocks": [
+    { "type": "markdown", "body": "# Un riepilogo utile\n\nPer analizzare una raccolta servono misure semplici: totale, media e valore massimo. Una funzione può calcolarle e restituire più risultati." },
+    { "type": "code", "language": "python", "filename": "main.py", "code": "spese = [12.5, 8.0, 4.5]\ntotale = sum(spese)\nmedia = totale / len(spese)\nprint(totale, media)", "caption": "Prime misure" },
+    { "type": "callout", "variant": "warning", "title": "Lista vuota", "body": "Prima di dividere per `len(spese)`, considera cosa deve accadere quando non ci sono spese." }
+  ],
+  "exerciseIds": ["ex_project_budget_01"]
+}

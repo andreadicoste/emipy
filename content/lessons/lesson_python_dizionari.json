@@ -1,0 +1,15 @@
+{
+  "externalId": "lesson_python_dizionari",
+  "courseId": "course_python_collections",
+  "slug": "dizionari",
+  "title": "Dizionari chiave-valore",
+  "description": "Associa etichette significative ai dati.",
+  "order": 3,
+  "status": "published",
+  "blocks": [
+    { "type": "markdown", "body": "# Dati con un'etichetta\n\nUn dizionario collega una **chiave** a un **valore**. Invece di ricordare una posizione, recuperi il dato con una parola come `studente[\"nome\"]`." },
+    { "type": "code", "language": "python", "filename": "main.py", "code": "studente = {\"nome\": \"Mia\", \"voto\": 8}\nstudente[\"voto\"] = 9\nprint(studente[\"nome\"], studente[\"voto\"])", "caption": "Leggere e aggiornare valori" },
+    { "type": "callout", "variant": "warning", "title": "Chiave esistente", "body": "Se chiedi una chiave assente con le parentesi quadre, Python segnala un errore." }
+  ],
+  "exerciseIds": ["ex_python_scores_01"]
+}

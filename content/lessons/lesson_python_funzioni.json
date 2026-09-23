@@ -1,0 +1,15 @@
+{
+  "externalId": "lesson_python_funzioni",
+  "courseId": "course_python_functions",
+  "slug": "creare-funzioni",
+  "title": "Creare una funzione",
+  "description": "Dai un nome a un'operazione e richiamala quando serve.",
+  "order": 1,
+  "status": "published",
+  "blocks": [
+    { "type": "markdown", "body": "# Un blocco riutilizzabile\n\nCon `def` definisci una funzione. I parametri sono i dati che la funzione riceve. Il corpo non parte subito: viene eseguito quando chiami la funzione." },
+    { "type": "code", "language": "python", "filename": "main.py", "code": "def saluta(nome):\n    print(\"Ciao,\", nome)\n\nsaluta(\"Ada\")\nsaluta(\"Guido\")", "caption": "Una funzione, due chiamate" },
+    { "type": "callout", "variant": "tip", "title": "Una responsabilità", "body": "Una funzione è più chiara quando svolge un compito preciso e ha un nome che lo descrive." }
+  ],
+  "exerciseIds": ["ex_python_greeting_function_01"]
+}

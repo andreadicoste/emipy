@@ -1,0 +1,8 @@
+{
+  "externalId": "course_python_data",
+  "slug": "testo-file-errori",
+  "title": "Testo, file ed errori",
+  "description": "Trasforma stringhe, salva dati su file e gestisci gli imprevisti senza bloccare il programma.",
+  "order": 4,
+  "status": "published"
+}

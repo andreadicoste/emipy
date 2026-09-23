@@ -1,0 +1,12 @@
+{
+  "externalId": "ex_python_file_lines_01",
+  "title": "Diario su file",
+  "instructions": "Scrivi le tre attività date in diario.txt, una per riga. Riapri il file, conta le righe e stampa sia il contenuto sia `Attività: 3`.",
+  "language": "python",
+  "starterCode": "attivita = [\"Studiare Python\", \"Fare una passeggiata\", \"Leggere\"]\n# Scrivi, rileggi e conta le righe\n",
+  "starterFiles": [],
+  "learningObjectives": ["Scrivere un file con with", "Leggere righe da un file", "Contare elementi"],
+  "expectedBehavior": "diario.txt contiene le tre attività su righe separate e l'output mostra le attività e il conteggio 3.",
+  "graderInstructions": "Verificare scrittura e successiva lettura del file, non accettare il solo output codificato manualmente.",
+  "status": "published"
+}

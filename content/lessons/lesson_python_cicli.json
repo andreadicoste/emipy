@@ -1,0 +1,15 @@
+{
+  "externalId": "lesson_python_cicli",
+  "courseId": "course_python_collections",
+  "slug": "cicli-for",
+  "title": "Ripetere con for",
+  "description": "Esegui la stessa operazione per ogni elemento di una raccolta.",
+  "order": 2,
+  "status": "published",
+  "blocks": [
+    { "type": "markdown", "body": "# Una volta per elemento\n\nIl ciclo `for` visita gli elementi uno alla volta. Una variabile temporanea contiene l'elemento corrente e il blocco indentato viene ripetuto." },
+    { "type": "code", "language": "python", "filename": "main.py", "code": "prezzi = [3, 5, 2]\ntotale = 0\nfor prezzo in prezzi:\n    totale = totale + prezzo\nprint(totale)", "caption": "Somma progressiva" },
+    { "type": "callout", "variant": "tip", "title": "Leggi il ciclo ad alta voce", "body": "“Per ogni prezzo nella lista prezzi” è un buon modo per capire cosa farà il codice." }
+  ],
+  "exerciseIds": ["ex_python_positive_total_01"]
+}

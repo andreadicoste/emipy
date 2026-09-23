@@ -1,0 +1,15 @@
+{
+  "externalId": "lesson_project_report",
+  "courseId": "course_python_projects",
+  "slug": "report-studenti",
+  "title": "Progetto: report studenti",
+  "description": "Produci un report leggibile partendo da dati strutturati.",
+  "order": 3,
+  "status": "published",
+  "blocks": [
+    { "type": "markdown", "body": "# Dati in ingresso, informazione in uscita\n\nUn report trasforma dati grezzi in righe comprensibili. Per ogni studente calcola la media, assegna un esito e stampa un riepilogo coerente." },
+    { "type": "code", "language": "python", "filename": "main.py", "code": "studente = {\"nome\": \"Mia\", \"voti\": [8, 7, 9]}\nmedia = sum(studente[\"voti\"]) / len(studente[\"voti\"])\nprint(studente[\"nome\"], media)", "caption": "Una riga del report" },
+    { "type": "callout", "variant": "info", "title": "Output coerente", "body": "Scegli un formato e usalo per tutte le righe: il report sarà più semplice da leggere e verificare." }
+  ],
+  "exerciseIds": ["ex_project_report_01"]
+}

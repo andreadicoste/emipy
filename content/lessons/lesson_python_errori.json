@@ -1,0 +1,15 @@
+{
+  "externalId": "lesson_python_errori",
+  "courseId": "course_python_data",
+  "slug": "gestire-errori",
+  "title": "Gestire gli errori",
+  "description": "Intercetta gli imprevisti previsti e mostra messaggi utili.",
+  "order": 3,
+  "status": "published",
+  "blocks": [
+    { "type": "markdown", "body": "# Quando qualcosa va storto\n\nDentro `try` metti l'operazione rischiosa. Con `except` gestisci un errore specifico, evitando che il programma termini bruscamente." },
+    { "type": "code", "language": "python", "filename": "main.py", "code": "try:\n    numero = int(\"ciao\")\nexcept ValueError:\n    print(\"Serve un numero valido\")", "caption": "Gestire una conversione non valida" },
+    { "type": "callout", "variant": "tip", "title": "Errori specifici", "body": "Cattura l'errore che ti aspetti, come `ValueError` o `ZeroDivisionError`, invece di nascondere qualsiasi problema." }
+  ],
+  "exerciseIds": ["ex_python_safe_division_01"]
+}

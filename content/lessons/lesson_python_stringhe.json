@@ -1,0 +1,15 @@
+{
+  "externalId": "lesson_python_stringhe",
+  "courseId": "course_python_data",
+  "slug": "trasformare-stringhe",
+  "title": "Trasformare le stringhe",
+  "description": "Pulisci, confronta e analizza il testo.",
+  "order": 1,
+  "status": "published",
+  "blocks": [
+    { "type": "markdown", "body": "# Testo sotto controllo\n\nLe stringhe offrono metodi utili: `strip()` elimina spazi esterni, `lower()` converte in minuscolo e `replace()` sostituisce parti del testo." },
+    { "type": "code", "language": "python", "filename": "main.py", "code": "testo = \"  Ciao Python  \"\npulito = testo.strip().lower()\nprint(pulito)\nprint(len(pulito))", "caption": "Metodi concatenati" },
+    { "type": "callout", "variant": "info", "title": "La stringa originale resta uguale", "body": "I metodi delle stringhe producono un nuovo valore: salvalo se vuoi riutilizzarlo." }
+  ],
+  "exerciseIds": ["ex_python_palindrome_01"]
+}

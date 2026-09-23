@@ -1,0 +1,15 @@
+{
+  "externalId": "lesson_python_condizioni",
+  "courseId": "course_python_base",
+  "slug": "condizioni",
+  "title": "Scegliere con if",
+  "description": "Fai prendere decisioni al programma con condizioni semplici.",
+  "order": 3,
+  "status": "published",
+  "blocks": [
+    { "type": "markdown", "body": "# Strade diverse\n\n`if` esegue un blocco solo quando una condizione è vera. `else` descrive cosa fare negli altri casi. In Python l'indentazione indica quali istruzioni appartengono al blocco." },
+    { "type": "code", "language": "python", "filename": "main.py", "code": "eta = 18\nif eta >= 18:\n    print(\"Maggiorenne\")\nelse:\n    print(\"Minorenne\")", "caption": "Una decisione a due vie" },
+    { "type": "callout", "variant": "warning", "title": "Occhio agli spazi", "body": "Le righe dentro `if` ed `else` devono avere la stessa indentazione." }
+  ],
+  "exerciseIds": ["ex_python_ticket_01"]
+}

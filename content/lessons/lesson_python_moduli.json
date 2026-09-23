@@ -1,0 +1,15 @@
+{
+  "externalId": "lesson_python_moduli",
+  "courseId": "course_python_functions",
+  "slug": "moduli",
+  "title": "Dividere il codice in moduli",
+  "description": "Sposta funzioni correlate in file separati e importale in main.py.",
+  "order": 3,
+  "status": "published",
+  "blocks": [
+    { "type": "markdown", "body": "# Più file, un programma\n\nUn file Python può essere importato come modulo. Se `conversioni.py` contiene una funzione, `main.py` può usarla con `from conversioni import nome_funzione`." },
+    { "type": "code", "language": "python", "filename": "conversioni.py", "code": "def km_in_miglia(km):\n    return km * 0.621371", "caption": "Una funzione nel suo modulo" },
+    { "type": "callout", "variant": "tip", "title": "File minuscoli", "body": "Per i moduli usa nomi brevi, minuscoli e senza spazi." }
+  ],
+  "exerciseIds": ["ex_python_temperature_module_01"]
+}

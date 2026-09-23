@@ -1,0 +1,12 @@
+{
+  "externalId": "ex_project_report_01",
+  "title": "Report della classe",
+  "instructions": "Per ogni studente calcola la media dei voti e stampa `Nome - media - esito`, dove l'esito è `promosso` con media almeno 6, altrimenti `da recuperare`.",
+  "language": "python",
+  "starterCode": "studenti = [\n    {\"nome\": \"Ada\", \"voti\": [8, 7, 9]},\n    {\"nome\": \"Mia\", \"voti\": [5, 6, 5]},\n    {\"nome\": \"Lia\", \"voti\": [6, 6, 6]}\n]\n\n# Genera una riga di report per ogni studentessa\n",
+  "starterFiles": [],
+  "learningObjectives": ["Iterare su strutture annidate", "Calcolare una media", "Produrre un report coerente"],
+  "expectedBehavior": "L'output contiene tre righe: Ada media 8 promossa, Mia media circa 5.33 da recuperare, Lia media 6 promossa.",
+  "graderInstructions": "Accettare arrotondamenti ragionevoli e formulazioni equivalenti, ma richiedere nome, media ed esito corretto per tutte e tre.",
+  "status": "published"
+}

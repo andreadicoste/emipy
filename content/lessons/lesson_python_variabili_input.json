@@ -1,0 +1,15 @@
+{
+  "externalId": "lesson_python_variabili_input",
+  "courseId": "course_python_base",
+  "slug": "variabili-input",
+  "title": "Variabili e input",
+  "description": "Salva informazioni e chiedi dati a chi usa il programma.",
+  "order": 2,
+  "status": "published",
+  "blocks": [
+    { "type": "markdown", "body": "# Dati che cambiano\n\nUna **variabile** associa un nome a un valore. Con `input()` il programma può ricevere testo dalla tastiera. Il risultato di `input()` è sempre una stringa." },
+    { "type": "code", "language": "python", "filename": "main.py", "code": "nome = input(\"Come ti chiami? \")\nprint(\"Piacere,\", nome)", "caption": "Leggere e riusare un valore" },
+    { "type": "callout", "variant": "tip", "title": "Nomi chiari", "body": "Preferisci `nome` o `eta` a nomi generici come `x`: il codice diventa più facile da leggere." }
+  ],
+  "exerciseIds": ["ex_python_profile_01"]
+}

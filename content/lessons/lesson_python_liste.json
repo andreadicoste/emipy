@@ -1,0 +1,15 @@
+{
+  "externalId": "lesson_python_liste",
+  "courseId": "course_python_collections",
+  "slug": "liste",
+  "title": "Liste ordinate",
+  "description": "Raggruppa più valori e recuperali tramite la loro posizione.",
+  "order": 1,
+  "status": "published",
+  "blocks": [
+    { "type": "markdown", "body": "# Più valori insieme\n\nUna lista conserva elementi in ordine. Gli indici partono da `0`: il primo elemento è quindi `lista[0]`. Con `append()` aggiungi un nuovo elemento in fondo." },
+    { "type": "code", "language": "python", "filename": "main.py", "code": "frutti = [\"mela\", \"pera\"]\nfrutti.append(\"kiwi\")\nprint(frutti[0])\nprint(len(frutti))", "caption": "Creare e modificare una lista" },
+    { "type": "callout", "variant": "info", "title": "Una lista può cambiare", "body": "Puoi sostituire un elemento scrivendo, per esempio, `frutti[0] = \"banana\"`." }
+  ],
+  "exerciseIds": ["ex_python_shopping_01"]
+}

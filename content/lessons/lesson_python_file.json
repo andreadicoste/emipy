@@ -1,0 +1,15 @@
+{
+  "externalId": "lesson_python_file",
+  "courseId": "course_python_data",
+  "slug": "leggere-scrivere-file",
+  "title": "Leggere e scrivere file",
+  "description": "Conserva testo fuori dal programma e rileggilo in sicurezza.",
+  "order": 2,
+  "status": "published",
+  "blocks": [
+    { "type": "markdown", "body": "# Dati che restano\n\n`with open(...)` apre un file e lo chiude automaticamente alla fine del blocco. La modalità `w` scrive, mentre `r` legge." },
+    { "type": "code", "language": "python", "filename": "main.py", "code": "with open(\"nota.txt\", \"w\") as file:\n    file.write(\"Imparare Python\")\n\nwith open(\"nota.txt\", \"r\") as file:\n    testo = file.read()\nprint(testo)", "caption": "Scrivere e rileggere" },
+    { "type": "callout", "variant": "warning", "title": "La modalità w sostituisce", "body": "Aprire un file esistente con `w` cancella il contenuto precedente prima di scrivere." }
+  ],
+  "exerciseIds": ["ex_python_file_lines_01"]
+}

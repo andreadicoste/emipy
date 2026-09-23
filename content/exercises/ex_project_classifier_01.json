@@ -1,0 +1,12 @@
+{
+  "externalId": "ex_project_classifier_01",
+  "title": "Classificatore completo",
+  "instructions": "Leggi un intero e stampa due informazioni: `positivo`, `negativo` o `zero`; poi `pari` oppure `dispari`.",
+  "language": "python",
+  "starterCode": "numero = int(input(\"Numero intero: \"))\n# Determina segno e parità\n",
+  "starterFiles": [],
+  "learningObjectives": ["Combinare più condizioni", "Usare l'operatore modulo", "Gestire il caso zero"],
+  "expectedBehavior": "7 produce positivo e dispari; -4 negativo e pari; 0 zero e pari.",
+  "graderInstructions": "Provare un positivo dispari, un negativo pari e zero. Accettare output su una o due righe.",
+  "status": "published"
+}

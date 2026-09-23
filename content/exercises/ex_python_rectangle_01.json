@@ -1,0 +1,12 @@
+{
+  "externalId": "ex_python_rectangle_01",
+  "title": "Misure del rettangolo",
+  "instructions": "Completa `misure(base, altezza)` affinché restituisca area e perimetro. Usa il risultato per stampare le misure di un rettangolo 5 × 3.",
+  "language": "python",
+  "starterCode": "def misure(base, altezza):\n    # Restituisci area e perimetro\n    pass\n\narea, perimetro = misure(5, 3)\nprint(\"Area:\", area)\nprint(\"Perimetro:\", perimetro)\n",
+  "starterFiles": [],
+  "learningObjectives": ["Restituire più valori", "Usare parametri in un calcolo"],
+  "expectedBehavior": "Per base 5 e altezza 3, l'output riporta area 15 e perimetro 16.",
+  "graderInstructions": "Verificare formule generali nella funzione oltre all'output dell'esempio.",
+  "status": "published"
+}

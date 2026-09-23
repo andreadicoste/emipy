@@ -1,0 +1,12 @@
+{
+  "externalId": "ex_python_safe_division_01",
+  "title": "Divisione sicura",
+  "instructions": "Leggi due valori, convertili in numeri e stampane il quoziente. Gestisci input non numerici con `Numero non valido` e divisore zero con `Divisione impossibile`.",
+  "language": "python",
+  "starterCode": "primo = input(\"Primo numero: \")\nsecondo = input(\"Secondo numero: \")\n# Converti, dividi e gestisci i due errori\n",
+  "starterFiles": [],
+  "learningObjectives": ["Usare try ed except", "Gestire ValueError", "Gestire ZeroDivisionError"],
+  "expectedBehavior": "10 e 2 producono 5; testo non numerico produce Numero non valido; divisore 0 produce Divisione impossibile.",
+  "graderInstructions": "Provare un caso valido, un input non numerico e uno zero al denominatore. Richiedere messaggi distinti.",
+  "status": "published"
+}

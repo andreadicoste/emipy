@@ -1,0 +1,15 @@
+{
+  "externalId": "lesson_python_return",
+  "courseId": "course_python_functions",
+  "slug": "valori-di-ritorno",
+  "title": "Restituire un risultato",
+  "description": "Usa return per ottenere un valore da una funzione.",
+  "order": 2,
+  "status": "published",
+  "blocks": [
+    { "type": "markdown", "body": "# Calcolare e restituire\n\n`return` consegna un risultato al punto in cui la funzione è stata chiamata. Puoi salvarlo in una variabile, stamparlo o usarlo in un altro calcolo." },
+    { "type": "code", "language": "python", "filename": "main.py", "code": "def doppio(numero):\n    return numero * 2\n\nrisultato = doppio(6)\nprint(risultato)", "caption": "Dal parametro al risultato" },
+    { "type": "callout", "variant": "info", "title": "print non è return", "body": "`print()` mostra un valore; `return` lo rende disponibile al resto del programma." }
+  ],
+  "exerciseIds": ["ex_python_rectangle_01"]
+}
