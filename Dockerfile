@@ -24,5 +24,5 @@ RUN mkdir -p /app/data && chown 1000:1000 /app/data
 USER 1000:1000
 ENV HOST=0.0.0.0 PORT=3000 NODE_ENV=production DATABASE_URL=file:/app/data/emipy.db
 EXPOSE 3000
-HEALTHCHECK --interval=30s --timeout=5s --start-period=30s --retries=3 CMD bun -e "fetch('http://127.0.0.1:3000/api/health').then(r => process.exit(r.ok ? 0 : 1)).catch(() => process.exit(1))"
+HEALTHCHECK --interval=30s --timeout=5s --start-period=30s --retries=3 CMD bun /app/scripts/healthcheck.ts
 CMD ["sh", "-c", "touch /app/data/emipy.db && bun run db:deploy && exec bun run start"]
