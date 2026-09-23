@@ -6,7 +6,7 @@ async function ask(label: string, secret = false): Promise<string> {
   process.stdout.write(label)
   if (!secret) {
     const reader = await import('node:readline/promises')
-    const prompt = reader.createInterface({ input: process.stdin, output: process.stdout })
+    const prompt = reader.createInterface({ input: process.stdin, terminal: false })
     const answer = await prompt.question('')
     prompt.close()
     return answer.trim()
