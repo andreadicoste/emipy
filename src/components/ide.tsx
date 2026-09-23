@@ -4,7 +4,7 @@ import { useTheme } from 'next-themes'
 import { Group, Panel, Separator, useGroupRef, usePanelRef } from 'react-resizable-panels'
 import { HugeiconsIcon } from '@hugeicons/react'
 import {
-  Delete02Icon, Edit02Icon, File01Icon, Folder01Icon, Logout01Icon,
+  Delete02Icon, Edit02Icon, File01Icon, Files01Icon, FloppyDiskIcon, Logout01Icon,
   Menu01Icon, Moon02Icon, MoreHorizontalIcon, PanelLeftIcon, PanelRightIcon,
   PlayIcon, PlusSignIcon, StopIcon, Sun03Icon, TerminalIcon, UserGroupIcon,
 } from '@hugeicons/core-free-icons'
@@ -43,6 +43,7 @@ export function Ide({ program, programs }: { program: Program; programs: Program
   const [renameOpen, setRenameOpen] = useState(false)
   const [deleteOpen, setDeleteOpen] = useState(false)
   const [newName, setNewName] = useState(program.name)
+  const [fileSearch, setFileSearch] = useState('')
   const [input, setInput] = useState('')
   const [busy, setBusy] = useState(false)
   const autosave = useAutosave(program.id, program.code)
@@ -121,8 +122,8 @@ export function Ide({ program, programs }: { program: Program; programs: Program
         <div className="px-4 pb-2 pt-4 text-xs font-bold uppercase tracking-wider text-muted-foreground">Programmi</div>
         <ScrollArea className="min-h-0 flex-1">
           <nav aria-label="Programmi" className="p-2">
-            {programs.map((item) => <div key={item.id} className={`group flex items-center rounded-md ${item.id === program.id ? 'ide-file-active' : 'hover:bg-secondary'}`}>
-              <button type="button" onClick={() => void openProgram(item.id)} className="flex min-w-0 flex-1 items-center gap-2 px-3 py-2.5 text-left text-sm"><Icon icon={Folder01Icon} className="size-4 shrink-0" /><span className="truncate">{item.name}</span></button>
+            {programs.map((item) => <div key={item.id} className={`ide-program-row group flex items-center rounded-md ${item.id === program.id ? 'ide-program-row-active' : ''}`}>
+              <button type="button" onClick={() => void openProgram(item.id)} className="flex min-w-0 flex-1 items-center gap-2.5 px-2.5 py-2 text-left text-sm"><Icon icon={Files01Icon} className="size-4 shrink-0" /><span className="truncate">{item.name}</span></button>
               {item.id === program.id && <DropdownMenu><DropdownMenuTrigger asChild><Button variant="ghost" size="icon-xs" aria-label="Azioni programma" className="mr-2"><Icon icon={MoreHorizontalIcon} /></Button></DropdownMenuTrigger><DropdownMenuContent align="end"><DropdownMenuGroup><DropdownMenuItem onSelect={() => { setNewName(program.name); setRenameOpen(true) }}><Icon icon={Edit02Icon} /> Rinomina</DropdownMenuItem><DropdownMenuItem variant="destructive" onSelect={() => setDeleteOpen(true)}><Icon icon={Delete02Icon} /> Elimina</DropdownMenuItem></DropdownMenuGroup></DropdownMenuContent></DropdownMenu>}
             </div>)}
           </nav>
@@ -137,7 +138,6 @@ export function Ide({ program, programs }: { program: Program; programs: Program
             <button type="button" className="flex max-w-full items-center gap-2 text-left text-sm font-semibold hover:text-muted-foreground" onClick={() => { setNewName(program.name); setRenameOpen(true) }}>
               <span className="truncate">{program.name}</span><Icon icon={Edit02Icon} className="size-3.5 shrink-0" />
             </button>
-            <span className={`block text-[11px] ${autosave.status === 'error' ? 'text-destructive' : 'text-muted-foreground'}`}>{saveLabel}</span>
           </div>
           <div className="hidden text-xs text-muted-foreground md:block">{python.status === 'loading' ? 'Caricamento Python…' : python.status === 'error' ? 'Python non disponibile' : ''}</div>
           <Button type="button" size="sm" className="min-w-23" disabled={python.status === 'loading' || python.status === 'error' || python.status === 'stopping'} onClick={() => running ? python.stop() : python.run(autosave.code)}>
@@ -155,6 +155,8 @@ export function Ide({ program, programs }: { program: Program; programs: Program
               </DropdownMenuGroup>
             </DropdownMenuContent>
           </DropdownMenu>
+          <Tooltip><TooltipTrigger asChild><Button type="button" variant="ghost" size="icon-sm" aria-label={saveLabel} onClick={() => void autosave.flush().catch(() => toast.error('Salvataggio non riuscito.'))} className={autosave.status === 'error' ? 'text-destructive' : 'text-muted-foreground'}><Icon icon={FloppyDiskIcon} className={autosave.status === 'saving' ? 'animate-pulse' : ''} /></Button></TooltipTrigger><TooltipContent>{saveLabel}</TooltipContent></Tooltip>
+          <span className="sr-only" role="status" aria-live="polite">{saveLabel}</span>
         </header>
         <Group orientation="horizontal" groupRef={workspaceRef} className="min-h-0 flex-1" onLayoutChanged={(layout) => { if (layoutReady.current) localStorage.setItem('emipy-layout-workspace', JSON.stringify(layout)) }}>
           <Panel id="workspace" minSize="35%" className="flex min-w-0 flex-col">
@@ -178,7 +180,8 @@ export function Ide({ program, programs }: { program: Program; programs: Program
           <Separator className="ide-handle ide-side-handle ide-files-handle w-px" />
           <Panel id="files" panelRef={rightRef} defaultSize="18%" minSize={160} maxSize="30%" collapsible collapsedSize={0} className="min-w-0">
             <div className="flex h-12 items-center px-4 text-xs font-bold uppercase tracking-wider text-muted-foreground">File</div>
-            <div className="p-2"><div className="ide-file-active flex items-center gap-2 rounded-md px-3 py-2.5 text-sm"><Icon icon={File01Icon} className="size-4" /> main.py</div></div>
+            <div className="px-3 pb-2"><Input aria-label="Cerca file" placeholder="Cerca file" value={fileSearch} onChange={(event) => setFileSearch(event.target.value)} className="h-8 bg-background text-sm" /></div>
+            <div className="px-2">{'main.py'.includes(fileSearch.trim().toLowerCase()) && <div className="ide-project-file flex items-center gap-2.5 rounded-md px-2.5 py-2 text-sm"><Icon icon={File01Icon} className="size-4 shrink-0 text-ring" /><span>main.py</span></div>}</div>
             <p className="px-5 pt-2 text-xs text-muted-foreground">Modificato {new Date(program.updatedAt).toLocaleDateString('it-IT', { day: 'numeric', month: 'short', year: 'numeric' })}</p>
           </Panel>
         </Group>
