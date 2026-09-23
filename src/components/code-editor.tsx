@@ -8,15 +8,20 @@ loader.config({ monaco })
 
 monaco.editor.defineTheme('emipy-light', {
   base: 'vs', inherit: true, rules: [],
-  colors: { 'editor.background': '#fffafb', 'editorGutter.background': '#fffafb' },
+  colors: {
+    'editor.background': '#ffffff',
+    'editorGutter.background': '#ffffff',
+    'editor.lineHighlightBackground': '#f5f5f3',
+    'editor.selectionBackground': '#d9e6f7',
+  },
 })
 monaco.editor.defineTheme('emipy-dark', {
   base: 'vs-dark', inherit: true, rules: [],
   colors: {
-    'editor.background': '#1d1518',
-    'editorGutter.background': '#1d1518',
-    'editor.lineHighlightBackground': '#2d2226',
-    'editor.selectionBackground': '#573540',
+    'editor.background': '#222223',
+    'editorGutter.background': '#222223',
+    'editor.lineHighlightBackground': '#29292b',
+    'editor.selectionBackground': '#33445c',
   },
 })
 

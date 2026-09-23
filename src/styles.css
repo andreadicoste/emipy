@@ -8,31 +8,31 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  --background: #ffffff; --foreground: #171113;
-  --card: #ffffff; --card-foreground: #171113;
-  --popover: #ffffff; --popover-foreground: #171113;
-  --primary: #171113; --primary-foreground: #ffffff;
-  --secondary: #f6f5f4; --secondary-foreground: #171113;
-  --muted: #f6f5f4; --muted-foreground: #75686d;
-  --accent: #f2f0ef; --accent-foreground: #171113;
-  --destructive: #bc365b; --border: #e9e1e4;
-  --input: #e9e1e4; --ring: #e584a5;
-  --brand-soft: #fff5f8;
-  --radius: .65rem; --panel: #fffafb; --code-bg: #ffffff; --monaco-bg: #fffafb; --ide-canvas: #ffffff; --ide-row: #f6f5f4; --ide-row-hover: #faf9f8;
+  --background: #ffffff; --foreground: #18181b;
+  --card: #ffffff; --card-foreground: #18181b;
+  --popover: #ffffff; --popover-foreground: #18181b;
+  --primary: #18181b; --primary-foreground: #ffffff;
+  --secondary: #f3f3f1; --secondary-foreground: #18181b;
+  --muted: #f3f3f1; --muted-foreground: #68686f;
+  --accent: #eeeeec; --accent-foreground: #18181b;
+  --destructive: #c93434; --border: #dcdcd8;
+  --input: #d4d4d0; --ring: #8a8a91;
+  --brand-soft: #f3f3f1;
+  --radius: .65rem; --panel: #f7f7f5; --toolbar: #fafaf9; --files-panel: #f7f7f5; --code-bg: #ffffff; --monaco-bg: #ffffff; --ide-canvas: #f1f1ef; --ide-row: #ececea; --ide-row-hover: #eeeeec;
 }
 
 .dark {
-  --background: #171113; --foreground: #fff5f8;
-  --card: #20181b; --card-foreground: #fff5f8;
-  --popover: #251b1f; --popover-foreground: #fff5f8;
-  --primary: #ffc0d4; --primary-foreground: #171113;
-  --secondary: #302b2d; --secondary-foreground: #fff5f8;
-  --muted: #2b2628; --muted-foreground: #c7b5bc;
-  --accent: #373134; --accent-foreground: #fff5f8;
-  --destructive: #f17b9d; --border: #423039;
-  --input: #423039; --ring: #ffc0d4;
-  --brand-soft: #2a2024;
-  --panel: #1d1518; --code-bg: #1b1518; --monaco-bg: #1d1518; --ide-canvas: #1b1518; --ide-row: #30282b; --ide-row-hover: #292125;
+  --background: #1e1e1f; --foreground: #f2f2f3;
+  --card: #222223; --card-foreground: #f2f2f3;
+  --popover: #29292b; --popover-foreground: #f2f2f3;
+  --primary: #f2f2f3; --primary-foreground: #1e1e1f;
+  --secondary: #29292b; --secondary-foreground: #f2f2f3;
+  --muted: #29292b; --muted-foreground: #aaaab0;
+  --accent: #333334; --accent-foreground: #f2f2f3;
+  --destructive: #f06a6a; --border: #333334;
+  --input: #3b3b3d; --ring: #a1a1a6;
+  --brand-soft: #222223;
+  --panel: #222223; --toolbar: #1e1e1f; --files-panel: #1e1e1f; --code-bg: #222223; --monaco-bg: #222223; --ide-canvas: #1e1e1f; --ide-row: #29292b; --ide-row-hover: #2c2d2e;
 }
 
 @theme inline {
@@ -50,20 +50,22 @@
   --radius-sm: calc(var(--radius) - 4px); --radius-md: calc(var(--radius) - 2px); --radius-lg: var(--radius);
 }
 
-* { box-sizing: border-box; }
+* { box-sizing: border-box; border-color: var(--border); }
 html, body, #app { min-height: 100%; }
 body { margin: 0; background: var(--background); color: var(--foreground); font-family: 'Manrope', sans-serif; }
 button { cursor: pointer; }
 .ide-root { height: 100dvh; min-height: 500px; overflow: hidden; }
 .ide-panel { background: var(--panel); }
-.ide-surface { box-shadow: 0 1px 3px rgb(23 17 19 / 5%); }
+.ide-toolbar { background: var(--toolbar); }
+.ide-files-panel { background: var(--files-panel); }
+.ide-surface { box-shadow: 0 1px 3px rgb(0 0 0 / 5%); }
 .ide-handle { background: var(--border); transition: background .15s; }
-.ide-output-handle, .ide-files-handle { background: transparent; }
+.ide-output-handle { background: transparent; }
 .ide-handle:hover, .ide-handle[data-resize-handle-active] { background: var(--ring); }
 .ide-side-handle:hover, .ide-side-handle[data-resize-handle-active] { box-shadow: 0 0 0 1px var(--ring); }
 .ide-program-row { color: var(--muted-foreground); border: 1px solid transparent; }
 .ide-program-row:hover { background: var(--ide-row-hover); color: var(--foreground); }
-.ide-program-row-active { background: var(--ide-row-hover); border-color: var(--border); color: var(--foreground); box-shadow: 0 1px 2px rgb(23 17 19 / 5%); }
+.ide-program-row-active { background: var(--ide-row-hover); border-color: var(--border); color: var(--foreground); box-shadow: 0 1px 2px rgb(0 0 0 / 5%); }
 .ide-program-row-active:hover { background: var(--ide-row-hover); }
 .ide-project-file { background: var(--ide-row); color: var(--foreground); }
 .output-scroll { white-space: pre-wrap; overflow-wrap: anywhere; font: 13px/1.55 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
