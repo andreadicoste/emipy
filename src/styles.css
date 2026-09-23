@@ -79,6 +79,11 @@ button { cursor: pointer; }
 .ide-program-row:hover { background: var(--ide-row-hover); color: var(--foreground); }
 .ide-program-row-active { background: var(--ide-row-hover); border-color: var(--border); color: var(--foreground); box-shadow: 0 1px 2px rgb(0 0 0 / 5%); }
 .ide-program-row-active:hover { background: var(--ide-row-hover); }
+.ide-file-tabs { scrollbar-width: none; }
+.ide-file-tabs::-webkit-scrollbar { display: none; }
+.ide-file-tab { color: var(--muted-foreground); border: 1px solid transparent; }
+.ide-file-tab-active { background: var(--ide-row-hover); border-color: var(--border); color: var(--foreground); box-shadow: 0 1px 2px rgb(0 0 0 / 5%); }
+.ide-file-tab-active:hover { background: var(--ide-row-hover); }
 .ide-project-file { background: var(--ide-row); color: var(--foreground); }
 .output-scroll { white-space: pre-wrap; overflow-wrap: anywhere; font: 13px/1.55 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
 .dark .brand-wordmark { filter: invert(1); }

@@ -1,6 +1,6 @@
 # Emipy
 
-Un piccolo ambiente Python: programmi privati, editor Monaco, esecuzione Pyodide nel browser e gestione utenti amministrativa. Il codice Python non passa al server.
+Un piccolo ambiente Python: programmi privati, editor Monaco, esecuzione Pyodide nel browser e gestione utenti amministrativa. Il codice viene salvato sul server, ma eseguito nel browser.
 
 ## Sviluppo
 
@@ -47,4 +47,4 @@ Il database SQLite deve restare sul volume tra rebuild/redeploy. Fare backup del
 
 ## Limiti v1
 
-Ogni programma è un singolo `main.py`. Nessun pip, filesystem multiplo, signup pubblico, email, OAuth o servizi esterni. Pyodide è servito same-origin; `input()` usa `SharedArrayBuffer`, quindi servono HTTPS e isolamento cross-origin.
+Ogni programma parte da `main.py` e può aggiungere file Python importabili. Nessun pip, cartelle, signup pubblico, email, OAuth o servizi esterni. Pyodide è servito same-origin; `input()` usa `SharedArrayBuffer`, quindi servono HTTPS e isolamento cross-origin.

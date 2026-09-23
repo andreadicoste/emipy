@@ -60,7 +60,7 @@ export function usePython() {
     return () => { worker.current?.terminate(); if (stopTimer.current) clearTimeout(stopTimer.current) }
   }, [createWorker])
 
-  const run = useCallback((code: string) => {
+  const run = useCallback((code: string, files: { name: string; code: string }[] = []) => {
     if (!worker.current || status !== 'ready' || !crossOriginIsolated) {
       append('system', 'Python richiede connessione sicura e isolamento browser.')
       return
@@ -75,7 +75,7 @@ export function usePython() {
     inputState.current = new Int32Array(inputBuffer, 0, 2)
     inputBytes.current = new Uint8Array(inputBuffer, 8, MAX_INPUT_BYTES)
     setStatus('running')
-    worker.current.postMessage({ type: 'run', code, runId: runId.current, interruptBuffer, inputBuffer })
+    worker.current.postMessage({ type: 'run', code, files, runId: runId.current, interruptBuffer, inputBuffer })
   }, [append, status])
 
   const submitInput = useCallback((value: string) => {

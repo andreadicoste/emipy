@@ -4,6 +4,11 @@ import { loadPyodide } from 'pyodide'
 
 type Pyodide = {
   runPythonAsync: (code: string) => Promise<unknown>
+  FS: {
+    mkdirTree: (path: string) => void
+    writeFile: (path: string, data: string) => void
+    unlink: (path: string) => void
+  }
   setStdout: (options: { batched: (text: string) => void }) => void
   setStderr: (options: { batched: (text: string) => void }) => void
   setStdin: (options: { stdin: () => string }) => void
@@ -13,6 +18,8 @@ type Pyodide = {
 
 const send = (message: WorkerToMain) => self.postMessage(message)
 let pyodide: Pyodide | null = null
+const workspace = '/home/pyodide/emipy'
+let previousFiles: string[] = []
 
 async function load() {
   // Wasm and standard library are copied from pinned npm package into public/pyodide.
@@ -56,6 +63,12 @@ self.onmessage = async (event: MessageEvent<MainToWorker>) => {
     return decoder.decode(Uint8Array.from(inputBytes.subarray(0, length)))
   } })
   try {
+    pyodide.FS.mkdirTree(workspace)
+    for (const name of previousFiles) pyodide.FS.unlink(`${workspace}/${name}`)
+    for (const file of message.files) pyodide.FS.writeFile(`${workspace}/${file.name}`, file.code)
+    const modules = [...new Set([...previousFiles, ...message.files.map((file) => file.name)].map((name) => name.slice(0, -3)))]
+    previousFiles = message.files.map((file) => file.name)
+    await pyodide.runPythonAsync(`import sys, importlib\nif ${JSON.stringify(workspace)} not in sys.path: sys.path.insert(0, ${JSON.stringify(workspace)})\nfor name in ${JSON.stringify(modules)}: sys.modules.pop(name, None)\nimportlib.invalidate_caches()`)
     await pyodide.runPythonAsync(message.code)
     send({ type: 'done', runId })
   } catch (error) {

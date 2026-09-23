@@ -14,13 +14,14 @@ import { toast } from 'sonner'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { ScrollArea } from '@/components/ui/scroll-area'
+import { Separator as UiSeparator } from '@/components/ui/separator'
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
-import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
+import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog'
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from '@/components/ui/alert-dialog'
 import { authClient } from '@/lib/auth-client'
-import { createProgram, deleteProgram, renameProgram, type getProgram, type listPrograms } from '@/lib/programs.functions'
-import { useAutosave } from '@/hooks/use-autosave'
+import { createProgram, createProgramFile, deleteProgram, renameProgram, type getProgram, type listPrograms } from '@/lib/programs.functions'
+import { MAIN_FILE_ID, useAutosave } from '@/hooks/use-autosave'
 import { usePython } from '@/hooks/use-python'
 
 const CodeEditor = lazy(() => import('./code-editor').then((module) => ({ default: module.CodeEditor })))
@@ -44,15 +45,22 @@ export function Ide({ program, programs }: { program: Program; programs: Program
   const [mounted, setMounted] = useState(false)
   const [renameOpen, setRenameOpen] = useState(false)
   const [deleteOpen, setDeleteOpen] = useState(false)
+  const [newFileOpen, setNewFileOpen] = useState(false)
+  const [newFileName, setNewFileName] = useState('')
+  const [fileBusy, setFileBusy] = useState(false)
+  const [openFileIds, setOpenFileIds] = useState<string[]>([MAIN_FILE_ID])
+  const [activeFileId, setActiveFileId] = useState(MAIN_FILE_ID)
   const [newName, setNewName] = useState(program.name)
-  const [fileSearch, setFileSearch] = useState('')
   const [input, setInput] = useState('')
   const [busy, setBusy] = useState(false)
   const [leftOpen, setLeftOpen] = useState(true)
   const [rightOpen, setRightOpen] = useState(true)
   const [outputOpen, setOutputOpen] = useState(true)
   const [animatedPanel, setAnimatedPanel] = useState<'left' | 'right' | 'output' | null>(null)
-  const autosave = useAutosave(program.id, program.code)
+  const autosave = useAutosave(program.id, [
+    { id: MAIN_FILE_ID, name: 'main.py', code: program.code },
+    ...program.files.map((file) => ({ id: file.id, name: file.name, code: file.code })),
+  ])
   const python = usePython()
   const leftRef = usePanelRef()
   const rightRef = usePanelRef()
@@ -138,8 +146,29 @@ export function Ide({ program, programs }: { program: Program; programs: Program
     finally { setBusy(false) }
   }
 
+  function openFile(id: string) {
+    setOpenFileIds((current) => current.includes(id) ? current : [...current, id])
+    setActiveFileId(id)
+  }
+
+  async function createFile() {
+    const name = newFileName.trim().endsWith('.py') ? newFileName.trim() : `${newFileName.trim()}.py`
+    setFileBusy(true)
+    try {
+      const file = await createProgramFile({ data: { programId: program.id, name } })
+      autosave.add({ id: file.id, name: file.name, code: file.code })
+      openFile(file.id)
+      setNewFileOpen(false)
+      setNewFileName('')
+      toast.success('File creato.')
+    } catch { toast.error('Nome non valido o file già presente. Usa un nome come modulo.py.') }
+    finally { setFileBusy(false) }
+  }
+
   const running = ['running', 'waiting', 'stopping'].includes(python.status)
   const saveLabel = autosave.status === 'saved' ? 'Salvato' : autosave.status === 'error' ? 'Errore salvataggio' : 'Salvataggio…'
+  const activeFile = autosave.files.find((file) => file.id === activeFileId) ?? autosave.files[0]
+  const mainFile = autosave.files[0]
   const profileName = user.name?.trim() || user.email
   const profileInitials = profileName.slice(0, 2).toUpperCase()
 
@@ -183,24 +212,38 @@ export function Ide({ program, programs }: { program: Program; programs: Program
       <Panel id="shell" minSize="45%" className="flex min-w-0 flex-col">
         <header className="ide-toolbar flex h-12 shrink-0 items-center gap-1.5 px-2.5 sm:gap-2 sm:px-3">
           <IconButton icon={leftOpen ? LayoutLeftIcon : LayoutAlignLeftIcon} label={leftOpen ? 'Nascondi programmi' : 'Mostra programmi'} onClick={() => togglePanel('left')} />
-          <div className="min-w-0 flex-1">
-            <Button type="button" variant="ghost" size="sm" className="max-w-full font-medium" onClick={() => { setNewName(program.name); setRenameOpen(true) }}><span className="truncate">{program.name}</span></Button>
-          </div>
+          <Button type="button" variant="ghost" size="sm" className="max-w-36 font-medium sm:max-w-48" onClick={() => { setNewName(program.name); setRenameOpen(true) }}><span className="truncate">{program.name}</span></Button>
+          <UiSeparator orientation="vertical" className="mx-1 h-5!" />
+          <nav aria-label="File aperti" className="ide-file-tabs flex min-w-0 flex-1 items-center gap-1 overflow-x-auto py-1">
+            {openFileIds.map((id) => {
+              const file = autosave.files.find((item) => item.id === id)
+              if (!file) return null
+              return <Button key={id} type="button" aria-current={id === activeFileId ? 'true' : undefined} variant="ghost" size="sm" className={`ide-file-tab max-w-40 gap-1.5 ${id === activeFileId ? 'ide-file-tab-active' : ''}`} onClick={() => openFile(id)}><Icon icon={File01Icon} className="size-3.5" /><span className="truncate">{file.name}</span></Button>
+            })}
+          </nav>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild><Button type="button" variant="ghost" size="icon-sm" aria-label="Apri file" title="Apri file"><Icon icon={PlusSignIcon} /></Button></DropdownMenuTrigger>
+            <DropdownMenuContent align="end" className="w-56">
+              <DropdownMenuGroup><DropdownMenuItem className="h-9 font-semibold" onSelect={() => setNewFileOpen(true)}><Icon icon={PlusSignIcon} /> Nuovo file</DropdownMenuItem></DropdownMenuGroup>
+              <DropdownMenuSeparator />
+              <DropdownMenuGroup>{autosave.files.map((file) => <DropdownMenuItem key={file.id} onSelect={() => openFile(file.id)}><Icon icon={File01Icon} /><span className="min-w-0 flex-1 truncate">{file.name}</span>{file.id === activeFileId && <span className="text-[10px] text-muted-foreground">Aperto</span>}</DropdownMenuItem>)}</DropdownMenuGroup>
+            </DropdownMenuContent>
+          </DropdownMenu>
           <div className="hidden text-xs text-muted-foreground md:block">{python.status === 'loading' ? 'Caricamento Python…' : python.status === 'error' ? 'Python non disponibile' : ''}</div>
-          <Button type="button" size="sm" className="min-w-23" disabled={python.status === 'loading' || python.status === 'error' || python.status === 'stopping'} onClick={() => running ? python.stop() : python.run(autosave.code)}>
+          <Button type="button" size="sm" className="min-w-23" disabled={python.status === 'loading' || python.status === 'error' || python.status === 'stopping'} onClick={() => running ? python.stop() : python.run(mainFile.code, autosave.files.filter((file) => file.id !== MAIN_FILE_ID).map(({ name, code }) => ({ name, code })))}>
             <Icon icon={running ? StopIcon : PlayIcon} />{running ? 'STOP' : 'START'}
           </Button>
           <IconButton icon={outputOpen ? LayoutBottomIcon : LayoutAlignBottomIcon} label={outputOpen ? 'Nascondi console' : 'Mostra console'} onClick={() => togglePanel('output')} />
-          <IconButton icon={rightOpen ? LayoutRightIcon : LayoutAlignRightIcon} label={rightOpen ? 'Nascondi file' : 'Mostra file'} onClick={() => togglePanel('right')} />
+          <IconButton icon={rightOpen ? LayoutRightIcon : LayoutAlignRightIcon} label={rightOpen ? 'Nascondi pannello laterale' : 'Mostra pannello laterale'} onClick={() => togglePanel('right')} />
           <span className="sr-only" role="status" aria-live="polite">{saveLabel}</span>
         </header>
         <Group orientation="horizontal" groupRef={workspaceRef} className={`min-h-0 flex-1 ${animatedPanel === 'right' ? 'ide-toggle-motion' : ''}`} onLayoutChanged={(layout) => { if (layoutReady.current) localStorage.setItem('emipy-layout-workspace', JSON.stringify(layout)) }}>
           <Panel id="workspace" minSize="35%" className="flex min-w-0 flex-col">
             <Group orientation="vertical" groupRef={verticalRef} className={`min-h-0 flex-1 ${animatedPanel === 'output' ? 'ide-toggle-motion' : ''}`} onLayoutChanged={(layout) => { if (layoutReady.current) localStorage.setItem('emipy-layout-vertical', JSON.stringify(layout)) }}>
               <Panel id="editor" defaultSize="70%" minSize="25%" className="flex min-h-0 flex-col pb-1 pl-2 pr-2 pt-0">
-                <section aria-label="Editor main.py" className="ide-surface flex min-h-0 flex-1 flex-col overflow-hidden rounded-md border border-border bg-[var(--monaco-bg)]">
-                  <div className="flex h-8 shrink-0 items-center gap-1.5 border-b border-border px-3 text-[11px] text-muted-foreground"><Icon icon={File01Icon} className="size-3.5" /><span className="font-semibold text-foreground">main.py</span><span className="ml-auto">Python</span></div>
-                  <div className="min-h-0 flex-1">{mounted && <Suspense fallback={<div className="p-5 text-sm text-muted-foreground">Caricamento editor…</div>}><CodeEditor value={autosave.code} onChange={autosave.update} dark={resolvedTheme === 'dark'} /></Suspense>}</div>
+                <section aria-label={`Editor ${activeFile.name}`} className="ide-surface flex min-h-0 flex-1 flex-col overflow-hidden rounded-md border border-border bg-[var(--monaco-bg)]">
+                  <div className="flex h-8 shrink-0 items-center gap-1.5 border-b border-border px-3 text-[11px] text-muted-foreground"><Icon icon={File01Icon} className="size-3.5" /><span className="font-semibold text-foreground">{activeFile.name}</span><span className="ml-auto">Python</span></div>
+                  <div className="min-h-0 flex-1">{mounted && <Suspense fallback={<div className="p-5 text-sm text-muted-foreground">Caricamento editor…</div>}><CodeEditor key={activeFile.id} path={`${program.id}/${activeFile.name}`} value={activeFile.code} onChange={(code) => autosave.update(activeFile.id, code)} dark={resolvedTheme === 'dark'} /></Suspense>}</div>
                 </section>
               </Panel>
               <Separator className="ide-handle ide-output-handle h-1" />
@@ -214,17 +257,13 @@ export function Ide({ program, programs }: { program: Program; programs: Program
             </Group>
           </Panel>
           <Separator className="ide-handle ide-side-handle ide-files-handle w-px" />
-          <Panel id="files" panelRef={rightRef} defaultSize="16%" minSize={145} maxSize="45%" collapsible collapsedSize={0} onResize={(size) => setRightOpen(size.inPixels > 0)} className="ide-files-panel min-w-0">
-            <div className="flex h-8 items-center pr-3 text-[11px] font-bold uppercase tracking-wider text-muted-foreground">File</div>
-            <div className="pr-3 pb-1.5"><Input aria-label="Cerca file" placeholder="Cerca file" value={fileSearch} onChange={(event) => setFileSearch(event.target.value)} className="h-7 bg-background text-xs" /></div>
-            <div className="pr-1.5">{'main.py'.includes(fileSearch.trim().toLowerCase()) && <div className="ide-project-file flex items-center gap-2 rounded pr-2 py-1.5 text-[13px]"><Icon icon={File01Icon} className="size-3.5 shrink-0 text-ring" /><span>main.py</span></div>}</div>
-            <p className="pr-3 pt-1.5 text-[11px] text-muted-foreground">Modificato {new Date(program.updatedAt).toLocaleDateString('it-IT', { day: 'numeric', month: 'short', year: 'numeric' })}</p>
-          </Panel>
+          <Panel id="files" panelRef={rightRef} defaultSize="16%" minSize={145} maxSize="45%" collapsible collapsedSize={0} onResize={(size) => setRightOpen(size.inPixels > 0)} className="ide-files-panel min-w-0" aria-label="Pannello laterale" />
         </Group>
       </Panel>
     </Group>
 
     <Dialog open={renameOpen} onOpenChange={setRenameOpen}><DialogContent><DialogHeader><DialogTitle>Rinomina programma</DialogTitle><DialogDescription>Scegli un nome breve e riconoscibile.</DialogDescription></DialogHeader><form onSubmit={(event) => { event.preventDefault(); void rename() }} className="flex flex-col gap-4"><Input autoFocus maxLength={80} value={newName} onChange={(event) => setNewName(event.target.value)} aria-label="Nome programma" /><DialogFooter><Button type="submit" disabled={busy || !newName.trim()}>Salva</Button></DialogFooter></form></DialogContent></Dialog>
+    <Dialog open={newFileOpen} onOpenChange={setNewFileOpen}><DialogContent><DialogHeader><DialogTitle>Nuovo file Python</DialogTitle><DialogDescription>Il file sarà disponibile nel programma e importabile da main.py.</DialogDescription></DialogHeader><form onSubmit={(event) => { event.preventDefault(); void createFile() }} className="flex flex-col gap-4"><Input autoFocus maxLength={78} value={newFileName} onChange={(event) => setNewFileName(event.target.value)} aria-label="Nome file" placeholder="modulo.py" /><DialogFooter><Button type="submit" disabled={fileBusy || !newFileName.trim()}>Crea file</Button></DialogFooter></form></DialogContent></Dialog>
     <AlertDialog open={deleteOpen} onOpenChange={setDeleteOpen}><AlertDialogContent><AlertDialogHeader><AlertDialogTitle>Eliminare «{program.name}»?</AlertDialogTitle><AlertDialogDescription>Programma e codice verranno eliminati definitivamente.</AlertDialogDescription></AlertDialogHeader><AlertDialogFooter><AlertDialogCancel>Annulla</AlertDialogCancel><AlertDialogAction disabled={busy} onClick={(event) => { event.preventDefault(); void remove() }}>Elimina</AlertDialogAction></AlertDialogFooter></AlertDialogContent></AlertDialog>
   </main>
 }

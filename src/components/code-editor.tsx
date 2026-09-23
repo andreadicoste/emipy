@@ -25,11 +25,11 @@ monaco.editor.defineTheme('emipy-dark', {
   },
 })
 
-export function CodeEditor({ value, onChange, dark }: { value: string; onChange: (code: string) => void; dark: boolean }) {
+export function CodeEditor({ path, value, onChange, dark }: { path: string; value: string; onChange: (code: string) => void; dark: boolean }) {
   return <Editor
     height="100%"
     language="python"
-    path="main.py"
+    path={path}
     value={value}
     theme={dark ? 'emipy-dark' : 'emipy-light'}
     onChange={(next) => onChange(next ?? '')}
