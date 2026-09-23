@@ -80,20 +80,20 @@ function Admin() {
   }
 
   return <main className="min-h-dvh bg-secondary">
-    <header className="flex h-16 items-center gap-4 border-b border-border bg-background px-5 sm:px-8">
+    <header className="flex h-12 items-center gap-2.5 border-b border-border bg-background px-3 sm:px-6">
       <Button variant="ghost" size="icon-sm" aria-label="Torna all'editor" onClick={() => void navigate({ to: '/app' })}><HugeiconsIcon icon={ArrowLeft01Icon} /></Button>
-      <img src="/assets/emipy-symbol.svg" alt="" className="brand-symbol size-8" />
-      <span className="font-semibold">Utenti Emipy</span>
+      <img src="/assets/emipy-symbol.svg" alt="" className="brand-symbol size-6" />
+      <span className="text-sm font-semibold">Utenti Emipy</span>
       <span className="ml-auto hidden text-xs text-muted-foreground sm:inline">{currentUser.email}</span>
     </header>
-    <section className="mx-auto max-w-5xl px-5 py-10 sm:px-8">
-      <div className="flex flex-wrap items-end justify-between gap-5">
-        <div><h1 className="text-2xl font-semibold">Utenti</h1><p className="mt-1 text-sm text-muted-foreground">Accesso solo su invito dell'amministratore.</p></div>
-        <Button onClick={() => setCreateOpen(true)}><HugeiconsIcon icon={UserAdd01Icon} /> Nuovo utente</Button>
+    <section className="mx-auto max-w-5xl px-4 py-7 sm:px-6">
+      <div className="flex flex-wrap items-end justify-between gap-3">
+        <div><h1 className="text-xl font-semibold">Utenti</h1><p className="mt-0.5 text-sm text-muted-foreground">Accesso solo su invito dell'amministratore.</p></div>
+        <Button size="sm" onClick={() => setCreateOpen(true)}><HugeiconsIcon icon={UserAdd01Icon} /> Nuovo utente</Button>
       </div>
-      <div className="relative mt-8 max-w-sm"><HugeiconsIcon icon={Search01Icon} className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" /><Input aria-label="Cerca utenti" placeholder="Cerca per email…" className="pl-9" value={search} onChange={(event) => setSearch(event.target.value)} /></div>
-      <div className="mt-5 overflow-x-auto rounded-xl border border-border bg-background">
-        <table className="w-full min-w-[640px] text-left text-sm"><thead className="border-b border-border bg-card text-xs text-muted-foreground"><tr><th className="px-4 py-3 font-semibold">Nome</th><th className="px-4 py-3 font-semibold">Email</th><th className="px-4 py-3 font-semibold">Stato</th><th className="px-4 py-3 font-semibold">Creato</th><th className="px-4 py-3 text-right font-semibold">Azioni</th></tr></thead><tbody>{users.map((user) => <tr key={user.id} className="border-b border-border last:border-0"><td className="px-4 py-3 font-medium">{user.name}{user.role?.split(',').includes('admin') && <span className="ml-2 text-xs text-muted-foreground">Admin</span>}</td><td className="px-4 py-3">{user.email}</td><td className="px-4 py-3">{user.banned ? 'Sospeso' : 'Attivo'}</td><td className="px-4 py-3 text-muted-foreground">{new Date(user.createdAt).toLocaleDateString('it-IT')}</td><td className="flex justify-end gap-1 px-4 py-2"><Button variant="ghost" size="xs" onClick={() => { setPassword(''); setResetUser(user) }}>Password</Button><Button variant="ghost" size="xs" disabled={busy || user.id === currentUser.id} onClick={() => void toggleBan(user)}>{user.banned ? 'Riattiva' : 'Sospendi'}</Button><Button variant="ghost" size="xs" disabled={busy || user.id === currentUser.id} onClick={() => setDeleteUser(user)}>Elimina</Button></td></tr>)}</tbody></table>
+      <div className="relative mt-5 max-w-sm"><HugeiconsIcon icon={Search01Icon} className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" /><Input aria-label="Cerca utenti" placeholder="Cerca per email…" className="h-8 pl-9" value={search} onChange={(event) => setSearch(event.target.value)} /></div>
+      <div className="mt-3 overflow-x-auto rounded-lg border border-border bg-background">
+        <table className="w-full min-w-[640px] text-left text-sm"><thead className="border-b border-border bg-card text-xs text-muted-foreground"><tr><th className="px-3 py-2 font-semibold">Nome</th><th className="px-3 py-2 font-semibold">Email</th><th className="px-3 py-2 font-semibold">Stato</th><th className="px-3 py-2 font-semibold">Creato</th><th className="px-3 py-2 text-right font-semibold">Azioni</th></tr></thead><tbody>{users.map((user) => <tr key={user.id} className="border-b border-border last:border-0"><td className="px-3 py-2 font-medium">{user.name}{user.role?.split(',').includes('admin') && <span className="ml-2 text-xs text-muted-foreground">Admin</span>}</td><td className="px-3 py-2">{user.email}</td><td className="px-3 py-2">{user.banned ? 'Sospeso' : 'Attivo'}</td><td className="px-3 py-2 text-muted-foreground">{new Date(user.createdAt).toLocaleDateString('it-IT')}</td><td className="flex justify-end gap-1 px-3 py-1.5"><Button variant="ghost" size="xs" onClick={() => { setPassword(''); setResetUser(user) }}>Password</Button><Button variant="ghost" size="xs" disabled={busy || user.id === currentUser.id} onClick={() => void toggleBan(user)}>{user.banned ? 'Riattiva' : 'Sospendi'}</Button><Button variant="ghost" size="xs" disabled={busy || user.id === currentUser.id} onClick={() => setDeleteUser(user)}>Elimina</Button></td></tr>)}</tbody></table>
         {users.length === 0 && <p className="p-8 text-center text-sm text-muted-foreground">Nessun utente trovato.</p>}
       </div>
     </section>
