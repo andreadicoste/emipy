@@ -179,10 +179,10 @@ export function Ide({ program, programs }: { program: Program; programs: Program
           </Panel>
           <Separator className="ide-handle ide-side-handle ide-files-handle w-px" />
           <Panel id="files" panelRef={rightRef} defaultSize="18%" minSize={160} maxSize="30%" collapsible collapsedSize={0} className="min-w-0">
-            <div className="flex h-12 items-center px-4 text-xs font-bold uppercase tracking-wider text-muted-foreground">File</div>
-            <div className="px-3 pb-2"><Input aria-label="Cerca file" placeholder="Cerca file" value={fileSearch} onChange={(event) => setFileSearch(event.target.value)} className="h-8 bg-background text-sm" /></div>
-            <div className="px-2">{'main.py'.includes(fileSearch.trim().toLowerCase()) && <div className="ide-project-file flex items-center gap-2.5 rounded-md px-2.5 py-2 text-sm"><Icon icon={File01Icon} className="size-4 shrink-0 text-ring" /><span>main.py</span></div>}</div>
-            <p className="px-5 pt-2 text-xs text-muted-foreground">Modificato {new Date(program.updatedAt).toLocaleDateString('it-IT', { day: 'numeric', month: 'short', year: 'numeric' })}</p>
+            <div className="flex h-12 items-center pr-4 text-xs font-bold uppercase tracking-wider text-muted-foreground">File</div>
+            <div className="pb-2 pr-3"><Input aria-label="Cerca file" placeholder="Cerca file" value={fileSearch} onChange={(event) => setFileSearch(event.target.value)} className="h-8 bg-background text-sm" /></div>
+            <div className="pr-2">{'main.py'.includes(fileSearch.trim().toLowerCase()) && <div className="ide-project-file flex items-center gap-2.5 rounded-md px-2.5 py-2 text-sm"><Icon icon={File01Icon} className="size-4 shrink-0 text-ring" /><span>main.py</span></div>}</div>
+            <p className="pr-5 pt-2 text-xs text-muted-foreground">Modificato {new Date(program.updatedAt).toLocaleDateString('it-IT', { day: 'numeric', month: 'short', year: 'numeric' })}</p>
           </Panel>
         </Group>
       </Panel>
