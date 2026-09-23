@@ -18,6 +18,7 @@
   --destructive: #c93434; --border: #dcdcd8;
   --input: #d4d4d0; --ring: #8a8a91;
   --brand-soft: #f3f3f1;
+  --brand-accent: #e584a5;
   --radius: .65rem; --panel: #f1f1ef; --toolbar: #F6F5F4; --files-panel: #F6F5F4; --code-bg: #ffffff; --monaco-bg: #f1f1ef; --ide-canvas: #F6F5F4; --ide-row: #e8e8e6; --ide-row-hover: #eaeae8;
 }
 
@@ -32,6 +33,7 @@
   --destructive: #f06a6a; --border: #333334;
   --input: #3b3b3d; --ring: #a1a1a6;
   --brand-soft: #222223;
+  --brand-accent: #ffc0d4;
   --panel: #222223; --toolbar: #1e1e1f; --files-panel: #1e1e1f; --code-bg: #222223; --monaco-bg: #222223; --ide-canvas: #1e1e1f; --ide-row: #29292b; --ide-row-hover: #2c2d2e;
 }
 
@@ -58,6 +60,12 @@ button { cursor: pointer; }
 .ide-panel { background: var(--panel); }
 .ide-toolbar { background: var(--toolbar); }
 .ide-files-panel { background: var(--files-panel); }
+.brand-symbol {
+  display: inline-block;
+  flex: none;
+  background-color: var(--brand-accent);
+  mask: url('/assets/emipy-symbol.svg') center / contain no-repeat;
+}
 .ide-surface { box-shadow: 0 1px 3px rgb(0 0 0 / 5%); }
 .ide-handle { background: var(--border); transition: background .15s; }
 .ide-output-handle, .ide-files-handle { background: transparent; }

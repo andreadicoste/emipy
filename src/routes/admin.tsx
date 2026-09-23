@@ -82,7 +82,7 @@ function Admin() {
   return <main className="min-h-dvh bg-secondary">
     <header className="flex h-12 items-center gap-2.5 border-b border-border bg-background px-3 sm:px-6">
       <Button variant="ghost" size="icon-sm" aria-label="Torna all'editor" onClick={() => void navigate({ to: '/app' })}><HugeiconsIcon icon={ArrowLeft01Icon} /></Button>
-      <img src="/assets/emipy-symbol.svg" alt="" className="brand-symbol size-6" />
+      <span aria-hidden="true" className="brand-symbol size-6" />
       <span className="text-sm font-semibold">Utenti Emipy</span>
       <span className="ml-auto hidden text-xs text-muted-foreground sm:inline">{currentUser.email}</span>
     </header>

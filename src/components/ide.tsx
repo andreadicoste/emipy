@@ -117,7 +117,7 @@ export function Ide({ program, programs }: { program: Program; programs: Program
     <Group orientation="horizontal" groupRef={shellRef} className="h-full" onLayoutChanged={(layout) => { if (layoutReady.current) localStorage.setItem('emipy-layout-shell', JSON.stringify(layout)) }}>
       <Panel id="programs" panelRef={leftRef} defaultSize="16%" minSize={180} maxSize="35%" collapsible collapsedSize={0} className="ide-panel flex min-w-0 flex-col">
         <div className="flex h-12 shrink-0 items-center justify-between px-3">
-          <img src="/assets/emipy-symbol.svg" alt="Emipy" className="brand-symbol size-6" />
+          <span role="img" aria-label="Emipy" className="brand-symbol size-6" />
           <IconButton icon={PlusSignIcon} label="Nuovo programma" onClick={() => void create()} />
         </div>
         <div className="px-3 pb-1 pt-3 text-[11px] font-bold uppercase tracking-wider text-muted-foreground">Programmi</div>
