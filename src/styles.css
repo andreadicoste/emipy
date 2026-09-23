@@ -87,3 +87,31 @@ button { cursor: pointer; }
 .ide-project-file { background: var(--ide-row); color: var(--foreground); }
 .output-scroll { white-space: pre-wrap; overflow-wrap: anywhere; font: 13px/1.55 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
 .dark .brand-wordmark { filter: invert(1); }
+
+.app-view-enter { animation: app-view-enter 200ms ease-out both; }
+@keyframes app-view-enter {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.course-card { transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease; }
+.course-card:hover { transform: translateY(-2px); border-color: var(--ring); box-shadow: 0 8px 24px rgb(0 0 0 / 7%); }
+.lesson-markdown { color: var(--foreground); font-size: .94rem; line-height: 1.75; }
+.lesson-markdown > *:first-child { margin-top: 0; }
+.lesson-markdown h1, .lesson-markdown h2, .lesson-markdown h3 { margin: 1.5em 0 .55em; font-weight: 700; line-height: 1.25; }
+.lesson-markdown h1 { font-size: 1.65rem; }
+.lesson-markdown h2 { font-size: 1.3rem; }
+.lesson-markdown h3 { font-size: 1.08rem; }
+.lesson-markdown p, .lesson-markdown ul, .lesson-markdown ol { margin: .75em 0; }
+.lesson-markdown ul, .lesson-markdown ol { padding-left: 1.4rem; }
+.lesson-markdown code { border-radius: .3rem; background: var(--ide-row); padding: .1rem .3rem; font: .88em ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+.lesson-markdown pre { overflow: auto; border: 1px solid var(--border); border-radius: .65rem; background: var(--code-bg); padding: 1rem; }
+.lesson-markdown pre code { background: transparent; padding: 0; }
+.lesson-callout { border-left: 3px solid var(--ring); border-radius: .45rem; background: var(--brand-soft); padding: .85rem 1rem; }
+.lesson-callout[data-variant="warning"] { border-left-color: #d49424; }
+.lesson-callout[data-variant="success"] { border-left-color: #3d9b67; }
+
+@media (prefers-reduced-motion: reduce) {
+  .app-view-enter { animation: none; }
+  .course-card { transition: none; }
+  .course-card:hover { transform: none; }
+}

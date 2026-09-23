@@ -1,0 +1,15 @@
+{
+  "externalId": "lesson_python_primi_passi",
+  "courseId": "course_python_base",
+  "slug": "primi-passi",
+  "title": "Primi passi",
+  "description": "Il tuo primo programma Python.",
+  "order": 1,
+  "status": "published",
+  "blocks": [
+    { "type": "markdown", "body": "# Ciao, Python!\n\nUn programma è una sequenza di istruzioni. In Python puoi mostrare del testo usando `print()`." },
+    { "type": "code", "language": "python", "filename": "main.py", "code": "print(\"Ciao, Emipy!\")", "caption": "La prima istruzione" },
+    { "type": "callout", "variant": "tip", "title": "Prova tu", "body": "Cambia il testo tra virgolette e premi **START**." }
+  ],
+  "exerciseIds": ["ex_python_hello_01"]
+}

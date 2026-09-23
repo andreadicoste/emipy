@@ -22,6 +22,9 @@ model User {
   sessions      Session[]
   accounts      Account[]
   programs      Program[]
+  exerciseProgress ExerciseProgress[]
+  lessonProgress   LessonProgress[]
+  submissions      ExerciseSubmission[]
 
   @@map("user")
 }
@@ -79,13 +82,70 @@ model Program {
   userId    String
   name      String
   code      String
+  exerciseId String?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   files     ProgramFile[]
+  submissions ExerciseSubmission[]
 
   @@index([userId, updatedAt])
+  @@unique([userId, exerciseId])
   @@map("program")
+}
+
+model ExerciseProgress {
+  id           String    @id @default(cuid())
+  userId       String
+  exerciseId   String
+  startedAt    DateTime  @default(now())
+  completedAt  DateTime?
+  attempts     Int       @default(0)
+  lastFeedback String?
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+  user         User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, exerciseId])
+  @@index([userId, completedAt])
+  @@map("exercise_progress")
+}
+
+model LessonProgress {
+  id                String    @id @default(cuid())
+  userId            String
+  lessonId          String
+  currentExerciseId String?
+  startedAt         DateTime  @default(now())
+  lastOpenedAt      DateTime  @default(now())
+  completedAt       DateTime?
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+  user              User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, lessonId])
+  @@index([userId, lastOpenedAt])
+  @@map("lesson_progress")
+}
+
+model ExerciseSubmission {
+  id             String   @id @default(cuid())
+  userId         String
+  programId      String
+  exerciseId     String
+  idempotencyKey String
+  code           String
+  filesJson      String   @default("[]")
+  status         String   @default("PENDING")
+  feedback       String?
+  createdAt      DateTime @default(now())
+  gradedAt       DateTime?
+  user           User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  program        Program  @relation(fields: [programId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, idempotencyKey])
+  @@index([userId, exerciseId, createdAt])
+  @@map("exercise_submission")
 }
 
 model ProgramFile {

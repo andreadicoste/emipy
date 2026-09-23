@@ -10,7 +10,7 @@ async function userId() {
   return session.user.id
 }
 
-const summary = { id: true, name: true, createdAt: true, updatedAt: true } as const
+const summary = { id: true, name: true, exerciseId: true, createdAt: true, updatedAt: true } as const
 
 export const listPrograms = createServerFn({ method: 'GET' }).handler(async () => {
   const owner = await userId()
@@ -31,7 +31,7 @@ export const createProgram = createServerFn({ method: 'POST' }).validator(create
 
 export const renameProgram = createServerFn({ method: 'POST' }).validator(renameSchema).handler(async ({ data }) => {
   const owner = await userId()
-  const result = await prisma.program.updateMany({ where: { id: data.id, userId: owner }, data: { name: data.name } })
+  const result = await prisma.program.updateMany({ where: { id: data.id, userId: owner, exerciseId: null }, data: { name: data.name } })
   if (!result.count) throw new Error('Programma non trovato')
   return prisma.program.findFirstOrThrow({ where: { id: data.id, userId: owner }, select: summary })
 })
@@ -63,6 +63,6 @@ export const saveProgramFile = createServerFn({ method: 'POST' }).validator(save
 
 export const deleteProgram = createServerFn({ method: 'POST' }).validator(idSchema).handler(async ({ data }) => {
   const owner = await userId()
-  const result = await prisma.program.deleteMany({ where: { id: data.id, userId: owner } })
+  const result = await prisma.program.deleteMany({ where: { id: data.id, userId: owner, exerciseId: null } })
   if (!result.count) throw new Error('Programma non trovato')
 })

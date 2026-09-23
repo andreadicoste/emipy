@@ -18,6 +18,7 @@ COPY --from=build /app/prisma ./prisma
 COPY --from=build /app/prisma.config.ts ./prisma.config.ts
 COPY --from=build /app/src/generated ./src/generated
 COPY --from=build /app/src/lib ./src/lib
+COPY --from=build /app/content ./content
 COPY --from=build /app/scripts ./scripts
 COPY --from=build /app/.output ./.output
 RUN mkdir -p /app/data && chown 1000:1000 /app/data

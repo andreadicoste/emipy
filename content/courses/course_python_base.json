@@ -1,0 +1,8 @@
+{
+  "externalId": "course_python_base",
+  "slug": "python-base",
+  "title": "Python Base",
+  "description": "Impara le fondamenta di Python costruendo piccoli programmi reali.",
+  "order": 1,
+  "status": "published"
+}

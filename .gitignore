@@ -18,3 +18,5 @@ data/
 *.db-wal
 playwright-report/
 test-results/
+public/content-admin/
+tina/__generated__/
