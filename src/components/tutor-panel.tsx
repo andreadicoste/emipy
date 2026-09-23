@@ -75,7 +75,7 @@ export function TutorPanel({ context, runCurrentProgram }: {
           <div ref={endRef} />
         </div>
       </ScrollArea>
-      <form onSubmit={(event) => { event.preventDefault(); submit() }} className="shrink-0 border-t p-2">
+      <form onSubmit={(event) => { event.preventDefault(); submit() }} className="shrink-0 p-2">
         <FieldGroup className="gap-0"><Field className="gap-0"><InputGroup><InputGroupTextarea aria-label="Messaggio al Tutor" value={input} onChange={(event) => setInput(event.target.value)} onKeyDown={(event) => { if (event.key === 'Enter' && !event.shiftKey) { event.preventDefault(); submit() } }} placeholder="Chiedi al Tutor…" rows={1} className="max-h-24 min-h-9 py-2 text-xs" /><InputGroupAddon align="block-end" className="justify-end px-1.5 pb-1.5 pt-0"><InputGroupButton type="submit" variant="default" size="icon-xs" disabled={busy || !input.trim()} aria-label="Invia al Tutor"><HugeiconsIcon icon={busy ? Loading03Icon : ArrowUp02Icon} className={busy ? 'animate-spin' : undefined} aria-hidden="true" /></InputGroupButton></InputGroupAddon></InputGroup></Field></FieldGroup>
       </form>
     </>}
