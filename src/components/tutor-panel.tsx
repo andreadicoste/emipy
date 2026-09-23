@@ -5,10 +5,9 @@ import { DefaultChatTransport, lastAssistantMessageIsCompleteWithToolCalls, type
 import { HugeiconsIcon } from '@hugeicons/react'
 import { AiChat02Icon, ArrowUp02Icon, Loading03Icon, PlayIcon } from '@hugeicons/core-free-icons'
 import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
 import { Field, FieldGroup } from '@/components/ui/field'
+import { InputGroup, InputGroupAddon, InputGroupButton, InputGroupTextarea } from '@/components/ui/input-group'
 import { ScrollArea } from '@/components/ui/scroll-area'
-import { Textarea } from '@/components/ui/textarea'
 import { runCurrentProgramInputSchema, type EvaluationResult, type ProgramSnapshot } from '@/lib/agent-contract'
 
 type TutorTools = { run_current_program: { input: { stdin?: string[] }; output: EvaluationResult } }
@@ -80,7 +79,7 @@ export function TutorPanel({ context, runCurrentProgram }: {
         </div>
       </ScrollArea>
       <form onSubmit={(event) => { event.preventDefault(); submit() }} className="shrink-0 border-t p-2">
-        <FieldGroup className="gap-0"><Field className="relative gap-0"><Textarea aria-label="Messaggio al Tutor" value={input} onChange={(event) => setInput(event.target.value)} onKeyDown={(event) => { if (event.key === 'Enter' && !event.shiftKey) { event.preventDefault(); submit() } }} placeholder="Chiedi al Tutor…" rows={1} className="max-h-24 min-h-9 resize-none pr-9 py-2 text-xs" /><Button type="submit" size="icon-xs" disabled={busy || !input.trim()} aria-label="Invia al Tutor" className="absolute bottom-1.5 right-1.5"><HugeiconsIcon icon={busy ? Loading03Icon : ArrowUp02Icon} className={busy ? 'animate-spin' : undefined} aria-hidden="true" /></Button></Field></FieldGroup>
+        <FieldGroup className="gap-0"><Field className="gap-0"><InputGroup><InputGroupTextarea aria-label="Messaggio al Tutor" value={input} onChange={(event) => setInput(event.target.value)} onKeyDown={(event) => { if (event.key === 'Enter' && !event.shiftKey) { event.preventDefault(); submit() } }} placeholder="Chiedi al Tutor…" rows={1} className="max-h-24 min-h-9 py-2 text-xs" /><InputGroupAddon align="block-end" className="justify-end px-1.5 pb-1.5 pt-0"><InputGroupButton type="submit" variant="default" size="icon-xs" disabled={busy || !input.trim()} aria-label="Invia al Tutor"><HugeiconsIcon icon={busy ? Loading03Icon : ArrowUp02Icon} className={busy ? 'animate-spin' : undefined} aria-hidden="true" /></InputGroupButton></InputGroupAddon></InputGroup></Field></FieldGroup>
       </form>
     </>}
   </aside>
