@@ -162,8 +162,8 @@ export function Ide({ program, programs }: { program: Program; programs: Program
         <div className="p-2">
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="ghost" className="h-11 w-full justify-start gap-2.5 rounded-2xl bg-background/70 px-2 text-left hover:bg-background" aria-label={`Menu profilo di ${profileName}`}>
-                <span className="flex size-7 shrink-0 items-center justify-center rounded-full border border-border bg-muted text-[11px] font-medium text-muted-foreground">{profileInitials}</span>
+              <Button variant="ghost" className="h-9 w-full justify-start gap-2 rounded-md px-2 text-left text-sm" aria-label={`Menu profilo di ${profileName}`}>
+                <span className="flex size-6 shrink-0 items-center justify-center rounded-full border border-border bg-muted text-[10px] font-medium text-muted-foreground">{profileInitials}</span>
                 <span className="min-w-0 flex-1 truncate">{profileName}</span>
                 <Icon icon={Settings02Icon} className="size-4 shrink-0" />
               </Button>
