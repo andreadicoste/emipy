@@ -71,6 +71,10 @@ button { cursor: pointer; }
 .ide-output-handle, .ide-files-handle { background: transparent; }
 .ide-handle:hover, .ide-handle[data-resize-handle-active] { background: var(--ring); }
 .ide-side-handle:hover, .ide-side-handle[data-resize-handle-active] { box-shadow: 0 0 0 1px var(--ring); }
+.ide-toggle-motion > [data-panel] { transition: flex-grow 220ms ease-in-out; }
+@media (prefers-reduced-motion: reduce) {
+  .ide-toggle-motion > [data-panel] { transition: none; }
+}
 .ide-program-row { color: var(--muted-foreground); border: 1px solid transparent; }
 .ide-program-row:hover { background: var(--ide-row-hover); color: var(--foreground); }
 .ide-program-row-active { background: var(--ide-row-hover); border-color: var(--border); color: var(--foreground); box-shadow: 0 1px 2px rgb(0 0 0 / 5%); }

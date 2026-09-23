@@ -5,8 +5,10 @@ import { Group, Panel, Separator, useGroupRef, usePanelRef } from 'react-resizab
 import { HugeiconsIcon } from '@hugeicons/react'
 import {
   ChangeScreenModeIcon, Delete02Icon, Edit02Icon, File01Icon, Logout01Icon,
-  Menu01Icon, Moon02Icon, MoreHorizontalIcon, PanelLeftIcon, PanelRightIcon,
-  PlayIcon, PlusSignIcon, StopIcon, Sun03Icon, TerminalIcon, UserGroupIcon,
+  LayoutAlignBottomIcon, LayoutAlignLeftIcon, LayoutAlignRightIcon,
+  LayoutBottomIcon, LayoutLeftIcon, LayoutRightIcon, Moon02Icon,
+  MoreHorizontalIcon, PlayIcon, PlusSignIcon, Settings02Icon, StopIcon,
+  Sun03Icon, TerminalIcon, UserGroupIcon,
 } from '@hugeicons/core-free-icons'
 import { toast } from 'sonner'
 import { Button } from '@/components/ui/button'
@@ -46,6 +48,10 @@ export function Ide({ program, programs }: { program: Program; programs: Program
   const [fileSearch, setFileSearch] = useState('')
   const [input, setInput] = useState('')
   const [busy, setBusy] = useState(false)
+  const [leftOpen, setLeftOpen] = useState(true)
+  const [rightOpen, setRightOpen] = useState(true)
+  const [outputOpen, setOutputOpen] = useState(true)
+  const [animatedPanel, setAnimatedPanel] = useState<'left' | 'right' | 'output' | null>(null)
   const autosave = useAutosave(program.id, program.code)
   const python = usePython()
   const leftRef = usePanelRef()
@@ -56,6 +62,8 @@ export function Ide({ program, programs }: { program: Program; programs: Program
   const verticalRef = useGroupRef()
   const layoutReady = useRef(false)
   const outputEnd = useRef<HTMLDivElement | null>(null)
+  const animationFrame = useRef<number | null>(null)
+  const animationTimeout = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   useEffect(() => {
     setMounted(true)
@@ -74,6 +82,26 @@ export function Ide({ program, programs }: { program: Program; programs: Program
 
   useEffect(() => { outputEnd.current?.scrollIntoView({ block: 'end' }) }, [python.output])
   useEffect(() => { if (autosave.status === 'error') toast.error('Salvataggio non riuscito. Modifica il codice per riprovare.') }, [autosave.status])
+  useEffect(() => () => {
+    if (animationFrame.current !== null) cancelAnimationFrame(animationFrame.current)
+    if (animationTimeout.current !== null) clearTimeout(animationTimeout.current)
+  }, [])
+
+  function togglePanel(panel: 'left' | 'right' | 'output') {
+    if (animationFrame.current !== null) cancelAnimationFrame(animationFrame.current)
+    if (animationTimeout.current !== null) clearTimeout(animationTimeout.current)
+    setAnimatedPanel(panel)
+    animationFrame.current = requestAnimationFrame(() => {
+      const ref = panel === 'left' ? leftRef : panel === 'right' ? rightRef : outputRef
+      if (ref.current?.isCollapsed()) ref.current.expand()
+      else ref.current?.collapse()
+      animationFrame.current = null
+      animationTimeout.current = setTimeout(() => {
+        setAnimatedPanel(null)
+        animationTimeout.current = null
+      }, 240)
+    })
+  }
 
   async function openProgram(id: string) {
     if (id === program.id) return
@@ -112,10 +140,12 @@ export function Ide({ program, programs }: { program: Program; programs: Program
 
   const running = ['running', 'waiting', 'stopping'].includes(python.status)
   const saveLabel = autosave.status === 'saved' ? 'Salvato' : autosave.status === 'error' ? 'Errore salvataggio' : 'Salvataggio…'
+  const profileName = user.name?.trim() || user.email
+  const profileInitials = profileName.slice(0, 2).toUpperCase()
 
   return <main className="ide-root bg-[var(--ide-canvas)]">
-    <Group orientation="horizontal" groupRef={shellRef} className="h-full" onLayoutChanged={(layout) => { if (layoutReady.current) localStorage.setItem('emipy-layout-shell', JSON.stringify(layout)) }}>
-      <Panel id="programs" panelRef={leftRef} defaultSize="16%" minSize={180} maxSize="35%" collapsible collapsedSize={0} className="ide-panel flex min-w-0 flex-col">
+    <Group orientation="horizontal" groupRef={shellRef} className={`h-full ${animatedPanel === 'left' ? 'ide-toggle-motion' : ''}`} onLayoutChanged={(layout) => { if (layoutReady.current) localStorage.setItem('emipy-layout-shell', JSON.stringify(layout)) }}>
+      <Panel id="programs" panelRef={leftRef} defaultSize="16%" minSize={180} maxSize="35%" collapsible collapsedSize={0} onResize={(size) => setLeftOpen(size.inPixels > 0)} className="ide-panel flex min-w-0 flex-col">
         <div className="flex h-12 shrink-0 items-center justify-between px-3">
           <span role="img" aria-label="Emipy" className="brand-symbol size-6" />
           <IconButton icon={PlusSignIcon} label="Nuovo programma" onClick={() => void create()} />
@@ -129,23 +159,16 @@ export function Ide({ program, programs }: { program: Program; programs: Program
             </div>)}
           </nav>
         </ScrollArea>
-        <div className="border-t border-border px-3 py-2 text-[11px] text-muted-foreground">{programs.length} {programs.length === 1 ? 'programma' : 'programmi'}</div>
-      </Panel>
-      <Separator className="ide-handle ide-side-handle w-px" />
-      <Panel id="shell" minSize="45%" className="flex min-w-0 flex-col">
-        <header className="ide-toolbar flex h-12 shrink-0 items-center gap-1.5 px-2.5 sm:gap-2 sm:px-3">
-          <IconButton icon={PanelLeftIcon} label="Mostra o nascondi programmi" onClick={() => leftRef.current?.isCollapsed() ? leftRef.current.expand() : leftRef.current?.collapse()} />
-          <div className="min-w-0 flex-1">
-            <Button type="button" variant="ghost" size="sm" className="max-w-full font-medium" onClick={() => { setNewName(program.name); setRenameOpen(true) }}><span className="truncate">{program.name}</span></Button>
-          </div>
-          <div className="hidden text-xs text-muted-foreground md:block">{python.status === 'loading' ? 'Caricamento Python…' : python.status === 'error' ? 'Python non disponibile' : ''}</div>
-          <Button type="button" size="sm" className="min-w-23" disabled={python.status === 'loading' || python.status === 'error' || python.status === 'stopping'} onClick={() => running ? python.stop() : python.run(autosave.code)}>
-            <Icon icon={running ? StopIcon : PlayIcon} />{running ? 'STOP' : 'START'}
-          </Button>
-          <IconButton icon={PanelRightIcon} label="Mostra o nascondi file" onClick={() => rightRef.current?.isCollapsed() ? rightRef.current.expand() : rightRef.current?.collapse()} />
+        <div className="p-2">
           <DropdownMenu>
-            <DropdownMenuTrigger asChild><Button variant="ghost" size="icon-sm" aria-label="Menu profilo"><Icon icon={Menu01Icon} /></Button></DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="w-50">
+            <DropdownMenuTrigger asChild>
+              <Button variant="ghost" className="h-11 w-full justify-start gap-2.5 rounded-2xl bg-background/70 px-2 text-left hover:bg-background" aria-label={`Menu profilo di ${profileName}`}>
+                <span className="flex size-7 shrink-0 items-center justify-center rounded-full border border-border bg-muted text-[11px] font-medium text-muted-foreground">{profileInitials}</span>
+                <span className="min-w-0 flex-1 truncate">{profileName}</span>
+                <Icon icon={Settings02Icon} className="size-4 shrink-0" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent side="top" align="start" className="w-52">
               <p className="truncate px-2 py-1.5 text-xs text-muted-foreground">{user.email}</p>
               <DropdownMenuGroup>
                 <DropdownMenuItem onSelect={() => setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')}><Icon icon={resolvedTheme === 'dark' ? Sun03Icon : Moon02Icon} /> Tema {resolvedTheme === 'dark' ? 'chiaro' : 'scuro'}</DropdownMenuItem>
@@ -154,11 +177,26 @@ export function Ide({ program, programs }: { program: Program; programs: Program
               </DropdownMenuGroup>
             </DropdownMenuContent>
           </DropdownMenu>
+        </div>
+      </Panel>
+      <Separator className="ide-handle ide-side-handle w-px" />
+      <Panel id="shell" minSize="45%" className="flex min-w-0 flex-col">
+        <header className="ide-toolbar flex h-12 shrink-0 items-center gap-1.5 px-2.5 sm:gap-2 sm:px-3">
+          <IconButton icon={leftOpen ? LayoutLeftIcon : LayoutAlignLeftIcon} label={leftOpen ? 'Nascondi programmi' : 'Mostra programmi'} onClick={() => togglePanel('left')} />
+          <div className="min-w-0 flex-1">
+            <Button type="button" variant="ghost" size="sm" className="max-w-full font-medium" onClick={() => { setNewName(program.name); setRenameOpen(true) }}><span className="truncate">{program.name}</span></Button>
+          </div>
+          <div className="hidden text-xs text-muted-foreground md:block">{python.status === 'loading' ? 'Caricamento Python…' : python.status === 'error' ? 'Python non disponibile' : ''}</div>
+          <Button type="button" size="sm" className="min-w-23" disabled={python.status === 'loading' || python.status === 'error' || python.status === 'stopping'} onClick={() => running ? python.stop() : python.run(autosave.code)}>
+            <Icon icon={running ? StopIcon : PlayIcon} />{running ? 'STOP' : 'START'}
+          </Button>
+          <IconButton icon={outputOpen ? LayoutBottomIcon : LayoutAlignBottomIcon} label={outputOpen ? 'Nascondi console' : 'Mostra console'} onClick={() => togglePanel('output')} />
+          <IconButton icon={rightOpen ? LayoutRightIcon : LayoutAlignRightIcon} label={rightOpen ? 'Nascondi file' : 'Mostra file'} onClick={() => togglePanel('right')} />
           <span className="sr-only" role="status" aria-live="polite">{saveLabel}</span>
         </header>
-        <Group orientation="horizontal" groupRef={workspaceRef} className="min-h-0 flex-1" onLayoutChanged={(layout) => { if (layoutReady.current) localStorage.setItem('emipy-layout-workspace', JSON.stringify(layout)) }}>
+        <Group orientation="horizontal" groupRef={workspaceRef} className={`min-h-0 flex-1 ${animatedPanel === 'right' ? 'ide-toggle-motion' : ''}`} onLayoutChanged={(layout) => { if (layoutReady.current) localStorage.setItem('emipy-layout-workspace', JSON.stringify(layout)) }}>
           <Panel id="workspace" minSize="35%" className="flex min-w-0 flex-col">
-            <Group orientation="vertical" groupRef={verticalRef} className="min-h-0 flex-1" onLayoutChanged={(layout) => { if (layoutReady.current) localStorage.setItem('emipy-layout-vertical', JSON.stringify(layout)) }}>
+            <Group orientation="vertical" groupRef={verticalRef} className={`min-h-0 flex-1 ${animatedPanel === 'output' ? 'ide-toggle-motion' : ''}`} onLayoutChanged={(layout) => { if (layoutReady.current) localStorage.setItem('emipy-layout-vertical', JSON.stringify(layout)) }}>
               <Panel id="editor" defaultSize="70%" minSize="25%" className="flex min-h-0 flex-col pb-1 pl-2 pr-0 pt-0">
                 <section aria-label="Editor main.py" className="ide-surface flex min-h-0 flex-1 flex-col overflow-hidden rounded-md border border-border bg-[var(--monaco-bg)]">
                   <div className="flex h-8 shrink-0 items-center gap-1.5 border-b border-border px-3 text-[11px] text-muted-foreground"><Icon icon={File01Icon} className="size-3.5" /><span className="font-semibold text-foreground">main.py</span><span className="ml-auto">Python</span></div>
@@ -166,7 +204,7 @@ export function Ide({ program, programs }: { program: Program; programs: Program
                 </section>
               </Panel>
               <Separator className="ide-handle ide-output-handle h-1" />
-              <Panel id="output" panelRef={outputRef} defaultSize="30%" minSize="12%" maxSize="70%" collapsible collapsedSize={0} className="flex min-h-0 flex-col p-2 pt-1">
+              <Panel id="output" panelRef={outputRef} defaultSize="30%" minSize="12%" maxSize="70%" collapsible collapsedSize={0} onResize={(size) => setOutputOpen(size.inPixels > 0)} className="flex min-h-0 flex-col p-2 pt-1">
                 <section aria-label="Output programma" className="ide-surface flex min-h-0 flex-1 flex-col overflow-hidden rounded-md border border-border bg-[var(--code-bg)]">
                   <div className="flex h-8 shrink-0 items-center gap-1.5 border-b border-border px-3"><Icon icon={TerminalIcon} className="size-3.5" /><span className="text-[11px] font-bold uppercase tracking-wider">Output</span><span className="ml-auto text-[10px] text-muted-foreground">{python.status === 'waiting' ? 'In attesa di input' : running ? 'In esecuzione' : ''}</span><Button variant="ghost" size="xs" onClick={python.clearOutput}>Pulisci</Button></div>
                   <ScrollArea className="min-h-0 flex-1 px-3 py-2"><div data-testid="output" className="output-scroll min-h-full">{python.output.length === 0 ? <span className="font-sans text-xs text-muted-foreground">Premi START per eseguire main.py.</span> : python.output.map((line, index) => <span key={index} className={line.kind === 'stderr' ? 'text-destructive' : line.kind === 'system' ? 'text-muted-foreground' : line.kind === 'input' ? 'text-primary' : ''}>{line.text}</span>)}<div ref={outputEnd} /></div></ScrollArea>
@@ -176,7 +214,7 @@ export function Ide({ program, programs }: { program: Program; programs: Program
             </Group>
           </Panel>
           <Separator className="ide-handle ide-side-handle ide-files-handle w-px" />
-          <Panel id="files" panelRef={rightRef} defaultSize="16%" minSize={145} maxSize="30%" collapsible collapsedSize={0} className="ide-files-panel min-w-0">
+          <Panel id="files" panelRef={rightRef} defaultSize="16%" minSize={145} maxSize="30%" collapsible collapsedSize={0} onResize={(size) => setRightOpen(size.inPixels > 0)} className="ide-files-panel min-w-0">
             <div className="flex h-8 items-center px-3 text-[11px] font-bold uppercase tracking-wider text-muted-foreground">File</div>
             <div className="px-3 pb-1.5"><Input aria-label="Cerca file" placeholder="Cerca file" value={fileSearch} onChange={(event) => setFileSearch(event.target.value)} className="h-7 bg-background text-xs" /></div>
             <div className="px-1.5">{'main.py'.includes(fileSearch.trim().toLowerCase()) && <div className="ide-project-file flex items-center gap-2 rounded px-2 py-1.5 text-[13px]"><Icon icon={File01Icon} className="size-3.5 shrink-0 text-ring" /><span>main.py</span></div>}</div>
