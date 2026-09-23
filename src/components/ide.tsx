@@ -162,7 +162,7 @@ export function Ide({ program, programs }: { program: Program; programs: Program
           <Panel id="workspace" minSize="35%" className="flex min-w-0 flex-col">
             <Group orientation="vertical" groupRef={verticalRef} className="min-h-0 flex-1" onLayoutChanged={(layout) => { if (layoutReady.current) localStorage.setItem('emipy-layout-vertical', JSON.stringify(layout)) }}>
               <Panel id="editor" defaultSize="70%" minSize="25%" className="flex min-h-0 flex-col p-2 pb-1">
-                <section aria-label="Editor main.py" className="ide-surface flex min-h-0 flex-1 flex-col overflow-hidden rounded-lg border border-border bg-[var(--code-bg)]">
+                <section aria-label="Editor main.py" className="ide-surface flex min-h-0 flex-1 flex-col overflow-hidden rounded-lg border border-border bg-[var(--monaco-bg)]">
                   <div className="flex h-9 shrink-0 items-center gap-2 border-b border-border px-4 text-xs text-muted-foreground"><Icon icon={File01Icon} className="size-4" /><span className="font-semibold text-foreground">main.py</span><span className="ml-auto">Python</span></div>
                   <div className="min-h-0 flex-1">{mounted && <Suspense fallback={<div className="p-5 text-sm text-muted-foreground">Caricamento editor…</div>}><CodeEditor value={autosave.code} onChange={autosave.update} dark={resolvedTheme === 'dark'} /></Suspense>}</div>
                 </section>

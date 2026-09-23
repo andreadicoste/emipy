@@ -17,7 +17,7 @@
   --accent: #ffc0d4; --accent-foreground: #171113;
   --destructive: #bc365b; --border: #e9e1e4;
   --input: #e9e1e4; --ring: #e584a5;
-  --radius: .65rem; --panel: #fffafb; --code-bg: #ffffff; --ide-canvas: #f8f5f6; --ide-row: #f6f5f4; --ide-row-hover: #faf9f8;
+  --radius: .65rem; --panel: #fffafb; --code-bg: #ffffff; --monaco-bg: #fffafb; --ide-canvas: #ffffff; --ide-row: #f6f5f4; --ide-row-hover: #faf9f8;
 }
 
 .dark {
@@ -30,7 +30,7 @@
   --accent: #573540; --accent-foreground: #fff5f8;
   --destructive: #f17b9d; --border: #423039;
   --input: #423039; --ring: #ffc0d4;
-  --panel: #1d1518; --code-bg: #1b1518; --ide-canvas: #251c20; --ide-row: #30282b; --ide-row-hover: #292125;
+  --panel: #1d1518; --code-bg: #1b1518; --monaco-bg: #1d1518; --ide-canvas: #251c20; --ide-row: #30282b; --ide-row-hover: #292125;
 }
 
 @theme inline {
