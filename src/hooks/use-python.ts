@@ -4,7 +4,7 @@ import { MAX_INPUT_BYTES, MAX_OUTPUT_BYTES, type WorkerToMain } from '@/lib/pyth
 export type OutputLine = { kind: 'stdout' | 'stderr' | 'system' | 'input'; text: string }
 type Status = 'loading' | 'ready' | 'running' | 'waiting' | 'stopping' | 'error'
 
-export function usePython() {
+export function usePython(enabled = true) {
   const worker = useRef<Worker | null>(null)
   const interrupt = useRef<Int32Array | null>(null)
   const inputState = useRef<Int32Array | null>(null)
@@ -56,9 +56,10 @@ export function usePython() {
   }, [append])
 
   useEffect(() => {
+    if (!enabled) return
     createWorker()
     return () => { worker.current?.terminate(); if (stopTimer.current) clearTimeout(stopTimer.current) }
-  }, [createWorker])
+  }, [createWorker, enabled])
 
   const run = useCallback((code: string, files: { name: string; code: string }[] = []) => {
     if (!worker.current || status !== 'ready' || !crossOriginIsolated) {

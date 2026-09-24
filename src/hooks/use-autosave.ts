@@ -5,7 +5,7 @@ export const MAIN_FILE_ID = 'main'
 export type EditableFile = { id: string; name: string; code: string }
 type SaveStatus = 'saved' | 'saving' | 'error'
 
-export function useAutosave(programId: string, initialFiles: EditableFile[]) {
+export function useAutosave(programId: string | null, initialFiles: EditableFile[]) {
   const [files, setFiles] = useState(initialFiles)
   const [status, setStatus] = useState<SaveStatus>('saved')
   const filesRef = useRef(initialFiles)
@@ -17,7 +17,7 @@ export function useAutosave(programId: string, initialFiles: EditableFile[]) {
     if (timer.current) { clearTimeout(timer.current); timer.current = null }
     if (inFlight.current) await inFlight.current
     const changed = filesRef.current.filter((file) => file.code !== savedRef.current.get(file.id))
-    if (!changed.length) { setStatus('saved'); return }
+    if (!programId || !changed.length) { setStatus('saved'); return }
     setStatus('saving')
     const request = Promise.all(changed.map(async (file) => {
       if (file.id === MAIN_FILE_ID) await saveProgramCode({ data: { id: programId, code: file.code } })
