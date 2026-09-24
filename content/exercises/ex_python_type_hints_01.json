@@ -1,0 +1,15 @@
+{
+  "externalId": "ex_python_type_hints_01",
+  "title": "Annota la funzione",
+  "instructions": "Aggiungi type hints corretti a `trova(nome, utenti)` sapendo che utenti è una lista di dizionari stringa->stringa e che il risultato può essere un dizionario oppure None.",
+  "language": "python",
+  "starterCode": "def trova(nome, utenti):\n    for utente in utenti:\n        if utente[\"nome\"] == nome:\n            return utente\n    return None\n",
+  "starterFiles": [],
+  "learningObjectives": [
+    "Annotare parametri e ritorno",
+    "Rappresentare Optional con | None"
+  ],
+  "expectedBehavior": "La funzione mantiene lo stesso comportamento e la firma descrive i tipi richiesti.",
+  "graderInstructions": "Valutare le annotazioni, non modifiche inutili alla logica.",
+  "status": "published"
+}

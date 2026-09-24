@@ -1,12 +1,15 @@
 {
   "externalId": "ex_python_file_lines_01",
-  "title": "Diario su file",
-  "instructions": "Scrivi le tre attività date in diario.txt, una per riga. Riapri il file, conta le righe e stampa sia il contenuto sia `Attività: 3`.",
+  "title": "Conta righe non vuote",
+  "instructions": "Leggi `note.txt` e stampa quante righe contengono almeno un carattere dopo `strip()`.",
   "language": "python",
-  "starterCode": "attivita = [\"Studiare Python\", \"Fare una passeggiata\", \"Leggere\"]\n# Scrivi, rileggi e conta le righe\n",
+  "starterCode": "with open(\"note.txt\", \"r\", encoding=\"utf-8\") as file:\n    # Completa\n    pass\n",
   "starterFiles": [],
-  "learningObjectives": ["Scrivere un file con with", "Leggere righe da un file", "Contare elementi"],
-  "expectedBehavior": "diario.txt contiene le tre attività su righe separate e l'output mostra le attività e il conteggio 3.",
-  "graderInstructions": "Verificare scrittura e successiva lettura del file, non accettare il solo output codificato manualmente.",
+  "learningObjectives": [
+    "Iterare un file",
+    "Pulire righe"
+  ],
+  "expectedBehavior": "Conta correttamente solo le righe non vuote.",
+  "graderInstructions": "Verificare con file contenente righe vuote e spazi.",
   "status": "published"
 }

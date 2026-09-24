@@ -1,0 +1,32 @@
+{
+  "externalId": "lesson_python_operatori",
+  "courseId": "course_python_base",
+  "slug": "operatori",
+  "title": "Operatori e calcoli",
+  "description": "Combina valori con operatori aritmetici, confronti e operatori logici.",
+  "order": 4,
+  "status": "published",
+  "blocks": [
+    {
+      "type": "markdown",
+      "body": "# Operatori e calcoli\n\nGli operatori trasformano o confrontano valori. Oltre a `+`, `-`, `*` e `/`, userai spesso `//` per la divisione intera, `%` per il resto e `**` per le potenze.\n\nI confronti come `>=` producono booleani, che possono essere combinati con `and`, `or` e `not`."
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "filename": "main.py",
+      "code": "minuti = 137\nore = minuti // 60\nresto = minuti % 60\n\nprint(ore, \"ore e\", resto, \"minuti\")\nprint(\"Durata lunga:\", minuti >= 120)",
+      "caption": "Quoziente, resto e confronto"
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "Il modulo è utilissimo",
+      "body": "`%` non serve solo in matematica: è perfetto per parità, ciclicità e suddivisione in gruppi."
+    }
+  ],
+  "exerciseIds": [
+    "ex_python_operator_math_01",
+    "ex_python_even_01"
+  ]
+}

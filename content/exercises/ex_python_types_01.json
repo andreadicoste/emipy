@@ -1,0 +1,15 @@
+{
+  "externalId": "ex_python_types_01",
+  "title": "Carta d'identità dei valori",
+  "instructions": "Crea quattro variabili: una stringa, un intero, un float e un booleano. Stampa valore e tipo di ciascuna.",
+  "language": "python",
+  "starterCode": "# Crea qui le quattro variabili\n",
+  "starterFiles": [],
+  "learningObjectives": [
+    "Riconoscere i tipi base",
+    "Usare type"
+  ],
+  "expectedBehavior": "Vengono mostrati quattro valori e i rispettivi tipi str, int, float e bool.",
+  "graderInstructions": "Verificare la presenza dei quattro tipi base e l'uso corretto di type.",
+  "status": "published"
+}

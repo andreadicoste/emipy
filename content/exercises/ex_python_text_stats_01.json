@@ -1,0 +1,16 @@
+{
+  "externalId": "ex_python_text_stats_01",
+  "title": "Analizzatore di frase",
+  "instructions": "Partendo dalla stringa data stampa: numero totale di parole, numero di parole uniche e la parola più frequente. Puoi assumere che non ci siano pareggi.",
+  "language": "python",
+  "starterCode": "testo = \"rosso blu rosso verde blu rosso\"\n# Completa l'analisi\n",
+  "starterFiles": [],
+  "learningObjectives": [
+    "Combinare liste, set e dizionari",
+    "Calcolare frequenze",
+    "Derivare statistiche"
+  ],
+  "expectedBehavior": "Produce 6 parole totali, 3 uniche e rosso come più frequente.",
+  "graderInstructions": "Verificare anche con un secondo testo senza hardcoding.",
+  "status": "published"
+}

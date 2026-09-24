@@ -1,0 +1,15 @@
+{
+  "externalId": "ex_python_countdown_01",
+  "title": "Conto alla rovescia",
+  "instructions": "Usa `while` per stampare 5, 4, 3, 2, 1 e infine `Via!`.",
+  "language": "python",
+  "starterCode": "numero = 5\n# Completa il ciclo\n",
+  "starterFiles": [],
+  "learningObjectives": [
+    "Usare while",
+    "Aggiornare una variabile di controllo"
+  ],
+  "expectedBehavior": "L'output segue esattamente la sequenza 5..1 e poi Via!.",
+  "graderInstructions": "Verificare che venga usato while e che il ciclo termini.",
+  "status": "published"
+}

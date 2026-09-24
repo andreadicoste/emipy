@@ -1,0 +1,31 @@
+{
+  "externalId": "lesson_python_classi",
+  "courseId": "course_python_intermediate",
+  "slug": "classi-e-oggetti",
+  "title": "Classi e oggetti",
+  "description": "Raggruppa stato e comportamento quando appartengono allo stesso concetto.",
+  "order": 4,
+  "status": "published",
+  "blocks": [
+    {
+      "type": "markdown",
+      "body": "# Classi e oggetti\n\nUna classe definisce la struttura e il comportamento di oggetti. `__init__` inizializza lo stato; `self` indica l'istanza corrente.\n\nUsa una classe quando dati e operazioni formano un'unità coerente, non solo per rendere il codice più 'avanzato'."
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "filename": "main.py",
+      "code": "class Contatore:\n    def __init__(self):\n        self.valore = 0\n\n    def incrementa(self):\n        self.valore += 1\n\nc = Contatore()\nc.incrementa()\nprint(c.valore)",
+      "caption": "Stato e metodo nello stesso oggetto"
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "Non tutto deve essere una classe",
+      "body": "Per trasformazioni semplici di dati, funzioni e strutture built-in restano spesso la scelta migliore."
+    }
+  ],
+  "exerciseIds": [
+    "ex_python_bank_account_01"
+  ]
+}

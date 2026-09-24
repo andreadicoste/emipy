@@ -1,15 +1,32 @@
 {
   "externalId": "lesson_python_cicli",
-  "courseId": "course_python_collections",
+  "courseId": "course_python_base",
   "slug": "cicli-for",
   "title": "Ripetere con for",
-  "description": "Esegui la stessa operazione per ogni elemento di una raccolta.",
-  "order": 2,
+  "description": "Ripeti un'operazione per ogni elemento o per un numero noto di volte.",
+  "order": 6,
   "status": "published",
   "blocks": [
-    { "type": "markdown", "body": "# Una volta per elemento\n\nIl ciclo `for` visita gli elementi uno alla volta. Una variabile temporanea contiene l'elemento corrente e il blocco indentato viene ripetuto." },
-    { "type": "code", "language": "python", "filename": "main.py", "code": "prezzi = [3, 5, 2]\ntotale = 0\nfor prezzo in prezzi:\n    totale = totale + prezzo\nprint(totale)", "caption": "Somma progressiva" },
-    { "type": "callout", "variant": "tip", "title": "Leggi il ciclo ad alta voce", "body": "“Per ogni prezzo nella lista prezzi” è un buon modo per capire cosa farà il codice." }
+    {
+      "type": "markdown",
+      "body": "# Ripetere con for\n\nUn ciclo `for` visita una sequenza un elemento alla volta. Con `range()` puoi generare sequenze di interi senza costruire manualmente una lista.\n\nDentro il ciclo puoi accumulare risultati, filtrare valori o produrre output."
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "filename": "main.py",
+      "code": "totale = 0\nfor numero in range(1, 6):\n    totale += numero\n\nprint(\"Somma:\", totale)",
+      "caption": "Somma dei numeri da 1 a 5"
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "Segui l'accumulatore",
+      "body": "Quando un ciclo ti confonde, annota il valore dell'accumulatore dopo ogni iterazione."
+    }
   ],
-  "exerciseIds": ["ex_python_positive_total_01"]
+  "exerciseIds": [
+    "ex_python_positive_total_01",
+    "ex_python_multiples_01"
+  ]
 }

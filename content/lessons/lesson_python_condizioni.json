@@ -2,14 +2,31 @@
   "externalId": "lesson_python_condizioni",
   "courseId": "course_python_base",
   "slug": "condizioni",
-  "title": "Scegliere con if",
-  "description": "Fai prendere decisioni al programma con condizioni semplici.",
-  "order": 3,
+  "title": "Prendere decisioni con if",
+  "description": "Esegui codice diverso in base a una condizione.",
+  "order": 5,
   "status": "published",
   "blocks": [
-    { "type": "markdown", "body": "# Strade diverse\n\n`if` esegue un blocco solo quando una condizione è vera. `else` descrive cosa fare negli altri casi. In Python l'indentazione indica quali istruzioni appartengono al blocco." },
-    { "type": "code", "language": "python", "filename": "main.py", "code": "eta = 18\nif eta >= 18:\n    print(\"Maggiorenne\")\nelse:\n    print(\"Minorenne\")", "caption": "Una decisione a due vie" },
-    { "type": "callout", "variant": "warning", "title": "Occhio agli spazi", "body": "Le righe dentro `if` ed `else` devono avere la stessa indentazione." }
+    {
+      "type": "markdown",
+      "body": "# Prendere decisioni con if\n\n`if` permette al programma di scegliere. La condizione viene valutata come vera o falsa; `elif` gestisce casi intermedi e `else` il caso rimanente.\n\nL'indentazione non è estetica: in Python definisce quali istruzioni appartengono al ramo."
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "filename": "main.py",
+      "code": "temperatura = 31\n\nif temperatura >= 30:\n    print(\"Fa caldo\")\nelif temperatura >= 20:\n    print(\"Temperatura mite\")\nelse:\n    print(\"Fa fresco\")",
+      "caption": "Tre rami mutuamente esclusivi"
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "Ordina bene i casi",
+      "body": "Quando usi più soglie, ragiona sull'ordine: una condizione troppo generale messa prima può rendere irraggiungibili quelle successive."
+    }
   ],
-  "exerciseIds": ["ex_python_ticket_01"]
+  "exerciseIds": [
+    "ex_python_ticket_01",
+    "ex_python_grade_band_01"
+  ]
 }

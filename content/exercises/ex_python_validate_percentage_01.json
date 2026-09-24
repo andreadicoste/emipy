@@ -1,0 +1,15 @@
+{
+  "externalId": "ex_python_validate_percentage_01",
+  "title": "Percentuale valida",
+  "instructions": "Chiedi una percentuale finché l'utente inserisce un numero compreso tra 0 e 100 inclusi. Gestisci input non numerici.",
+  "language": "python",
+  "starterCode": "# Scrivi il ciclo di validazione\n",
+  "starterFiles": [],
+  "learningObjectives": [
+    "Combinare while e try/except",
+    "Controllare un intervallo"
+  ],
+  "expectedBehavior": "Il programma accetta solo numeri tra 0 e 100 e continua dopo input non validi.",
+  "graderInstructions": "Verificare input testuali, negativi, >100 e valori validi.",
+  "status": "published"
+}

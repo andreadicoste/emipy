@@ -5,8 +5,11 @@
   "language": "python",
   "starterCode": "def misure(base, altezza):\n    # Restituisci area e perimetro\n    pass\n\narea, perimetro = misure(5, 3)\nprint(\"Area:\", area)\nprint(\"Perimetro:\", perimetro)\n",
   "starterFiles": [],
-  "learningObjectives": ["Restituire più valori", "Usare parametri in un calcolo"],
-  "expectedBehavior": "Per base 5 e altezza 3, l'output riporta area 15 e perimetro 16.",
-  "graderInstructions": "Verificare formule generali nella funzione oltre all'output dell'esempio.",
+  "learningObjectives": [
+    "Usare più parametri",
+    "Calcolare da input"
+  ],
+  "expectedBehavior": "Per base 5 e altezza 3 produce area 15 e perimetro 16.",
+  "graderInstructions": "Verificare formule generali con almeno un'altra coppia di dimensioni.",
   "status": "published"
 }

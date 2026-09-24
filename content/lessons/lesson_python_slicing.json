@@ -1,0 +1,31 @@
+{
+  "externalId": "lesson_python_slicing",
+  "courseId": "course_python_collections",
+  "slug": "slicing",
+  "title": "Slicing e copie",
+  "description": "Estrai porzioni di sequenze e comprendi la differenza tra alias e copia.",
+  "order": 3,
+  "status": "published",
+  "blocks": [
+    {
+      "type": "markdown",
+      "body": "# Slicing e copie\n\nLa sintassi `sequenza[start:stop:step]` crea una porzione. Gli estremi possono essere omessi e uno step negativo permette di invertire.\n\nCon le liste, `copia = originale[:]` crea una nuova lista; `alias = originale` invece fa puntare due nomi allo stesso oggetto."
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "filename": "main.py",
+      "code": "numeri = [0, 1, 2, 3, 4, 5]\nprint(numeri[1:4])\nprint(numeri[::2])\nprint(numeri[::-1])",
+      "caption": "Tre slicing diversi"
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "Stop escluso",
+      "body": "Nello slicing l'indice `stop` non viene incluso: `[1:4]` prende gli indici 1, 2 e 3."
+    }
+  ],
+  "exerciseIds": [
+    "ex_python_slicing_01"
+  ]
+}

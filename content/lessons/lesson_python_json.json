@@ -1,0 +1,31 @@
+{
+  "externalId": "lesson_python_json",
+  "courseId": "course_python_data",
+  "slug": "json",
+  "title": "Salvare strutture con JSON",
+  "description": "Serializza liste e dizionari e ricostruiscili da disco.",
+  "order": 6,
+  "status": "published",
+  "blocks": [
+    {
+      "type": "markdown",
+      "body": "# Salvare strutture con JSON\n\nJSON rappresenta strutture composte da oggetti, array, stringhe, numeri, booleani e null. In Python `json.dump` scrive un oggetto e `json.load` lo ricostruisce.\n\nÈ perfetto per configurazioni e piccoli dataset scambiabili."
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "filename": "main.py",
+      "code": "import json\n\nprofilo = {\"nome\": \"Ada\", \"skill\": [\"python\", \"sql\"]}\nwith open(\"profilo.json\", \"w\", encoding=\"utf-8\") as file:\n    json.dump(profilo, file, ensure_ascii=False, indent=2)",
+      "caption": "Un dizionario diventa JSON leggibile"
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "JSON non è codice Python",
+      "body": "Anche se assomiglia a dizionari e liste, JSON ha regole proprie e va letto tramite un parser."
+    }
+  ],
+  "exerciseIds": [
+    "ex_python_json_update_01"
+  ]
+}

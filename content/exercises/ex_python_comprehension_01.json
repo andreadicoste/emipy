@@ -1,0 +1,15 @@
+{
+  "externalId": "ex_python_comprehension_01",
+  "title": "Nomi normalizzati",
+  "instructions": "Crea con una list comprehension una nuova lista contenente i nomi ripuliti e in minuscolo, escludendo le stringhe vuote dopo `strip()`.",
+  "language": "python",
+  "starterCode": "nomi = [\" Ada \", \"\", \" LUCA\", \"  \", \"Marta \"]\npuliti = []\n# Sostituisci con una comprehension\nprint(puliti)\n",
+  "starterFiles": [],
+  "learningObjectives": [
+    "Scrivere list comprehension",
+    "Filtrare e trasformare"
+  ],
+  "expectedBehavior": "Il risultato è ['ada','luca','marta'].",
+  "graderInstructions": "Verificare che la soluzione usi una comprehension e funzioni con input simili.",
+  "status": "published"
+}

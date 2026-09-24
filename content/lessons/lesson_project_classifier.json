@@ -1,15 +1,31 @@
 {
   "externalId": "lesson_project_classifier",
   "courseId": "course_python_projects",
-  "slug": "classificatore-numeri",
-  "title": "Progetto: classificatore di numeri",
-  "description": "Combina input, conversioni e condizioni in un piccolo strumento.",
-  "order": 1,
+  "slug": "classificatore-regole",
+  "title": "Progetto: classificatore a regole",
+  "description": "Classifica elementi usando funzioni, punteggi e regole esplicite.",
+  "order": 2,
   "status": "published",
   "blocks": [
-    { "type": "markdown", "body": "# Dal requisito al codice\n\nUn progetto parte da regole chiare. Scomponi il problema: leggi il numero, controlla il segno, poi stabilisci se è pari usando il resto `%`." },
-    { "type": "code", "language": "python", "filename": "main.py", "code": "numero = 7\nif numero % 2 == 0:\n    parita = \"pari\"\nelse:\n    parita = \"dispari\"\nprint(parita)", "caption": "Una parte del classificatore" },
-    { "type": "callout", "variant": "tip", "title": "Costruisci per passi", "body": "Fai funzionare una regola alla volta, poi prova numeri positivi, negativi e zero." }
+    {
+      "type": "markdown",
+      "body": "# Progetto: classificatore a regole\n\nCostruisci un classificatore semplice senza machine learning: ogni elemento riceve un punteggio in base a caratteristiche osservabili e viene assegnato a una classe.\n\nL'obiettivo è progettare regole trasparenti e testabili, non imitare un modello statistico."
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "filename": "main.py",
+      "code": "def classifica(testo):\n    punteggio = 0\n    if \"urgente\" in testo.lower():\n        punteggio += 2\n    if \"oggi\" in testo.lower():\n        punteggio += 1\n    return \"prioritario\" if punteggio >= 2 else \"normale\"",
+      "caption": "Una decisione spiegabile tramite punteggio"
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "Rendi le regole dati",
+      "body": "Come estensione, prova a spostare parole e pesi in un dizionario invece di codificarli uno per uno."
+    }
   ],
-  "exerciseIds": ["ex_project_classifier_01"]
+  "exerciseIds": [
+    "ex_project_classifier_01"
+  ]
 }

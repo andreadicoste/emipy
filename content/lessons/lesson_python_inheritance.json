@@ -1,0 +1,31 @@
+{
+  "externalId": "lesson_python_inheritance",
+  "courseId": "course_python_intermediate",
+  "slug": "ereditarieta",
+  "title": "Ereditarietà senza abuso",
+  "description": "Condividi comportamento tra tipi realmente correlati.",
+  "order": 6,
+  "status": "published",
+  "blocks": [
+    {
+      "type": "markdown",
+      "body": "# Ereditarietà senza abuso\n\nL'ereditarietà permette a una classe figlia di riusare e specializzare una classe base. È utile quando esiste una relazione autentica 'è un'.\n\nNon usarla solo per evitare due righe duplicate: spesso la composizione è più semplice."
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "filename": "main.py",
+      "code": "class Notifica:\n    def invia(self):\n        raise NotImplementedError\n\nclass Email(Notifica):\n    def invia(self):\n        return \"Email inviata\"\n\nprint(Email().invia())",
+      "caption": "La sottoclasse specializza un comportamento"
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "Preferisci gerarchie piccole",
+      "body": "Le gerarchie profonde diventano difficili da seguire. Mantieni l'ereditarietà semplice e motivata."
+    }
+  ],
+  "exerciseIds": [
+    "ex_python_inheritance_01"
+  ]
+}

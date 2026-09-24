@@ -1,0 +1,15 @@
+{
+  "externalId": "ex_python_multiples_01",
+  "title": "Multipli di tre",
+  "instructions": "Stampa tutti i multipli di 3 compresi tra 3 e 30 inclusi.",
+  "language": "python",
+  "starterCode": "# Usa un ciclo for\n",
+  "starterFiles": [],
+  "learningObjectives": [
+    "Usare range",
+    "Riconoscere una progressione"
+  ],
+  "expectedBehavior": "L'output contiene 3, 6, 9, ..., 30 nell'ordine corretto.",
+  "graderInstructions": "Accettare sia range con passo 3 sia filtro con modulo.",
+  "status": "published"
+}

@@ -1,0 +1,31 @@
+{
+  "externalId": "lesson_python_scope",
+  "courseId": "course_python_functions",
+  "slug": "scope",
+  "title": "Scope e variabili locali",
+  "description": "Capisci dove esiste una variabile e riduci le dipendenze globali.",
+  "order": 5,
+  "status": "published",
+  "blocks": [
+    {
+      "type": "markdown",
+      "body": "# Scope e variabili locali\n\nLe variabili create dentro una funzione sono locali: normalmente esistono solo durante quella chiamata. Le variabili globali sono accessibili più ampiamente ma aumentano le dipendenze nascoste.\n\nPreferisci funzioni che ricevono dati e restituiscono risultati."
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "filename": "main.py",
+      "code": "tasso = 0.22\n\ndef aggiungi_iva(prezzo, aliquota):\n    imposta = prezzo * aliquota\n    return prezzo + imposta\n\nprint(aggiungi_iva(100, tasso))",
+      "caption": "Il dato globale viene passato esplicitamente"
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "Riduci lo stato globale",
+      "body": "Meno stato condiviso significa meno sorprese quando il programma cresce."
+    }
+  ],
+  "exerciseIds": [
+    "ex_python_scope_01"
+  ]
+}

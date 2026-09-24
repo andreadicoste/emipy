@@ -1,0 +1,15 @@
+{
+  "externalId": "ex_python_contacts_01",
+  "title": "Rubrica JSON",
+  "instructions": "Implementa `aggiungi(contatti, nome, telefono)` e `cerca(contatti, nome)`. Il primo aggiunge un dizionario, il secondo restituisce il primo contatto col nome richiesto o None.",
+  "language": "python",
+  "starterCode": "def aggiungi(contatti, nome, telefono):\n    pass\n\ndef cerca(contatti, nome):\n    pass\n\ncontatti = []\naggiungi(contatti, \"Ada\", \"123\")\nprint(cerca(contatti, \"Ada\"))\n",
+  "starterFiles": [],
+  "learningObjectives": [
+    "Progettare una struttura dati",
+    "Scrivere funzioni su liste di dizionari"
+  ],
+  "expectedBehavior": "Dopo l'aggiunta, cerca restituisce il contatto corretto; un nome assente restituisce None.",
+  "graderInstructions": "Testare più contatti e un nome mancante.",
+  "status": "published"
+}

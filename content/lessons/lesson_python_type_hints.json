@@ -1,0 +1,31 @@
+{
+  "externalId": "lesson_python_type_hints",
+  "courseId": "course_python_intermediate",
+  "slug": "type-hints",
+  "title": "Type hints",
+  "description": "Documenta i tipi attesi e rendi più efficace l'analisi statica.",
+  "order": 7,
+  "status": "published",
+  "blocks": [
+    {
+      "type": "markdown",
+      "body": "# Type hints\n\nLe annotazioni di tipo non cambiano normalmente il comportamento runtime di Python. Servono a persone, editor e type checker per capire meglio l'interfaccia del codice.\n\nAnnota soprattutto funzioni e modelli condivisi."
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "filename": "main.py",
+      "code": "def media(valori: list[float]) -> float:\n    return sum(valori) / len(valori)\n\nprint(media([10.0, 20.0, 30.0]))",
+      "caption": "Firma leggibile prima ancora del corpo"
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "I type hints non validano da soli",
+      "body": "Passare una stringa non viene automaticamente bloccato da Python: serve un type checker o validazione runtime."
+    }
+  ],
+  "exerciseIds": [
+    "ex_python_type_hints_01"
+  ]
+}

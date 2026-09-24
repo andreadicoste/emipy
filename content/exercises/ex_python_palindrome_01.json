@@ -1,12 +1,15 @@
 {
   "externalId": "ex_python_palindrome_01",
-  "title": "Riconoscere un palindromo",
-  "instructions": "Leggi una parola, ignora maiuscole e spazi esterni, poi stampa `Palindromo` oppure `Non palindromo`.",
+  "title": "È un palindromo?",
+  "instructions": "Completa il programma per stampare True se `parola` si legge allo stesso modo da sinistra a destra e viceversa, ignorando maiuscole.",
   "language": "python",
-  "starterCode": "parola = input(\"Parola: \")\n# Normalizza e confronta la parola\n",
+  "starterCode": "parola = \"Anna\"\n# Calcola il risultato\n",
   "starterFiles": [],
-  "learningObjectives": ["Normalizzare una stringa", "Usare lo slicing inverso", "Confrontare testi"],
-  "expectedBehavior": "Anna e radar risultano palindromi; Python risulta non palindromo, indipendentemente dalle maiuscole esterne.",
-  "graderInstructions": "Provare almeno un palindromo con maiuscole e una parola non palindroma. Richiedere le due categorie corrette.",
+  "learningObjectives": [
+    "Normalizzare una stringa",
+    "Usare slicing"
+  ],
+  "expectedBehavior": "Anna produce True; Python produce False.",
+  "graderInstructions": "Verificare almeno un palindromo e una parola non palindroma.",
   "status": "published"
 }

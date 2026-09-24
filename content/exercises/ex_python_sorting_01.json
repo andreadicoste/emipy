@@ -1,0 +1,15 @@
+{
+  "externalId": "ex_python_sorting_01",
+  "title": "Prodotti per prezzo",
+  "instructions": "Ordina i prodotti prima per prezzo crescente; a parità di prezzo, per nome alfabetico.",
+  "language": "python",
+  "starterCode": "prodotti = [\n    {\"nome\": \"B\", \"prezzo\": 10},\n    {\"nome\": \"A\", \"prezzo\": 10},\n    {\"nome\": \"C\", \"prezzo\": 5},\n]\n# Completa\n",
+  "starterFiles": [],
+  "learningObjectives": [
+    "Usare sorted con key",
+    "Creare chiavi tuple"
+  ],
+  "expectedBehavior": "L'ordine finale dei nomi è C, A, B.",
+  "graderInstructions": "Verificare che il criterio gestisca prezzo e nome senza hardcoding.",
+  "status": "published"
+}

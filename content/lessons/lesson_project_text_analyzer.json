@@ -1,0 +1,31 @@
+{
+  "externalId": "lesson_project_text_analyzer",
+  "courseId": "course_python_projects",
+  "slug": "analizzatore-testo",
+  "title": "Progetto: analizzatore di testo",
+  "description": "Produci un report lessicale riutilizzando funzioni piccole.",
+  "order": 5,
+  "status": "published",
+  "blocks": [
+    {
+      "type": "markdown",
+      "body": "# Progetto: analizzatore di testo\n\nDato un testo, calcola numero di parole, vocabolario unico, frequenze e top N. Organizza il progetto in funzioni: normalizzazione, tokenizzazione, conteggio e ranking.\n\nIl risultato finale dovrebbe poter essere usato sia da terminale sia da un'altra parte del programma."
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "filename": "main.py",
+      "code": "def tokenizza(testo):\n    return testo.lower().split()\n\n# Aggiungi funzioni per frequenze e top_n",
+      "caption": "Una pipeline composta da funzioni pure"
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "Non mischiare tutto",
+      "body": "Se una funzione stampa, legge file e calcola frequenze insieme sarà molto più difficile da testare."
+    }
+  ],
+  "exerciseIds": [
+    "ex_project_text_analyzer_01"
+  ]
+}

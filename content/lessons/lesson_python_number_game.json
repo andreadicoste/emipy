@@ -1,0 +1,31 @@
+{
+  "externalId": "lesson_python_number_game",
+  "courseId": "course_python_base",
+  "slug": "mini-progetto-indovina-numero",
+  "title": "Mini progetto: indovina il numero",
+  "description": "Combina input, conversioni, condizioni e cicli in un piccolo gioco.",
+  "order": 8,
+  "status": "published",
+  "blocks": [
+    {
+      "type": "markdown",
+      "body": "# Mini progetto: indovina il numero\n\nCostruisci ora qualcosa che richiede più concetti insieme. Il programma conserva un numero segreto e continua a chiedere tentativi finché l'utente non indovina.\n\nA ogni tentativo deve dire se il numero cercato è più alto o più basso."
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "filename": "main.py",
+      "code": "segreto = 7\n\nwhile True:\n    tentativo = int(input(\"Numero: \"))\n    if tentativo == segreto:\n        print(\"Indovinato!\")\n        break\n    if tentativo < segreto:\n        print(\"Più alto\")\n    else:\n        print(\"Più basso\")",
+      "caption": "Una prima applicazione interattiva"
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "Prima correttezza, poi extra",
+      "body": "Fai funzionare la versione minima. Solo dopo aggiungi contatore tentativi o numero casuale."
+    }
+  ],
+  "exerciseIds": [
+    "ex_python_number_game_01"
+  ]
+}

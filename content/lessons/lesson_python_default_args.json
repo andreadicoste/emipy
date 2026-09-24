@@ -1,0 +1,31 @@
+{
+  "externalId": "lesson_python_default_args",
+  "courseId": "course_python_functions",
+  "slug": "argomenti-default",
+  "title": "Argomenti di default e keyword",
+  "description": "Rendi opzionali alcuni argomenti e migliora la leggibilità delle chiamate.",
+  "order": 4,
+  "status": "published",
+  "blocks": [
+    {
+      "type": "markdown",
+      "body": "# Argomenti di default e keyword\n\nUn parametro può avere un valore predefinito. Alla chiamata puoi inoltre specificare gli argomenti per nome, rendendo più esplicito il significato dei valori.\n\nI parametri obbligatori devono precedere quelli con default nella firma."
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "filename": "main.py",
+      "code": "def saluta(nome, prefisso=\"Ciao\"):\n    return f\"{prefisso}, {nome}!\"\n\nprint(saluta(\"Ada\"))\nprint(saluta(\"Ada\", prefisso=\"Buongiorno\"))",
+      "caption": "Stessa funzione, due comportamenti"
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "Default sensati",
+      "body": "Usa valori di default quando esiste davvero un comportamento comune e prevedibile."
+    }
+  ],
+  "exerciseIds": [
+    "ex_python_default_args_01"
+  ]
+}

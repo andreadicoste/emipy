@@ -1,0 +1,16 @@
+{
+  "externalId": "ex_python_testing_01",
+  "title": "Testa clamp",
+  "instructions": "Implementa `clamp(valore, minimo, massimo)` e aggiungi almeno quattro assert: valore interno, sotto il minimo, sopra il massimo e uno dei confini.",
+  "language": "python",
+  "starterCode": "def clamp(valore, minimo, massimo):\n    pass\n\n# Aggiungi gli assert\n",
+  "starterFiles": [],
+  "learningObjectives": [
+    "Scrivere assert",
+    "Pensare a casi limite",
+    "Implementare una funzione pura"
+  ],
+  "expectedBehavior": "La funzione limita correttamente il valore all'intervallo e gli assert coprono i quattro casi richiesti.",
+  "graderInstructions": "Verificare sia implementazione sia presenza di test significativi.",
+  "status": "published"
+}

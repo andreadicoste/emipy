@@ -1,0 +1,15 @@
+{
+  "externalId": "ex_python_word_count_01",
+  "title": "Conta le parole",
+  "instructions": "Conta quante volte compare ogni parola nella lista usando un dizionario.",
+  "language": "python",
+  "starterCode": "parole = [\"python\", \"web\", \"python\", \"ai\", \"web\", \"python\"]\nconteggi = {}\n# Completa\nprint(conteggi)\n",
+  "starterFiles": [],
+  "learningObjectives": [
+    "Usare chiavi dinamiche",
+    "Accumulare frequenze"
+  ],
+  "expectedBehavior": "Il risultato associa python a 3, web a 2 e ai a 1.",
+  "graderInstructions": "Verificare conteggi su una lista diversa.",
+  "status": "published"
+}

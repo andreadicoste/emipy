@@ -1,0 +1,31 @@
+{
+  "externalId": "lesson_python_decomposition",
+  "courseId": "course_python_functions",
+  "slug": "scomporre-un-programma",
+  "title": "Scomporre un programma",
+  "description": "Dividi un problema grande in funzioni piccole che collaborano.",
+  "order": 6,
+  "status": "published",
+  "blocks": [
+    {
+      "type": "markdown",
+      "body": "# Scomporre un programma\n\nQuando una funzione legge input, valida, calcola e stampa tutto insieme diventa difficile da capire. Puoi separare responsabilità: una funzione calcola, una formatta, una orchestra.\n\nIl criterio non è il numero di righe ma la chiarezza del ruolo."
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "filename": "main.py",
+      "code": "def calcola_totale(prezzi):\n    return sum(prezzi)\n\ndef formatta_euro(valore):\n    return f\"€{valore:.2f}\"\n\nprezzi = [4.5, 8, 2.25]\nprint(formatta_euro(calcola_totale(prezzi)))",
+      "caption": "Due funzioni con ruoli distinti"
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "Nomi come documentazione",
+      "body": "Se devi spiegare a lungo cosa fa una funzione, forse può essere divisa o rinominata."
+    }
+  ],
+  "exerciseIds": [
+    "ex_python_decomposition_01"
+  ]
+}

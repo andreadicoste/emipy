@@ -2,14 +2,31 @@
   "externalId": "lesson_python_primi_passi",
   "courseId": "course_python_base",
   "slug": "primi-passi",
-  "title": "Primi passi",
-  "description": "Il tuo primo programma Python.",
+  "title": "Il tuo primo programma",
+  "description": "Esegui istruzioni, stampa valori e capisci come Python legge un file.",
   "order": 1,
   "status": "published",
   "blocks": [
-    { "type": "markdown", "body": "# Ciao, Python!\n\nUn programma è una sequenza di istruzioni. In Python puoi mostrare del testo usando `print()`." },
-    { "type": "code", "language": "python", "filename": "main.py", "code": "print(\"Ciao, Emipy!\")", "caption": "La prima istruzione" },
-    { "type": "callout", "variant": "tip", "title": "Prova tu", "body": "Cambia il testo tra virgolette e premi **START**." }
+    {
+      "type": "markdown",
+      "body": "# Il tuo primo programma\n\nUn programma Python è una sequenza di istruzioni. Python le esegue dall'alto verso il basso. La funzione `print()` serve a mostrare un valore nel terminale.\n\nProva a cambiare le stringhe e a eseguire di nuovo il programma: imparare a programmare significa osservare continuamente il rapporto tra codice e risultato."
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "filename": "main.py",
+      "code": "print(\"Ciao, Python!\")\nprint(\"2 + 3 =\", 2 + 3)",
+      "caption": "Due istruzioni eseguite in sequenza"
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "Leggi l'output",
+      "body": "Prima di scrivere altro codice, prova a prevedere cosa stamperà il programma."
+    }
   ],
-  "exerciseIds": ["ex_python_hello_01"]
+  "exerciseIds": [
+    "ex_python_hello_01",
+    "ex_python_first_calculation_01"
+  ]
 }

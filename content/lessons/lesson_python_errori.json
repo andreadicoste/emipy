@@ -1,15 +1,31 @@
 {
   "externalId": "lesson_python_errori",
   "courseId": "course_python_data",
-  "slug": "gestire-errori",
-  "title": "Gestire gli errori",
-  "description": "Intercetta gli imprevisti previsti e mostra messaggi utili.",
-  "order": 3,
+  "slug": "leggere-gli-errori",
+  "title": "Leggere gli errori",
+  "description": "Usa traceback e messaggi di eccezione per trovare il punto reale del problema.",
+  "order": 1,
   "status": "published",
   "blocks": [
-    { "type": "markdown", "body": "# Quando qualcosa va storto\n\nDentro `try` metti l'operazione rischiosa. Con `except` gestisci un errore specifico, evitando che il programma termini bruscamente." },
-    { "type": "code", "language": "python", "filename": "main.py", "code": "try:\n    numero = int(\"ciao\")\nexcept ValueError:\n    print(\"Serve un numero valido\")", "caption": "Gestire una conversione non valida" },
-    { "type": "callout", "variant": "tip", "title": "Errori specifici", "body": "Cattura l'errore che ti aspetti, come `ValueError` o `ZeroDivisionError`, invece di nascondere qualsiasi problema." }
+    {
+      "type": "markdown",
+      "body": "# Leggere gli errori\n\nUn errore non è solo un fallimento: contiene informazioni. Il traceback mostra la catena delle chiamate e termina con tipo e messaggio dell'eccezione.\n\nLeggi prima l'ultima riga, poi risali fino alla prima riga del tuo codice indicata nello stack."
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "filename": "main.py",
+      "code": "numeri = [10, 20, 30]\nindice = 5\nprint(numeri[indice])  # IndexError",
+      "caption": "Un indice fuori dalla lista provoca IndexError"
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "Riproduci prima di correggere",
+      "body": "Quando fai debugging, assicurati di poter riprodurre l'errore in modo affidabile prima di cambiare il codice."
+    }
   ],
-  "exerciseIds": ["ex_python_safe_division_01"]
+  "exerciseIds": [
+    "ex_python_debug_01"
+  ]
 }

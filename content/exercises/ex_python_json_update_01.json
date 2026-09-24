@@ -1,0 +1,16 @@
+{
+  "externalId": "ex_python_json_update_01",
+  "title": "Aggiorna impostazioni",
+  "instructions": "Leggi `settings.json`, imposta la chiave `theme` a `dark` e salva nuovamente il file con indentazione 2.",
+  "language": "python",
+  "starterCode": "import json\n\n# Leggi, modifica e riscrivi settings.json\n",
+  "starterFiles": [],
+  "learningObjectives": [
+    "Leggere JSON",
+    "Modificare dizionari",
+    "Scrivere JSON"
+  ],
+  "expectedBehavior": "Dopo l'esecuzione il file contiene theme=dark e conserva le altre chiavi.",
+  "graderInstructions": "Verificare che i dati preesistenti non vengano eliminati.",
+  "status": "published"
+}

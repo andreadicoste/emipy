@@ -1,0 +1,16 @@
+{
+  "externalId": "ex_python_number_game_01",
+  "title": "Indovina con contatore",
+  "instructions": "Crea un gioco con numero segreto 12. Continua a chiedere numeri finché l'utente indovina e alla fine stampa quanti tentativi sono serviti.",
+  "language": "python",
+  "starterCode": "segreto = 12\ntentativi = 0\n\n# Completa il gioco\n",
+  "starterFiles": [],
+  "learningObjectives": [
+    "Combinare while e if",
+    "Contare iterazioni",
+    "Leggere input numerico"
+  ],
+  "expectedBehavior": "Il programma termina solo quando viene inserito 12 e riporta il numero corretto di tentativi.",
+  "graderInstructions": "Verificare con sequenze di input di lunghezza diversa.",
+  "status": "published"
+}

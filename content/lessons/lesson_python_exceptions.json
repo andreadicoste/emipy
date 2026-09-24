@@ -1,0 +1,31 @@
+{
+  "externalId": "lesson_python_exceptions",
+  "courseId": "course_python_data",
+  "slug": "try-except",
+  "title": "Gestire eccezioni",
+  "description": "Intercetta errori previsti senza nascondere quelli imprevisti.",
+  "order": 2,
+  "status": "published",
+  "blocks": [
+    {
+      "type": "markdown",
+      "body": "# Gestire eccezioni\n\n`try/except` permette di gestire un'eccezione prevista. Cattura tipi specifici invece di usare un `except` generico: in questo modo gli errori inattesi restano visibili.\n\nLa gestione dell'errore deve produrre un comportamento intenzionale."
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "filename": "main.py",
+      "code": "testo = \"abc\"\ntry:\n    numero = int(testo)\nexcept ValueError:\n    print(\"Inserisci un numero valido\")",
+      "caption": "Catturiamo solo ValueError"
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "Except specifici",
+      "body": "`except Exception` può essere utile ai confini di un sistema, ma durante l'apprendimento rischia di nascondere bug veri."
+    }
+  ],
+  "exerciseIds": [
+    "ex_python_safe_division_01"
+  ]
+}

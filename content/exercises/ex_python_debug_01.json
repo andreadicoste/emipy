@@ -1,0 +1,16 @@
+{
+  "externalId": "ex_python_debug_01",
+  "title": "Trova tre bug",
+  "instructions": "Correggi il programma: deve stampare `Totale: 30` senza eccezioni.",
+  "language": "python",
+  "starterCode": "prezzi = [\"10\", \"20\"]\ntotale = prezzi[0] + prezzi[1]\nprint(\"Totale: \" + totale / 1)\n",
+  "starterFiles": [],
+  "learningObjectives": [
+    "Interpretare TypeError",
+    "Convertire tipi",
+    "Correggere codice"
+  ],
+  "expectedBehavior": "Il programma termina senza eccezioni e stampa Totale: 30.",
+  "graderInstructions": "Valutare il risultato e che la correzione non hardcodi semplicemente la stringa finale.",
+  "status": "published"
+}

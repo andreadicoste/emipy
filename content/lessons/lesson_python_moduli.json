@@ -3,13 +3,29 @@
   "courseId": "course_python_functions",
   "slug": "moduli",
   "title": "Dividere il codice in moduli",
-  "description": "Sposta funzioni correlate in file separati e importale in main.py.",
-  "order": 3,
+  "description": "Sposta funzioni correlate in file separati e importale dove servono.",
+  "order": 7,
   "status": "published",
   "blocks": [
-    { "type": "markdown", "body": "# Più file, un programma\n\nUn file Python può essere importato come modulo. Se `conversioni.py` contiene una funzione, `main.py` può usarla con `from conversioni import nome_funzione`." },
-    { "type": "code", "language": "python", "filename": "conversioni.py", "code": "def km_in_miglia(km):\n    return km * 0.621371", "caption": "Una funzione nel suo modulo" },
-    { "type": "callout", "variant": "tip", "title": "File minuscoli", "body": "Per i moduli usa nomi brevi, minuscoli e senza spazi." }
+    {
+      "type": "markdown",
+      "body": "# Dividere il codice in moduli\n\nUn modulo è semplicemente un file Python importabile. Separare codice in moduli evita file enormi e rende esplicite le dipendenze.\n\n`from temperature import celsius_to_fahrenheit` importa un nome specifico dal file `temperature.py`."
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "filename": "main.py",
+      "code": "from temperature import celsius_to_fahrenheit\n\nprint(celsius_to_fahrenheit(20))",
+      "caption": "main.py usa una funzione definita altrove"
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "Evita import *",
+      "body": "Importare nomi espliciti rende più facile capire da dove arrivano funzioni e costanti."
+    }
   ],
-  "exerciseIds": ["ex_python_temperature_module_01"]
+  "exerciseIds": [
+    "ex_python_temperature_module_01"
+  ]
 }

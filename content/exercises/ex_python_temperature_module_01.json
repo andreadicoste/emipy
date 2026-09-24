@@ -1,14 +1,20 @@
 {
   "externalId": "ex_python_temperature_module_01",
-  "title": "Convertitore di temperature",
-  "instructions": "Completa `celsius_in_fahrenheit` in conversioni.py, importala in main.py e stampa la conversione di 0 °C e 25 °C.",
+  "title": "Modulo temperature",
+  "instructions": "Completa `temperature.py` con `celsius_to_fahrenheit(c)` e usa la funzione da `main.py` per convertire 20 °C.",
   "language": "python",
-  "starterCode": "from conversioni import celsius_in_fahrenheit\n\nprint(celsius_in_fahrenheit(0))\nprint(celsius_in_fahrenheit(25))\n",
+  "starterCode": "from temperature import celsius_to_fahrenheit\n\nprint(celsius_to_fahrenheit(20))\n",
   "starterFiles": [
-    { "name": "conversioni.py", "code": "def celsius_in_fahrenheit(celsius):\n    # Formula: Celsius × 9 / 5 + 32\n    pass\n" }
+    {
+      "name": "temperature.py",
+      "code": "def celsius_to_fahrenheit(c):\n    # Completa\n    pass\n"
+    }
   ],
-  "learningObjectives": ["Importare da un modulo locale", "Separare una funzione da main.py"],
-  "expectedBehavior": "Il programma usa il modulo e stampa 32 per 0 °C e 77 per 25 °C.",
-  "graderInstructions": "Richiedere che la funzione sia implementata in conversioni.py e importata; accettare 32 o 32.0 e 77 o 77.0.",
+  "learningObjectives": [
+    "Creare moduli",
+    "Importare funzioni"
+  ],
+  "expectedBehavior": "L'esecuzione di main.py stampa 68.0 o 68.",
+  "graderInstructions": "Verificare che la funzione sia definita nel file separato e importata.",
   "status": "published"
 }

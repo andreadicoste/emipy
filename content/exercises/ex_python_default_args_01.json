@@ -1,0 +1,15 @@
+{
+  "externalId": "ex_python_default_args_01",
+  "title": "Prezzo con IVA",
+  "instructions": "Scrivi `totale(prezzo, iva=22)` che restituisce il prezzo comprensivo di IVA. Provala sia col default sia con `iva=10`.",
+  "language": "python",
+  "starterCode": "def totale(prezzo, iva=22):\n    pass\n\n# Aggiungi due chiamate\n",
+  "starterFiles": [],
+  "learningObjectives": [
+    "Definire parametri di default",
+    "Usare keyword arguments"
+  ],
+  "expectedBehavior": "Con 100 produce 122 col default e 110 con iva=10.",
+  "graderInstructions": "Verificare formula generale e presenza del default 22.",
+  "status": "published"
+}

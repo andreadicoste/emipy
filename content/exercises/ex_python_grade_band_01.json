@@ -1,0 +1,15 @@
+{
+  "externalId": "ex_python_grade_band_01",
+  "title": "Fascia del voto",
+  "instructions": "Dato un voto da 0 a 30, stampa `insufficiente` sotto 18, `sufficiente` da 18 a 23, `buono` da 24 a 27 e `ottimo` da 28 a 30.",
+  "language": "python",
+  "starterCode": "voto = 26\n# Completa\n",
+  "starterFiles": [],
+  "learningObjectives": [
+    "Comporre condizioni multiple",
+    "Ragionare sui confini"
+  ],
+  "expectedBehavior": "26 produce buono e i valori 17, 18, 24, 28 ricadono nelle fasce corrette.",
+  "graderInstructions": "Verificare tutti i confini delle fasce.",
+  "status": "published"
+}

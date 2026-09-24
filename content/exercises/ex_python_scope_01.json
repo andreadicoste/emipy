@@ -1,0 +1,15 @@
+{
+  "externalId": "ex_python_scope_01",
+  "title": "Rimuovi la dipendenza globale",
+  "instructions": "Riscrivi la funzione affinché non dipenda dalla variabile globale `sconto`: deve ricevere tutto tramite parametri.",
+  "language": "python",
+  "starterCode": "sconto = 20\n\ndef prezzo_finale(prezzo):\n    return prezzo - prezzo * sconto / 100\n\nprint(prezzo_finale(50))\n",
+  "starterFiles": [],
+  "learningObjectives": [
+    "Riconoscere dipendenze globali",
+    "Progettare parametri"
+  ],
+  "expectedBehavior": "La funzione finale riceve prezzo e sconto come parametri e funziona per percentuali diverse.",
+  "graderInstructions": "Verificare che il corpo non legga la variabile globale sconto.",
+  "status": "published"
+}

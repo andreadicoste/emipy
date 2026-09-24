@@ -1,0 +1,31 @@
+{
+  "externalId": "lesson_python_collection_project",
+  "courseId": "course_python_collections",
+  "slug": "mini-progetto-statistiche",
+  "title": "Mini progetto: statistiche di testo",
+  "description": "Combina stringhe, liste, set e dizionari in una piccola analisi.",
+  "order": 8,
+  "status": "published",
+  "blocks": [
+    {
+      "type": "markdown",
+      "body": "# Mini progetto: statistiche di testo\n\nRicevi una frase, normalizzala e produci informazioni utili: numero di parole, parole uniche e frequenze.\n\nQuesto esercizio è importante perché non ti dice quale struttura usare a ogni riga: devi scegliere tu."
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "filename": "main.py",
+      "code": "testo = \"python rende python divertente\"\nparole = testo.lower().split()\n\nfrequenze = {}\nfor parola in parole:\n    frequenze[parola] = frequenze.get(parola, 0) + 1\n\nprint(\"Parole:\", len(parole))\nprint(\"Uniche:\", len(set(parole)))\nprint(frequenze)",
+      "caption": "Più strutture nello stesso problema"
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "Scomponi mentalmente",
+      "body": "Prima individua i dati intermedi: testo normalizzato, lista di parole, set delle uniche, dizionario delle frequenze."
+    }
+  ],
+  "exerciseIds": [
+    "ex_python_text_stats_01"
+  ]
+}

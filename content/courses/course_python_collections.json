@@ -1,8 +1,8 @@
 {
   "externalId": "course_python_collections",
-  "slug": "cicli-collezioni",
-  "title": "Cicli e collezioni",
-  "description": "Lavora con liste, ripetizioni e dizionari per gestire gruppi di dati.",
+  "slug": "python-collezioni",
+  "title": "Collezioni e dati",
+  "description": "Lavora con stringhe, liste, tuple, set e dizionari per organizzare e trasformare dati.",
   "order": 2,
   "status": "published"
 }

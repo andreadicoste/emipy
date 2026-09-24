@@ -1,15 +1,32 @@
 {
   "externalId": "lesson_python_variabili_input",
   "courseId": "course_python_base",
-  "slug": "variabili-input",
+  "slug": "variabili-e-input",
   "title": "Variabili e input",
-  "description": "Salva informazioni e chiedi dati a chi usa il programma.",
-  "order": 2,
+  "description": "Salva valori con un nome e raccogli dati digitati dall'utente.",
+  "order": 3,
   "status": "published",
   "blocks": [
-    { "type": "markdown", "body": "# Dati che cambiano\n\nUna **variabile** associa un nome a un valore. Con `input()` il programma può ricevere testo dalla tastiera. Il risultato di `input()` è sempre una stringa." },
-    { "type": "code", "language": "python", "filename": "main.py", "code": "nome = input(\"Come ti chiami? \")\nprint(\"Piacere,\", nome)", "caption": "Leggere e riusare un valore" },
-    { "type": "callout", "variant": "tip", "title": "Nomi chiari", "body": "Preferisci `nome` o `eta` a nomi generici come `x`: il codice diventa più facile da leggere." }
+    {
+      "type": "markdown",
+      "body": "# Variabili e input\n\nUna variabile associa un nome a un valore. `input()` interrompe il programma e restituisce sempre una stringa; se ti serve un numero devi convertirla con `int()` o `float()`."
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "filename": "main.py",
+      "code": "nome = input(\"Come ti chiami? \")\neta = int(input(\"Quanti anni hai? \"))\n\nprint(\"Ciao\", nome)\nprint(\"Tra un anno avrai\", eta + 1, \"anni\")",
+      "caption": "Input testuale e conversione numerica"
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "Nomi descrittivi",
+      "body": "Preferisci `eta` a nomi generici come `x`: un buon nome riduce il lavoro necessario per capire il codice."
+    }
   ],
-  "exerciseIds": ["ex_python_profile_01"]
+  "exerciseIds": [
+    "ex_python_profile_01",
+    "ex_python_age_01"
+  ]
 }

@@ -1,0 +1,31 @@
+{
+  "externalId": "lesson_python_while",
+  "courseId": "course_python_base",
+  "slug": "ciclo-while",
+  "title": "Ripetere finché serve con while",
+  "description": "Usa un ciclo quando non sai in anticipo quante iterazioni serviranno.",
+  "order": 7,
+  "status": "published",
+  "blocks": [
+    {
+      "type": "markdown",
+      "body": "# Ripetere finché serve con while\n\n`while` ripete il proprio blocco finché la condizione rimane vera. È utile per menu, tentativi e input che devono essere richiesti nuovamente.\n\nOgni `while` deve avere una via d'uscita: qualcosa nel corpo deve poter rendere falsa la condizione."
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "filename": "main.py",
+      "code": "tentativi = 3\nwhile tentativi > 0:\n    print(\"Tentativi rimasti:\", tentativi)\n    tentativi -= 1\n\nprint(\"Fine\")",
+      "caption": "Il contatore rende falsa la condizione"
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "Attenzione ai loop infiniti",
+      "body": "Prima di eseguire un `while`, chiediti quale istruzione cambia la condizione."
+    }
+  ],
+  "exerciseIds": [
+    "ex_python_countdown_01"
+  ]
+}

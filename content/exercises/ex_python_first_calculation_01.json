@@ -1,0 +1,15 @@
+{
+  "externalId": "ex_python_first_calculation_01",
+  "title": "Conti veloci",
+  "instructions": "Stampa il risultato di 17 + 25, 9 * 6 e 100 / 4, una operazione per riga.",
+  "language": "python",
+  "starterCode": "# Calcola e stampa i tre risultati\n",
+  "starterFiles": [],
+  "learningObjectives": [
+    "Usare espressioni numeriche",
+    "Stampare risultati"
+  ],
+  "expectedBehavior": "L'output contiene 42, 54 e 25.0 o 25.",
+  "graderInstructions": "Verificare i tre risultati senza imporre testo esatto attorno ai numeri.",
+  "status": "published"
+}

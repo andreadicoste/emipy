@@ -1,0 +1,31 @@
+{
+  "externalId": "lesson_python_function_project",
+  "courseId": "course_python_functions",
+  "slug": "mini-progetto-calcolatrice",
+  "title": "Mini progetto: calcolatrice a funzioni",
+  "description": "Organizza una piccola applicazione attorno a funzioni con responsabilità chiare.",
+  "order": 8,
+  "status": "published",
+  "blocks": [
+    {
+      "type": "markdown",
+      "body": "# Mini progetto: calcolatrice a funzioni\n\nCostruisci una calcolatrice che supporta quattro operazioni. La logica matematica non deve stare tutta nel menu: crea funzioni per le operazioni e una funzione che seleziona quella richiesta.\n\nQuesto è il primo esercizio in cui l'architettura conta quasi quanto il risultato."
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "filename": "main.py",
+      "code": "def calcola(a, b, operazione):\n    if operazione == \"+\":\n        return a + b\n    if operazione == \"-\":\n        return a - b\n    if operazione == \"*\":\n        return a * b\n    if operazione == \"/\":\n        return a / b\n    raise ValueError(\"Operazione non supportata\")",
+      "caption": "Una funzione espone un'interfaccia semplice"
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "Pensa ai casi invalidi",
+      "body": "Un buon programma definisce anche cosa succede quando riceve un'operazione non prevista."
+    }
+  ],
+  "exerciseIds": [
+    "ex_python_calculator_01"
+  ]
+}

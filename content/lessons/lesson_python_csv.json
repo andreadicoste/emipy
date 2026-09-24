@@ -1,0 +1,31 @@
+{
+  "externalId": "lesson_python_csv",
+  "courseId": "course_python_data",
+  "slug": "csv",
+  "title": "Dati tabellari con CSV",
+  "description": "Leggi righe strutturate senza separare manualmente le virgole.",
+  "order": 5,
+  "status": "published",
+  "blocks": [
+    {
+      "type": "markdown",
+      "body": "# Dati tabellari con CSV\n\nIl modulo `csv` gestisce dettagli come separatori e quoting. `csv.DictReader` restituisce ogni riga come dizionario usando l'intestazione del file.\n\nÈ più robusto di `line.split(',')`."
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "filename": "main.py",
+      "code": "import csv\n\nwith open(\"studenti.csv\", encoding=\"utf-8\", newline=\"\") as file:\n    reader = csv.DictReader(file)\n    for riga in reader:\n        print(riga[\"nome\"], riga[\"voto\"])",
+      "caption": "Ogni riga diventa un dizionario"
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "Usa la libreria standard",
+      "body": "Quando un formato ha già un parser nella standard library, preferiscilo al parsing manuale."
+    }
+  ],
+  "exerciseIds": [
+    "ex_python_csv_average_01"
+  ]
+}

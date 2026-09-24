@@ -1,0 +1,15 @@
+{
+  "externalId": "ex_python_slicing_01",
+  "title": "Taglia e inverti",
+  "instructions": "Dalla lista 1..10 crea e stampa: i primi tre elementi, gli ultimi tre e la lista invertita.",
+  "language": "python",
+  "starterCode": "numeri = [1,2,3,4,5,6,7,8,9,10]\n# Crea tre slicing\n",
+  "starterFiles": [],
+  "learningObjectives": [
+    "Usare slicing",
+    "Usare indici negativi"
+  ],
+  "expectedBehavior": "Produce [1,2,3], [8,9,10] e [10,9,...,1].",
+  "graderInstructions": "Verificare che vengano usati slicing o costruzioni equivalenti senza hardcoding delle tre liste.",
+  "status": "published"
+}

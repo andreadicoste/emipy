@@ -1,0 +1,15 @@
+{
+  "externalId": "ex_python_decomposition_01",
+  "title": "Scontrino in due funzioni",
+  "instructions": "Implementa `totale(prezzi)` e `con_iva(importo, iva)`; usa la seconda sul risultato della prima.",
+  "language": "python",
+  "starterCode": "def totale(prezzi):\n    pass\n\ndef con_iva(importo, iva):\n    pass\n\nprezzi = [10, 5, 2]\n# Combina le due funzioni\n",
+  "starterFiles": [],
+  "learningObjectives": [
+    "Scomporre responsabilità",
+    "Comporre funzioni"
+  ],
+  "expectedBehavior": "Con prezzi [10,5,2] e iva 22 il totale finale è 20.74.",
+  "graderInstructions": "Verificare separatamente entrambe le funzioni e la loro composizione.",
+  "status": "published"
+}

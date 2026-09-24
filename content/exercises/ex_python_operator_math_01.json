@@ -1,0 +1,15 @@
+{
+  "externalId": "ex_python_operator_math_01",
+  "title": "Da secondi a minuti",
+  "instructions": "Dato un numero di secondi, calcola quanti minuti completi contiene e quanti secondi avanzano.",
+  "language": "python",
+  "starterCode": "secondi = 367\n# Calcola minuti e resto\n",
+  "starterFiles": [],
+  "learningObjectives": [
+    "Usare //",
+    "Usare %"
+  ],
+  "expectedBehavior": "Per 367 stampa o produce 6 minuti e 7 secondi.",
+  "graderInstructions": "Verificare formule generali usando // e % o logica equivalente.",
+  "status": "published"
+}

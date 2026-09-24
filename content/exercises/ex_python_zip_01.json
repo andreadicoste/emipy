@@ -1,0 +1,15 @@
+{
+  "externalId": "ex_python_zip_01",
+  "title": "Listino",
+  "instructions": "Combina `prodotti` e `prezzi` con `zip` e stampa righe del tipo `Pane: €2.50`.",
+  "language": "python",
+  "starterCode": "prodotti = [\"Pane\", \"Latte\", \"Pasta\"]\nprezzi = [2.5, 1.8, 1.2]\n# Completa\n",
+  "starterFiles": [],
+  "learningObjectives": [
+    "Usare zip",
+    "Formattare numeri"
+  ],
+  "expectedBehavior": "Stampa tre righe associando ogni prodotto al prezzo corrispondente con due decimali.",
+  "graderInstructions": "Verificare corrispondenza e formattazione.",
+  "status": "published"
+}

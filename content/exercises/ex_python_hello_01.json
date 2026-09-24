@@ -1,12 +1,15 @@
 {
   "externalId": "ex_python_hello_01",
-  "title": "Il tuo primo saluto",
-  "instructions": "Scrivi un programma che stampi il tuo nome e una frase di saluto.",
+  "title": "Presentati al terminale",
+  "instructions": "Stampa su due righe il tuo nome e una frase che spiega perché stai imparando Python.",
   "language": "python",
-  "starterCode": "nome = \"Ada\"\nprint(\"Ciao,\", nome)\n",
+  "starterCode": "# Scrivi qui il tuo programma\n",
   "starterFiles": [],
-  "learningObjectives": ["Usare print", "Assegnare una stringa a una variabile"],
-  "expectedBehavior": "Il programma stampa un saluto contenente il nome scelto.",
-  "graderInstructions": "Verificare che l'output contenga un nome e un saluto leggibile.",
+  "learningObjectives": [
+    "Usare print",
+    "Eseguire più istruzioni"
+  ],
+  "expectedBehavior": "Il programma stampa due righe di testo non vuote.",
+  "graderInstructions": "Verificare che siano presenti almeno due chiamate a print e che l'output contenga due righe.",
   "status": "published"
 }

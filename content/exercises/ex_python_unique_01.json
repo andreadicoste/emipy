@@ -1,0 +1,15 @@
+{
+  "externalId": "ex_python_unique_01",
+  "title": "Utenti unici",
+  "instructions": "Data la lista di username con duplicati, stampa quanti utenti distinti ci sono.",
+  "language": "python",
+  "starterCode": "utenti = [\"ada\", \"leo\", \"ada\", \"marta\", \"leo\", \"sara\"]\n# Completa\n",
+  "starterFiles": [],
+  "learningObjectives": [
+    "Creare un set",
+    "Eliminare duplicati"
+  ],
+  "expectedBehavior": "Il risultato numerico è 4.",
+  "graderInstructions": "Verificare la conversione o logica equivalente su dati diversi.",
+  "status": "published"
+}

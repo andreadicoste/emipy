@@ -1,8 +1,8 @@
 {
   "externalId": "course_python_base",
   "slug": "python-base",
-  "title": "Python Base",
-  "description": "Impara le fondamenta di Python costruendo piccoli programmi reali.",
+  "title": "Fondamenti di Python",
+  "description": "Impara a leggere, scrivere e controllare piccoli programmi Python partendo da zero.",
   "order": 1,
   "status": "published"
 }

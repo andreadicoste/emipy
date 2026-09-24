@@ -1,15 +1,32 @@
 {
   "externalId": "lesson_python_stringhe",
-  "courseId": "course_python_data",
-  "slug": "trasformare-stringhe",
-  "title": "Trasformare le stringhe",
-  "description": "Pulisci, confronta e analizza il testo.",
+  "courseId": "course_python_collections",
+  "slug": "stringhe",
+  "title": "Stringhe: testo come sequenza",
+  "description": "Accedi ai caratteri, misura e trasforma il testo.",
   "order": 1,
   "status": "published",
   "blocks": [
-    { "type": "markdown", "body": "# Testo sotto controllo\n\nLe stringhe offrono metodi utili: `strip()` elimina spazi esterni, `lower()` converte in minuscolo e `replace()` sostituisce parti del testo." },
-    { "type": "code", "language": "python", "filename": "main.py", "code": "testo = \"  Ciao Python  \"\npulito = testo.strip().lower()\nprint(pulito)\nprint(len(pulito))", "caption": "Metodi concatenati" },
-    { "type": "callout", "variant": "info", "title": "La stringa originale resta uguale", "body": "I metodi delle stringhe producono un nuovo valore: salvalo se vuoi riutilizzarlo." }
+    {
+      "type": "markdown",
+      "body": "# Stringhe: testo come sequenza\n\nUna stringa è una sequenza di caratteri. Puoi usare indici, slicing e metodi come `lower()`, `strip()` e `replace()`.\n\nMolti programmi reali iniziano proprio da testo sporco che va normalizzato prima di essere confrontato o analizzato."
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "filename": "main.py",
+      "code": "testo = \"  Python è Bello  \"\npulito = testo.strip().lower()\n\nprint(pulito)\nprint(pulito[0])\nprint(pulito[:6])",
+      "caption": "Pulizia, indice e slicing"
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "Le stringhe sono immutabili",
+      "body": "I metodi delle stringhe restituiscono nuove stringhe: non modificano quella originale."
+    }
   ],
-  "exerciseIds": ["ex_python_palindrome_01"]
+  "exerciseIds": [
+    "ex_python_palindrome_01",
+    "ex_python_slug_01"
+  ]
 }

@@ -1,0 +1,31 @@
+{
+  "externalId": "lesson_python_valori_tipi",
+  "courseId": "course_python_base",
+  "slug": "valori-e-tipi",
+  "title": "Valori e tipi",
+  "description": "Distingui numeri, testo e valori booleani e osserva il tipo di un valore.",
+  "order": 2,
+  "status": "published",
+  "blocks": [
+    {
+      "type": "markdown",
+      "body": "# Valori e tipi\n\nPython tratta in modo diverso valori diversi. Gli interi sono `int`, i numeri con decimali sono `float`, il testo è `str` e i valori logici sono `bool`.\n\nIl tipo determina quali operazioni hanno senso: puoi sommare due numeri, mentre concatenare testo segue regole diverse."
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "filename": "main.py",
+      "code": "eta = 18\naltezza = 1.84\nnome = \"Ada\"\nstudia = True\n\nprint(type(eta))\nprint(type(altezza))\nprint(type(nome))\nprint(type(studia))",
+      "caption": "Quattro valori, quattro tipi"
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "Non memorizzare tutto",
+      "body": "L'obiettivo non è ricordare ogni tipo a memoria, ma imparare a riconoscerlo quando leggi il codice."
+    }
+  ],
+  "exerciseIds": [
+    "ex_python_types_01"
+  ]
+}

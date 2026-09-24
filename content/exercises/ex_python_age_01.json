@@ -1,0 +1,15 @@
+{
+  "externalId": "ex_python_age_01",
+  "title": "Età futura",
+  "instructions": "Chiedi l'età dell'utente e stampa quanti anni avrà tra 5 anni.",
+  "language": "python",
+  "starterCode": "eta = int(input(\"Età: \"))\n# Completa\n",
+  "starterFiles": [],
+  "learningObjectives": [
+    "Convertire stringhe in interi",
+    "Fare calcoli con input"
+  ],
+  "expectedBehavior": "Con input 18 il risultato numerico è 23.",
+  "graderInstructions": "Verificare che il calcolo sia generale e non hardcoded.",
+  "status": "published"
+}

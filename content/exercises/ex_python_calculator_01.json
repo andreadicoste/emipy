@@ -1,0 +1,15 @@
+{
+  "externalId": "ex_python_calculator_01",
+  "title": "Calcolatrice riutilizzabile",
+  "instructions": "Implementa `calcola(a, b, operazione)` per +, -, *, /. Per divisione per zero restituisci `None`; per simboli sconosciuti restituisci `None`.",
+  "language": "python",
+  "starterCode": "def calcola(a, b, operazione):\n    pass\n\nprint(calcola(10, 2, \"/\"))\n",
+  "starterFiles": [],
+  "learningObjectives": [
+    "Combinare funzioni e condizioni",
+    "Gestire casi limite"
+  ],
+  "expectedBehavior": "Le quattro operazioni funzionano; divisione per zero e operazione sconosciuta producono None.",
+  "graderInstructions": "Testare più operazioni e casi limite.",
+  "status": "published"
+}

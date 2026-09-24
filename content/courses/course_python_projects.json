@@ -1,8 +1,8 @@
 {
   "externalId": "course_python_projects",
-  "slug": "mini-progetti",
-  "title": "Mini-progetti Python",
-  "description": "Combina ciò che hai imparato in piccoli programmi completi e utili.",
-  "order": 5,
+  "slug": "python-progetti",
+  "title": "Progetti guidati",
+  "description": "Metti insieme tutto ciò che hai imparato in programmi completi e progressivamente più autonomi.",
+  "order": 6,
   "status": "published"
 }

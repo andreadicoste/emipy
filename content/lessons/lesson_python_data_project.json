@@ -1,0 +1,31 @@
+{
+  "externalId": "lesson_python_data_project",
+  "courseId": "course_python_data",
+  "slug": "mini-progetto-rubrica",
+  "title": "Mini progetto: rubrica persistente",
+  "description": "Costruisci una piccola rubrica che conserva i contatti tra un'esecuzione e l'altra.",
+  "order": 7,
+  "status": "published",
+  "blocks": [
+    {
+      "type": "markdown",
+      "body": "# Mini progetto: rubrica persistente\n\nRappresenta ogni contatto come dizionario e l'intera rubrica come lista. All'avvio carica il JSON se esiste; dopo una modifica salva lo stato.\n\nMantieni separate le funzioni di caricamento, salvataggio e logica dei contatti."
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "filename": "main.py",
+      "code": "import json\n\n\ndef salva(contatti, path=\"contatti.json\"):\n    with open(path, \"w\", encoding=\"utf-8\") as file:\n        json.dump(contatti, file, ensure_ascii=False, indent=2)",
+      "caption": "Una funzione si occupa solo della persistenza"
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "Progetta prima i dati",
+      "body": "Prima del menu, decidi esattamente la forma di un contatto e della collezione che li contiene."
+    }
+  ],
+  "exerciseIds": [
+    "ex_python_contacts_01"
+  ]
+}

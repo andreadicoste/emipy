@@ -1,8 +1,8 @@
 {
   "externalId": "course_python_functions",
-  "slug": "funzioni-pratica",
-  "title": "Funzioni in pratica",
-  "description": "Organizza il codice in funzioni chiare, riutilizzabili e facili da controllare.",
+  "slug": "python-funzioni",
+  "title": "Funzioni e struttura del codice",
+  "description": "Impara a dividere un programma in parti riutilizzabili, leggibili e facili da verificare.",
   "order": 3,
   "status": "published"
 }

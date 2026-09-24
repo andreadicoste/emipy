@@ -1,0 +1,15 @@
+{
+  "externalId": "ex_python_even_01",
+  "title": "Pari o dispari",
+  "instructions": "Completa l'espressione booleana in modo che `is_even` sia True quando `numero` è pari.",
+  "language": "python",
+  "starterCode": "numero = 42\nis_even = False  # sostituisci questa espressione\nprint(is_even)\n",
+  "starterFiles": [],
+  "learningObjectives": [
+    "Usare il modulo",
+    "Produrre booleani"
+  ],
+  "expectedBehavior": "Con 42 stampa True; cambiando numero a 41 stampa False.",
+  "graderInstructions": "Verificare comportamento su almeno un pari e un dispari.",
+  "status": "published"
+}

@@ -1,0 +1,15 @@
+{
+  "externalId": "ex_python_unpacking_01",
+  "title": "Scambia e separa",
+  "instructions": "Usa unpacking per scambiare `a` e `b`, poi separa la lista in primo elemento, elementi centrali e ultimo.",
+  "language": "python",
+  "starterCode": "a = 10\nb = 20\nvalori = [3, 5, 7, 9, 11]\n# Completa\n",
+  "starterFiles": [],
+  "learningObjectives": [
+    "Usare tuple unpacking",
+    "Usare starred unpacking"
+  ],
+  "expectedBehavior": "Dopo lo scambio a=20 e b=10; la lista viene separata in 3, [5,7,9], 11.",
+  "graderInstructions": "Verificare che non vengano usate variabili temporanee per lo scambio.",
+  "status": "published"
+}

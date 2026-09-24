@@ -1,0 +1,16 @@
+{
+  "externalId": "ex_python_csv_average_01",
+  "title": "Media dal CSV",
+  "instructions": "Leggi `voti.csv` con colonne `nome,voto` e stampa la media numerica dei voti.",
+  "language": "python",
+  "starterCode": "import csv\n\nwith open(\"voti.csv\", encoding=\"utf-8\", newline=\"\") as file:\n    reader = csv.DictReader(file)\n    # Completa\n",
+  "starterFiles": [],
+  "learningObjectives": [
+    "Usare csv.DictReader",
+    "Convertire valori testuali",
+    "Calcolare una media"
+  ],
+  "expectedBehavior": "Produce la media corretta per qualsiasi CSV non vuoto con la struttura indicata.",
+  "graderInstructions": "Verificare che i voti vengano convertiti a numero e non concatenati.",
+  "status": "published"
+}

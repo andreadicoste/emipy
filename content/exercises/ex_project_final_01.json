@@ -1,0 +1,18 @@
+{
+  "externalId": "ex_project_final_01",
+  "title": "Inventario completo",
+  "instructions": "Completa il progetto con `Prodotto` e `Inventario`. Implementa almeno: `aggiungi`, `cerca`, `aggiorna_quantita`, `valore_totale`, `salva_json` e `carica_json`. Aggiungi assert per casi normali e almeno due casi limite.",
+  "language": "python",
+  "starterCode": "from dataclasses import dataclass\nimport json\n\n@dataclass\nclass Prodotto:\n    codice: str\n    nome: str\n    prezzo: float\n    quantita: int\n\nclass Inventario:\n    def __init__(self):\n        self.prodotti = {}\n\n    # Completa qui\n",
+  "starterFiles": [],
+  "learningObjectives": [
+    "Progettare classi",
+    "Usare dataclass e dizionari",
+    "Persistenza JSON",
+    "Gestire errori",
+    "Scrivere test"
+  ],
+  "expectedBehavior": "Il progetto gestisce prodotti per codice univoco, aggiorna scorte, calcola valore, persiste dati e include test significativi.",
+  "graderInstructions": "Valutare comportamento, chiarezza della struttura e robustezza; non imporre una singola implementazione interna.",
+  "status": "published"
+}

@@ -1,0 +1,16 @@
+{
+  "externalId": "ex_project_todo_01",
+  "title": "Core della todo list",
+  "instructions": "Implementa `aggiungi(attivita, testo)` assegnando id max+1 e `completa(attivita, id_)` che marca l'attività e restituisce True, oppure False se non esiste.",
+  "language": "python",
+  "starterCode": "def aggiungi(attivita, testo):\n    pass\n\ndef completa(attivita, id_):\n    pass\n",
+  "starterFiles": [],
+  "learningObjectives": [
+    "Gestire identificatori",
+    "Modificare liste di dizionari",
+    "Definire esiti espliciti"
+  ],
+  "expectedBehavior": "Gli id crescono senza collisioni e completa modifica solo l'elemento richiesto.",
+  "graderInstructions": "Testare lista vuota, più elementi e id inesistente.",
+  "status": "published"
+}

@@ -1,0 +1,31 @@
+{
+  "externalId": "lesson_python_dataclass",
+  "courseId": "course_python_intermediate",
+  "slug": "dataclass",
+  "title": "Dataclass per modelli semplici",
+  "description": "Riduci boilerplate quando una classe rappresenta soprattutto dati.",
+  "order": 5,
+  "status": "published",
+  "blocks": [
+    {
+      "type": "markdown",
+      "body": "# Dataclass per modelli semplici\n\n`@dataclass` genera automaticamente metodi come `__init__` e `__repr__` a partire dagli attributi annotati. È ideale per record con struttura chiara.\n\nPuoi comunque aggiungere metodi quando il modello possiede comportamento."
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "filename": "main.py",
+      "code": "from dataclasses import dataclass\n\n@dataclass\nclass Prodotto:\n    nome: str\n    prezzo: float\n    quantita: int = 1\n\n    def totale(self):\n        return self.prezzo * self.quantita\n\nprint(Prodotto(\"Libro\", 12.5, 2))",
+      "caption": "Meno codice ripetitivo"
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "Dataclass non significa database",
+      "body": "È semplicemente una comodità del linguaggio per classi orientate ai dati."
+    }
+  ],
+  "exerciseIds": [
+    "ex_python_dataclass_01"
+  ]
+}

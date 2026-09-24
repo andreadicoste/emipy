@@ -1,12 +1,16 @@
 {
   "externalId": "ex_python_positive_total_01",
   "title": "Somma solo i positivi",
-  "instructions": "Scorri la lista e somma solo i numeri maggiori di zero. Stampa il totale finale.",
+  "instructions": "Calcola la somma dei numeri positivi presenti nella lista senza usare `sum()` su una lista filtrata.",
   "language": "python",
-  "starterCode": "numeri = [4, -2, 7, 0, -3, 1]\ntotale = 0\n# Completa il ciclo\n",
+  "starterCode": "numeri = [4, -2, 7, -5, 3]\ntotale = 0\n\n# Completa il ciclo\nprint(totale)\n",
   "starterFiles": [],
-  "learningObjectives": ["Iterare con for", "Filtrare con una condizione", "Usare un accumulatore"],
-  "expectedBehavior": "Con la lista fornita il programma stampa 12.",
-  "graderInstructions": "Verificare che il risultato derivi dalla somma dei soli valori positivi e non da un valore stampato senza calcolo.",
+  "learningObjectives": [
+    "Iterare una lista",
+    "Usare un accumulatore",
+    "Filtrare con if"
+  ],
+  "expectedBehavior": "Il risultato è 14.",
+  "graderInstructions": "Verificare che funzioni anche cambiando la lista.",
   "status": "published"
 }

@@ -1,0 +1,16 @@
+{
+  "externalId": "ex_project_text_analyzer_01",
+  "title": "Top parole",
+  "instructions": "Implementa `frequenze(parole)` e `top_n(conteggi, n)`; `top_n` restituisce una lista di tuple `(parola, conteggio)` ordinate per conteggio decrescente e poi parola alfabetica.",
+  "language": "python",
+  "starterCode": "def frequenze(parole):\n    pass\n\ndef top_n(conteggi, n):\n    pass\n",
+  "starterFiles": [],
+  "learningObjectives": [
+    "Calcolare frequenze",
+    "Ordinare con criteri multipli",
+    "Comporre funzioni"
+  ],
+  "expectedBehavior": "Le frequenze sono corrette e il ranking rispetta conteggio desc e parola asc.",
+  "graderInstructions": "Verificare pareggi e n minore del numero di parole.",
+  "status": "published"
+}

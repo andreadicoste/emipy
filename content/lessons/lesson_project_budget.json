@@ -1,15 +1,31 @@
 {
   "externalId": "lesson_project_budget",
   "courseId": "course_python_projects",
-  "slug": "riepilogo-spese",
-  "title": "Progetto: riepilogo spese",
-  "description": "Analizza una lista di spese con funzioni e aggregazioni.",
-  "order": 2,
+  "slug": "budget-personale",
+  "title": "Progetto: budget personale",
+  "description": "Registra movimenti e calcola saldo e spesa per categoria.",
+  "order": 1,
   "status": "published",
   "blocks": [
-    { "type": "markdown", "body": "# Un riepilogo utile\n\nPer analizzare una raccolta servono misure semplici: totale, media e valore massimo. Una funzione può calcolarle e restituire più risultati." },
-    { "type": "code", "language": "python", "filename": "main.py", "code": "spese = [12.5, 8.0, 4.5]\ntotale = sum(spese)\nmedia = totale / len(spese)\nprint(totale, media)", "caption": "Prime misure" },
-    { "type": "callout", "variant": "warning", "title": "Lista vuota", "body": "Prima di dividere per `len(spese)`, considera cosa deve accadere quando non ci sono spese." }
+    {
+      "type": "markdown",
+      "body": "# Progetto: budget personale\n\nCostruisci un piccolo tracker finanziario in memoria. Ogni movimento deve avere tipo, importo e categoria. Il programma deve calcolare saldo complessivo e aggregazioni per categoria.\n\nNon partire dal menu: prima definisci bene la struttura dei movimenti e le funzioni di calcolo."
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "filename": "main.py",
+      "code": "movimenti = [\n    {\"tipo\": \"entrata\", \"importo\": 1200, \"categoria\": \"lavoro\"},\n    {\"tipo\": \"uscita\", \"importo\": 35, \"categoria\": \"spesa\"},\n]\n\n# Scrivi funzioni che lavorano su questa struttura",
+      "caption": "Il progetto parte dal modello dei dati"
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "Separa dominio e interfaccia",
+      "body": "Le funzioni di calcolo non dovrebbero dipendere da `input()` o `print()`."
+    }
   ],
-  "exerciseIds": ["ex_project_budget_01"]
+  "exerciseIds": [
+    "ex_project_budget_01"
+  ]
 }

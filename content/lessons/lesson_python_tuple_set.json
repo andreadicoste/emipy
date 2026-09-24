@@ -1,0 +1,31 @@
+{
+  "externalId": "lesson_python_tuple_set",
+  "courseId": "course_python_collections",
+  "slug": "tuple-e-set",
+  "title": "Tuple e set",
+  "description": "Scegli strutture diverse quando ordine, modificabilità o unicità cambiano.",
+  "order": 4,
+  "status": "published",
+  "blocks": [
+    {
+      "type": "markdown",
+      "body": "# Tuple e set\n\nUna tupla è una sequenza ordinata e immutabile. Un set è una collezione senza duplicati pensata per test di appartenenza e operazioni insiemistiche.\n\nNon esiste una struttura migliore in assoluto: scegli in base al problema."
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "filename": "main.py",
+      "code": "coordinate = (40.7, 17.5)\ntag = {\"python\", \"web\", \"python\"}\n\nprint(coordinate[0])\nprint(tag)\nprint(\"python\" in tag)",
+      "caption": "Tupla stabile, set senza duplicati"
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "Set per membership",
+      "body": "Quando vuoi solo sapere velocemente se un valore è presente, un set è spesso la struttura naturale."
+    }
+  ],
+  "exerciseIds": [
+    "ex_python_unique_01"
+  ]
+}

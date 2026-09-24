@@ -1,0 +1,31 @@
+{
+  "externalId": "lesson_python_testing",
+  "courseId": "course_python_intermediate",
+  "slug": "test",
+  "title": "Test automatici",
+  "description": "Trasforma esempi attesi in controlli ripetibili.",
+  "order": 8,
+  "status": "published",
+  "blocks": [
+    {
+      "type": "markdown",
+      "body": "# Test automatici\n\nUn test chiama una parte del programma con input noti e verifica il risultato. Anche semplici `assert` insegnano a pensare in termini di comportamento osservabile e casi limite.\n\nUn buon test fallisce quando introduci un bug e passa quando il comportamento è corretto."
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "filename": "main.py",
+      "code": "def is_even(n):\n    return n % 2 == 0\n\nassert is_even(4) is True\nassert is_even(5) is False\nassert is_even(0) is True",
+      "caption": "Tre casi diventano una rete di sicurezza"
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "Testa i confini",
+      "body": "I bug vivono spesso ai bordi: zero, liste vuote, valori minimi e massimi."
+    }
+  ],
+  "exerciseIds": [
+    "ex_python_testing_01"
+  ]
+}

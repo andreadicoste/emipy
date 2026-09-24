@@ -1,0 +1,15 @@
+{
+  "externalId": "ex_python_return_max_01",
+  "title": "Il maggiore senza max",
+  "instructions": "Scrivi `maggiore(a, b)` che restituisce il valore maggiore senza usare `max()`.",
+  "language": "python",
+  "starterCode": "def maggiore(a, b):\n    pass\n\nprint(maggiore(8, 3))\n",
+  "starterFiles": [],
+  "learningObjectives": [
+    "Usare return",
+    "Inserire condizioni in una funzione"
+  ],
+  "expectedBehavior": "Restituisce correttamente il maggiore per valori in entrambi gli ordini e per valori uguali.",
+  "graderInstructions": "Verificare almeno tre casi.",
+  "status": "published"
+}

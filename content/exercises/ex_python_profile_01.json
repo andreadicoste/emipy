@@ -1,12 +1,15 @@
 {
   "externalId": "ex_python_profile_01",
-  "title": "Biglietto di presentazione",
-  "instructions": "Chiedi nome e città con due input, poi stampa una frase che contenga entrambi.",
+  "title": "Profilo essenziale",
+  "instructions": "Chiedi nome e città all'utente e stampa una frase del tipo: `Ada vive a Bari.`",
   "language": "python",
-  "starterCode": "nome = input(\"Nome: \")\ncitta = input(\"Città: \")\n# Stampa qui la presentazione\n",
+  "starterCode": "nome = input(\"Nome: \")\ncitta = input(\"Città: \")\n\n# Stampa qui il profilo\n",
   "starterFiles": [],
-  "learningObjectives": ["Leggere due input", "Combinare variabili e testo"],
-  "expectedBehavior": "Con input Ada e Roma, l'output contiene sia Ada sia Roma in una frase leggibile.",
-  "graderInstructions": "Eseguire con due stringhe distinte e verificare che entrambe compaiano nell'output; non richiedere una formulazione esatta.",
+  "learningObjectives": [
+    "Leggere input",
+    "Comporre output con variabili"
+  ],
+  "expectedBehavior": "Con input Ada e Bari viene stampata una frase che contiene entrambi i valori.",
+  "graderInstructions": "Verificare che entrambi gli input vengano usati nell'output.",
   "status": "published"
 }

@@ -1,12 +1,15 @@
 {
   "externalId": "ex_python_shopping_01",
   "title": "Lista della spesa",
-  "instructions": "Parti dalla lista data, aggiungi `pane`, sostituisci `latte` con `avena` e stampa prima la lista completa e poi il numero di elementi.",
+  "instructions": "Parti dalla lista data, aggiungi `uova`, rimuovi `latte` e stampa un elemento per riga.",
   "language": "python",
-  "starterCode": "spesa = [\"latte\", \"mele\"]\n# Modifica la lista\n",
+  "starterCode": "spesa = [\"pane\", \"latte\", \"mele\"]\n# Modifica e stampa\n",
   "starterFiles": [],
-  "learningObjectives": ["Aggiungere elementi a una lista", "Sostituire per indice", "Usare len"],
-  "expectedBehavior": "La lista finale contiene avena, mele e pane, non contiene latte, e il programma stampa 3 come lunghezza.",
-  "graderInstructions": "Valutare il contenuto finale indipendentemente dalla rappresentazione precisa della lista.",
+  "learningObjectives": [
+    "Modificare liste",
+    "Iterare elementi"
+  ],
+  "expectedBehavior": "L'output contiene pane, mele e uova e non contiene latte.",
+  "graderInstructions": "Verificare operazioni sulla lista, non una stampa hardcoded.",
   "status": "published"
 }

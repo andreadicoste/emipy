@@ -1,0 +1,15 @@
+{
+  "externalId": "ex_python_enumerated_menu_01",
+  "title": "Menu numerato",
+  "instructions": "Stampa le opzioni numerate a partire da 1 usando `enumerate`.",
+  "language": "python",
+  "starterCode": "opzioni = [\"Nuova partita\", \"Impostazioni\", \"Esci\"]\n# Completa\n",
+  "starterFiles": [],
+  "learningObjectives": [
+    "Usare enumerate",
+    "Formattare un menu"
+  ],
+  "expectedBehavior": "L'output associa 1,2,3 alle tre opzioni nell'ordine dato.",
+  "graderInstructions": "Verificare uso di enumerate con start=1 o risultato equivalente.",
+  "status": "published"
+}

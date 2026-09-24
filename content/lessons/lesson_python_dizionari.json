@@ -2,14 +2,31 @@
   "externalId": "lesson_python_dizionari",
   "courseId": "course_python_collections",
   "slug": "dizionari",
-  "title": "Dizionari chiave-valore",
-  "description": "Associa etichette significative ai dati.",
-  "order": 3,
+  "title": "Dizionari: dati con un nome",
+  "description": "Associa chiavi a valori e rappresenta oggetti semplici.",
+  "order": 5,
   "status": "published",
   "blocks": [
-    { "type": "markdown", "body": "# Dati con un'etichetta\n\nUn dizionario collega una **chiave** a un **valore**. Invece di ricordare una posizione, recuperi il dato con una parola come `studente[\"nome\"]`." },
-    { "type": "code", "language": "python", "filename": "main.py", "code": "studente = {\"nome\": \"Mia\", \"voto\": 8}\nstudente[\"voto\"] = 9\nprint(studente[\"nome\"], studente[\"voto\"])", "caption": "Leggere e aggiornare valori" },
-    { "type": "callout", "variant": "warning", "title": "Chiave esistente", "body": "Se chiedi una chiave assente con le parentesi quadre, Python segnala un errore." }
+    {
+      "type": "markdown",
+      "body": "# Dizionari: dati con un nome\n\nUn dizionario collega chiavi uniche a valori. È ideale quando un dato ha campi con significato, per esempio nome, età e città.\n\nPuoi leggere con `profilo[\"nome\"]`, aggiornare assegnando una nuova chiave e iterare con `items()`."
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "filename": "main.py",
+      "code": "profilo = {\"nome\": \"Ada\", \"eta\": 18, \"citta\": \"Bari\"}\nprofilo[\"eta\"] += 1\n\nfor chiave, valore in profilo.items():\n    print(chiave, \"=\", valore)",
+      "caption": "Un piccolo record"
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "Chiavi stabili",
+      "body": "Usa chiavi descrittive e coerenti: il dizionario diventa molto più facile da leggere e trasformare."
+    }
   ],
-  "exerciseIds": ["ex_python_scores_01"]
+  "exerciseIds": [
+    "ex_python_profile_dict_01",
+    "ex_python_word_count_01"
+  ]
 }

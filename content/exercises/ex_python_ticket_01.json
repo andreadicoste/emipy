@@ -1,12 +1,15 @@
 {
   "externalId": "ex_python_ticket_01",
   "title": "Prezzo del biglietto",
-  "instructions": "Leggi l'età. Stampa `Gratis` fino a 5 anni, `Ridotto` fino a 17 anni e `Intero` dai 18 anni in poi.",
+  "instructions": "Dato `eta`, stampa `gratis` sotto i 6 anni, `ridotto` dai 6 ai 17 inclusi e `intero` dai 18 in su.",
   "language": "python",
-  "starterCode": "eta = int(input(\"Età: \"))\n# Scegli e stampa la tariffa\n",
+  "starterCode": "eta = 15\n# Scrivi le condizioni\n",
   "starterFiles": [],
-  "learningObjectives": ["Usare if, elif ed else", "Confrontare numeri"],
-  "expectedBehavior": "0 e 5 producono Gratis; 6 e 17 Ridotto; 18 e valori superiori Intero.",
-  "graderInstructions": "Provare valori sui confini 5, 6, 17 e 18. Accettare differenze di maiuscole ma non categorie errate.",
+  "learningObjectives": [
+    "Usare if/elif/else",
+    "Gestire intervalli"
+  ],
+  "expectedBehavior": "15 produce ridotto; 5 gratis; 18 intero.",
+  "graderInstructions": "Verificare i tre intervalli e soprattutto i valori di confine.",
   "status": "published"
 }

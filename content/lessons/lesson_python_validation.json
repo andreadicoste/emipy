@@ -1,0 +1,31 @@
+{
+  "externalId": "lesson_python_validation",
+  "courseId": "course_python_data",
+  "slug": "validare-input",
+  "title": "Validare l'input",
+  "description": "Continua a chiedere un valore finché rispetta formato e vincoli.",
+  "order": 3,
+  "status": "published",
+  "blocks": [
+    {
+      "type": "markdown",
+      "body": "# Validare l'input\n\nValidare significa controllare sia la forma del dato sia il suo dominio. Un intero può essere convertibile ma comunque non valido, per esempio un'età negativa.\n\nSepara spesso conversione e controllo dei vincoli."
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "filename": "main.py",
+      "code": "while True:\n    try:\n        eta = int(input(\"Età: \"))\n        if eta < 0:\n            print(\"L'età non può essere negativa\")\n            continue\n        break\n    except ValueError:\n        print(\"Inserisci un intero\")",
+      "caption": "Conversione e vincolo sono due controlli diversi"
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "Messaggi utili",
+      "body": "Un buon messaggio di errore dice all'utente cosa deve correggere."
+    }
+  ],
+  "exerciseIds": [
+    "ex_python_validate_percentage_01"
+  ]
+}

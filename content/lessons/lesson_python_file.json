@@ -1,15 +1,31 @@
 {
   "externalId": "lesson_python_file",
   "courseId": "course_python_data",
-  "slug": "leggere-scrivere-file",
+  "slug": "file-di-testo",
   "title": "Leggere e scrivere file",
-  "description": "Conserva testo fuori dal programma e rileggilo in sicurezza.",
-  "order": 2,
+  "description": "Usa `with open(...)` per lavorare con file di testo in modo sicuro.",
+  "order": 4,
   "status": "published",
   "blocks": [
-    { "type": "markdown", "body": "# Dati che restano\n\n`with open(...)` apre un file e lo chiude automaticamente alla fine del blocco. La modalità `w` scrive, mentre `r` legge." },
-    { "type": "code", "language": "python", "filename": "main.py", "code": "with open(\"nota.txt\", \"w\") as file:\n    file.write(\"Imparare Python\")\n\nwith open(\"nota.txt\", \"r\") as file:\n    testo = file.read()\nprint(testo)", "caption": "Scrivere e rileggere" },
-    { "type": "callout", "variant": "warning", "title": "La modalità w sostituisce", "body": "Aprire un file esistente con `w` cancella il contenuto precedente prima di scrivere." }
+    {
+      "type": "markdown",
+      "body": "# Leggere e scrivere file\n\nUn file persiste oltre l'esecuzione del programma. Il costrutto `with` chiude automaticamente il file anche se qualcosa va storto.\n\nScegli esplicitamente modalità `r`, `w` o `a` in base a ciò che vuoi fare."
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "filename": "main.py",
+      "code": "with open(\"note.txt\", \"w\", encoding=\"utf-8\") as file:\n    file.write(\"Prima nota\\n\")\n\nwith open(\"note.txt\", \"r\", encoding=\"utf-8\") as file:\n    contenuto = file.read()\n\nprint(contenuto)",
+      "caption": "Scrittura e lettura dello stesso file"
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "Attenzione a w",
+      "body": "La modalità `w` sovrascrive il file. Usa `a` se vuoi aggiungere senza cancellare il contenuto esistente."
+    }
   ],
-  "exerciseIds": ["ex_python_file_lines_01"]
+  "exerciseIds": [
+    "ex_python_file_lines_01"
+  ]
 }

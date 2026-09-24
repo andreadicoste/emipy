@@ -1,12 +1,15 @@
 {
   "externalId": "ex_python_scores_01",
-  "title": "Tabellone dei voti",
-  "instructions": "Aggiungi il voto di Lia al dizionario, aggiorna il voto di Ada a 9 e stampa per ogni studentessa `nome: voto`.",
+  "title": "Media dei voti",
+  "instructions": "Calcola la media dei voti usando un ciclo e la lunghezza della lista.",
   "language": "python",
-  "starterCode": "voti = {\"Ada\": 8, \"Mia\": 7}\n# Aggiorna il dizionario e stampa il tabellone\n",
+  "starterCode": "voti = [24, 27, 30, 21]\ntotale = 0\n# Completa\n",
   "starterFiles": [],
-  "learningObjectives": ["Creare e aggiornare coppie chiave-valore", "Iterare su un dizionario"],
-  "expectedBehavior": "L'output contiene Ada: 9, Mia: 7 e Lia: 10, una studentessa per riga.",
-  "graderInstructions": "Accettare ordine diverso delle righe e spaziatura ragionevole; richiedere tutti e tre gli abbinamenti corretti.",
+  "learningObjectives": [
+    "Accumulare valori",
+    "Usare len"
+  ],
+  "expectedBehavior": "La media è 25.5.",
+  "graderInstructions": "Verificare che funzioni con una lista diversa non vuota.",
   "status": "published"
 }

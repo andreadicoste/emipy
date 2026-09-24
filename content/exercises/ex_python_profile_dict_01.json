@@ -1,0 +1,15 @@
+{
+  "externalId": "ex_python_profile_dict_01",
+  "title": "Aggiorna il profilo",
+  "instructions": "Aggiungi la chiave `email`, incrementa l'età di uno e stampa tutte le coppie chiave-valore.",
+  "language": "python",
+  "starterCode": "profilo = {\"nome\": \"Luca\", \"eta\": 20}\n# Completa\n",
+  "starterFiles": [],
+  "learningObjectives": [
+    "Aggiornare dizionari",
+    "Iterare items"
+  ],
+  "expectedBehavior": "Il dizionario finale contiene nome, eta=21 ed email.",
+  "graderInstructions": "Verificare aggiornamento strutturale del dizionario.",
+  "status": "published"
+}

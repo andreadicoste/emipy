@@ -1,0 +1,15 @@
+{
+  "externalId": "ex_python_slug_01",
+  "title": "Titolo in slug",
+  "instructions": "Trasforma `\"  Corso Python Base  \"` in `\"corso-python-base\"` usando metodi delle stringhe.",
+  "language": "python",
+  "starterCode": "titolo = \"  Corso Python Base  \"\nslug = \"\"\n# Completa\nprint(slug)\n",
+  "starterFiles": [],
+  "learningObjectives": [
+    "Usare strip/lower/replace",
+    "Comporre trasformazioni"
+  ],
+  "expectedBehavior": "L'output è corso-python-base.",
+  "graderInstructions": "Verificare che la trasformazione non sia hardcoded sul risultato.",
+  "status": "published"
+}

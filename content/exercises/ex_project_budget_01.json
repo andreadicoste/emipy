@@ -1,12 +1,15 @@
 {
   "externalId": "ex_project_budget_01",
-  "title": "Analizzatore di spese",
-  "instructions": "Completa `riepilogo(spese)` affinché restituisca totale, media e spesa massima. Se la lista è vuota deve restituire tre zeri. Stampa il riepilogo dei dati forniti.",
+  "title": "Motore del budget",
+  "instructions": "Implementa `saldo(movimenti)` e `spese_per_categoria(movimenti)`. Le entrate aumentano il saldo, le uscite lo diminuiscono.",
   "language": "python",
-  "starterCode": "def riepilogo(spese):\n    # Gestisci lista vuota e calcola le tre misure\n    pass\n\nspese = [12.5, 8.0, 4.5, 15.0]\ntotale, media, massima = riepilogo(spese)\nprint(\"Totale:\", totale)\nprint(\"Media:\", media)\nprint(\"Massima:\", massima)\n",
+  "starterCode": "def saldo(movimenti):\n    pass\n\ndef spese_per_categoria(movimenti):\n    pass\n",
   "starterFiles": [],
-  "learningObjectives": ["Combinare funzioni e liste", "Calcolare aggregazioni", "Gestire una lista vuota"],
-  "expectedBehavior": "Per i dati forniti stampa totale 40, media 10 e massima 15; la funzione restituisce (0, 0, 0) per lista vuota.",
-  "graderInstructions": "Valutare la funzione con la lista fornita e con una lista vuota; accettare rappresentazioni numeriche equivalenti.",
+  "learningObjectives": [
+    "Aggregare liste di dizionari",
+    "Separare calcolo da UI"
+  ],
+  "expectedBehavior": "Le funzioni calcolano correttamente saldo e totale delle sole uscite per categoria.",
+  "graderInstructions": "Testare con più categorie e movimenti.",
   "status": "published"
 }

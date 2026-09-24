@@ -2,14 +2,31 @@
   "externalId": "lesson_python_liste",
   "courseId": "course_python_collections",
   "slug": "liste",
-  "title": "Liste ordinate",
-  "description": "Raggruppa più valori e recuperali tramite la loro posizione.",
-  "order": 1,
+  "title": "Liste: una sequenza modificabile",
+  "description": "Raccogli più valori, leggili per indice e modifica la collezione.",
+  "order": 2,
   "status": "published",
   "blocks": [
-    { "type": "markdown", "body": "# Più valori insieme\n\nUna lista conserva elementi in ordine. Gli indici partono da `0`: il primo elemento è quindi `lista[0]`. Con `append()` aggiungi un nuovo elemento in fondo." },
-    { "type": "code", "language": "python", "filename": "main.py", "code": "frutti = [\"mela\", \"pera\"]\nfrutti.append(\"kiwi\")\nprint(frutti[0])\nprint(len(frutti))", "caption": "Creare e modificare una lista" },
-    { "type": "callout", "variant": "info", "title": "Una lista può cambiare", "body": "Puoi sostituire un elemento scrivendo, per esempio, `frutti[0] = \"banana\"`." }
+    {
+      "type": "markdown",
+      "body": "# Liste: una sequenza modificabile\n\nUna lista mantiene l'ordine degli elementi ed è modificabile. Gli indici partono da zero. Puoi aggiungere con `append()`, sostituire un elemento tramite indice e rimuovere valori.\n\nLe liste diventano potenti quando le combini con i cicli."
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "filename": "main.py",
+      "code": "spesa = [\"pane\", \"latte\"]\nspesa.append(\"mele\")\nspesa[0] = \"pasta\"\n\nfor elemento in spesa:\n    print(elemento)",
+      "caption": "Creazione, modifica e iterazione"
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "Evita indici inutili",
+      "body": "Se ti serve solo il valore, usa `for elemento in lista` invece di ciclare sugli indici."
+    }
   ],
-  "exerciseIds": ["ex_python_shopping_01"]
+  "exerciseIds": [
+    "ex_python_shopping_01",
+    "ex_python_scores_01"
+  ]
 }

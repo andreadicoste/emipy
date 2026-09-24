@@ -1,0 +1,31 @@
+{
+  "externalId": "lesson_python_sorting",
+  "courseId": "course_python_intermediate",
+  "slug": "ordinamento",
+  "title": "Ordinare con key",
+  "description": "Ordina strutture complesse specificando il criterio.",
+  "order": 3,
+  "status": "published",
+  "blocks": [
+    {
+      "type": "markdown",
+      "body": "# Ordinare con key\n\n`sorted()` restituisce una nuova lista; `list.sort()` modifica quella esistente. Il parametro `key` riceve una funzione che estrae il valore da usare nel confronto.\n\nQuesta idea è più generale del semplice ordinamento numerico."
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "filename": "main.py",
+      "code": "studenti = [\n    {\"nome\": \"Ada\", \"voto\": 28},\n    {\"nome\": \"Luca\", \"voto\": 24},\n    {\"nome\": \"Marta\", \"voto\": 30},\n]\n\nordinati = sorted(studenti, key=lambda s: s[\"voto\"], reverse=True)\nprint(ordinati)",
+      "caption": "Ordine decrescente per campo voto"
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "Key descrive il criterio",
+      "body": "La funzione passata a `key` non confronta due elementi: trasforma ciascun elemento nella chiave da confrontare."
+    }
+  ],
+  "exerciseIds": [
+    "ex_python_sorting_01"
+  ]
+}

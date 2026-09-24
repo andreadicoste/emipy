@@ -1,0 +1,31 @@
+{
+  "externalId": "lesson_python_iterazione_collezioni",
+  "courseId": "course_python_collections",
+  "slug": "iterare-collezioni",
+  "title": "Iterare bene le collezioni",
+  "description": "Usa enumerate, items e membership per evitare cicli fragili.",
+  "order": 6,
+  "status": "published",
+  "blocks": [
+    {
+      "type": "markdown",
+      "body": "# Iterare bene le collezioni\n\nPython offre strumenti che rendono i cicli più espressivi. `enumerate()` fornisce indice e valore; `items()` restituisce chiave e valore di un dizionario; `in` esprime direttamente un test di appartenenza."
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "filename": "main.py",
+      "code": "nomi = [\"Ada\", \"Guido\", \"Grace\"]\nfor posizione, nome in enumerate(nomi, start=1):\n    print(posizione, nome)",
+      "caption": "Indice e valore senza gestire un contatore"
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "Scrivi ciò che intendi",
+      "body": "Preferisci gli strumenti che esprimono direttamente l'intenzione del codice invece di ricostruirli manualmente."
+    }
+  ],
+  "exerciseIds": [
+    "ex_python_enumerated_menu_01"
+  ]
+}

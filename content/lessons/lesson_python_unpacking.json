@@ -1,0 +1,31 @@
+{
+  "externalId": "lesson_python_unpacking",
+  "courseId": "course_python_intermediate",
+  "slug": "unpacking",
+  "title": "Unpacking",
+  "description": "Assegna più valori in modo espressivo e raccogli elementi rimanenti.",
+  "order": 1,
+  "status": "published",
+  "blocks": [
+    {
+      "type": "markdown",
+      "body": "# Unpacking\n\nL'unpacking assegna gli elementi di una sequenza a più nomi in una singola istruzione. Con `*` puoi raccogliere una parte variabile.\n\nÈ lo stesso meccanismo che hai già usato quando una funzione restituisce più valori."
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "filename": "main.py",
+      "code": "coordinate = (40.46, 17.47)\nlat, lon = coordinate\n\nnumeri = [1, 2, 3, 4, 5]\nprimo, *centro, ultimo = numeri\nprint(lat, lon)\nprint(primo, centro, ultimo)",
+      "caption": "Unpacking semplice e con star"
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "La forma deve combaciare",
+      "body": "Senza `*`, il numero di variabili deve corrispondere esattamente al numero di elementi."
+    }
+  ],
+  "exerciseIds": [
+    "ex_python_unpacking_01"
+  ]
+}

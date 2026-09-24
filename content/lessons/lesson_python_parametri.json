@@ -1,0 +1,31 @@
+{
+  "externalId": "lesson_python_parametri",
+  "courseId": "course_python_functions",
+  "slug": "parametri",
+  "title": "Parametri e argomenti",
+  "description": "Passa più dati a una funzione e distingui definizione da chiamata.",
+  "order": 2,
+  "status": "published",
+  "blocks": [
+    {
+      "type": "markdown",
+      "body": "# Parametri e argomenti\n\nI parametri sono i nomi dichiarati nella definizione; gli argomenti sono i valori forniti alla chiamata. Una funzione può ricevere più parametri e combinarli.\n\nProgetta i parametri in modo che la funzione dipenda dai dati necessari, non da variabili globali nascoste."
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "filename": "main.py",
+      "code": "def prezzo_scontato(prezzo, percentuale):\n    sconto = prezzo * percentuale / 100\n    return prezzo - sconto\n\nprint(prezzo_scontato(80, 25))",
+      "caption": "Due input rendono la funzione riutilizzabile"
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "Passa ciò che serve",
+      "body": "Se una funzione usa un dato esterno, spesso è meglio passarlo come parametro."
+    }
+  ],
+  "exerciseIds": [
+    "ex_python_rectangle_01"
+  ]
+}

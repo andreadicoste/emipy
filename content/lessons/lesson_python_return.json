@@ -1,15 +1,31 @@
 {
   "externalId": "lesson_python_return",
   "courseId": "course_python_functions",
-  "slug": "valori-di-ritorno",
-  "title": "Restituire un risultato",
-  "description": "Usa return per ottenere un valore da una funzione.",
-  "order": 2,
+  "slug": "return",
+  "title": "Restituire valori",
+  "description": "Fai produrre un risultato a una funzione senza confonderlo con la stampa.",
+  "order": 3,
   "status": "published",
   "blocks": [
-    { "type": "markdown", "body": "# Calcolare e restituire\n\n`return` consegna un risultato al punto in cui la funzione è stata chiamata. Puoi salvarlo in una variabile, stamparlo o usarlo in un altro calcolo." },
-    { "type": "code", "language": "python", "filename": "main.py", "code": "def doppio(numero):\n    return numero * 2\n\nrisultato = doppio(6)\nprint(risultato)", "caption": "Dal parametro al risultato" },
-    { "type": "callout", "variant": "info", "title": "print non è return", "body": "`print()` mostra un valore; `return` lo rende disponibile al resto del programma." }
+    {
+      "type": "markdown",
+      "body": "# Restituire valori\n\n`return` consegna un valore al chiamante e termina l'esecuzione della funzione. `print()` invece mostra qualcosa all'utente ma restituisce `None`.\n\nSeparare calcolo e presentazione rende le funzioni più facili da riusare e testare."
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "filename": "main.py",
+      "code": "def quadrato(numero):\n    return numero * numero\n\nrisultato = quadrato(7)\nprint(risultato)",
+      "caption": "Il calcolo restituisce, il programma decide cosa stampare"
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "Return non è print",
+      "body": "Se il risultato servirà ancora al programma, quasi sempre vuoi restituirlo invece di stamparlo dentro la funzione."
+    }
   ],
-  "exerciseIds": ["ex_python_rectangle_01"]
+  "exerciseIds": [
+    "ex_python_return_max_01"
+  ]
 }

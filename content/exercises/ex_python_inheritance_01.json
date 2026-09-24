@@ -1,0 +1,15 @@
+{
+  "externalId": "ex_python_inheritance_01",
+  "title": "Forme",
+  "instructions": "Crea una classe base `Forma` con metodo `area()` non implementato e una classe `Rettangolo(Forma)` che implementa l'area.",
+  "language": "python",
+  "starterCode": "class Forma:\n    def area(self):\n        raise NotImplementedError\n\nclass Rettangolo(Forma):\n    # Completa\n    pass\n",
+  "starterFiles": [],
+  "learningObjectives": [
+    "Definire una sottoclasse",
+    "Sovrascrivere un metodo"
+  ],
+  "expectedBehavior": "Rettangolo(5,3).area() restituisce 15.",
+  "graderInstructions": "Verificare inizializzazione e override.",
+  "status": "published"
+}

@@ -1,0 +1,31 @@
+{
+  "externalId": "lesson_python_enumerate_zip",
+  "courseId": "course_python_intermediate",
+  "slug": "enumerate-e-zip",
+  "title": "enumerate e zip",
+  "description": "Combina sequenze correlate e porta con te l'indice senza codice manuale.",
+  "order": 2,
+  "status": "published",
+  "blocks": [
+    {
+      "type": "markdown",
+      "body": "# enumerate e zip\n\n`zip()` itera più sequenze in parallelo fino alla più corta. `enumerate()` aggiunge una posizione. Insieme evitano molto codice di gestione degli indici."
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "filename": "main.py",
+      "code": "nomi = [\"Ada\", \"Grace\", \"Guido\"]\nvoti = [30, 29, 28]\n\nfor posizione, (nome, voto) in enumerate(zip(nomi, voti), start=1):\n    print(posizione, nome, voto)",
+      "caption": "Tre informazioni in ogni iterazione"
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "Zip ferma alla più corta",
+      "body": "Se le sequenze dovrebbero avere sempre la stessa lunghezza, controllalo: `zip` non segnala automaticamente elementi avanzati."
+    }
+  ],
+  "exerciseIds": [
+    "ex_python_zip_01"
+  ]
+}

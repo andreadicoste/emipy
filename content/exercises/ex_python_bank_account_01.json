@@ -1,0 +1,16 @@
+{
+  "externalId": "ex_python_bank_account_01",
+  "title": "Conto semplice",
+  "instructions": "Crea una classe `Conto` con attributo `saldo`, metodo `deposita(importo)` e metodo `preleva(importo)` che restituisce False se il saldo non basta, altrimenti aggiorna il saldo e restituisce True.",
+  "language": "python",
+  "starterCode": "class Conto:\n    def __init__(self, saldo=0):\n        pass\n\n    def deposita(self, importo):\n        pass\n\n    def preleva(self, importo):\n        pass\n",
+  "starterFiles": [],
+  "learningObjectives": [
+    "Definire classi",
+    "Gestire stato interno",
+    "Scrivere metodi"
+  ],
+  "expectedBehavior": "Depositi e prelievi validi aggiornano il saldo; un prelievo eccessivo non lo modifica e restituisce False.",
+  "graderInstructions": "Testare sequenze multiple di operazioni.",
+  "status": "published"
+}

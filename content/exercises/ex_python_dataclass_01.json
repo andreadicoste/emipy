@@ -1,0 +1,15 @@
+{
+  "externalId": "ex_python_dataclass_01",
+  "title": "Riga d'ordine",
+  "instructions": "Crea una dataclass `RigaOrdine` con nome, prezzo e quantita e un metodo `subtotale()`.",
+  "language": "python",
+  "starterCode": "from dataclasses import dataclass\n\n# Definisci RigaOrdine\n",
+  "starterFiles": [],
+  "learningObjectives": [
+    "Usare @dataclass",
+    "Aggiungere metodi a una dataclass"
+  ],
+  "expectedBehavior": "RigaOrdine('Penna', 2.5, 4).subtotale() restituisce 10.0.",
+  "graderInstructions": "Verificare costruttore generato e calcolo generale.",
+  "status": "published"
+}

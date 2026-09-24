@@ -1,0 +1,31 @@
+{
+  "externalId": "lesson_python_comprehension",
+  "courseId": "course_python_collections",
+  "slug": "comprehension",
+  "title": "List comprehension",
+  "description": "Costruisci nuove liste con trasformazioni e filtri concisi.",
+  "order": 7,
+  "status": "published",
+  "blocks": [
+    {
+      "type": "markdown",
+      "body": "# List comprehension\n\nUna list comprehension combina creazione, ciclo e opzionalmente filtro in un'unica espressione. È utile quando l'operazione rimane semplice e leggibile.\n\nSe la logica cresce troppo, torna a un ciclo normale: la brevità non deve sacrificare la chiarezza."
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "filename": "main.py",
+      "code": "numeri = [1, 2, 3, 4, 5, 6]\nquadrati_pari = [n ** 2 for n in numeri if n % 2 == 0]\nprint(quadrati_pari)",
+      "caption": "Trasformazione più filtro"
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "Non gareggiare a comprimere",
+      "body": "Una comprehension è buona quando la capisci al primo sguardo."
+    }
+  ],
+  "exerciseIds": [
+    "ex_python_comprehension_01"
+  ]
+}
