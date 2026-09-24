@@ -20,7 +20,8 @@ COPY --from=build /app/src/generated ./src/generated
 COPY --from=build /app/src/lib ./src/lib
 COPY --from=build /app/content ./content
 COPY --from=build /app/scripts ./scripts
-COPY --from=build /app/.output ./.output
+COPY --from=build /app/dist ./dist
+COPY --from=build /app/server.ts ./server.ts
 RUN mkdir -p /app/data && chown 1000:1000 /app/data
 USER 1000:1000
 ENV HOST=0.0.0.0 PORT=3000 NODE_ENV=production DATABASE_URL=file:/app/data/emipy.db

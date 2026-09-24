@@ -5,7 +5,6 @@ import { tanstackStart } from '@tanstack/react-start/plugin/vite'
 
 import viteReact from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
-import { nitro } from 'nitro/vite'
 
 const config = defineConfig({
   resolve: { tsconfigPaths: true },
@@ -16,14 +15,6 @@ const config = defineConfig({
   } },
   plugins: [
     devtools(),
-    nitro({
-      preset: 'bun',
-      routeRules: { '/**': { headers: {
-        'Cross-Origin-Opener-Policy': 'same-origin',
-        'Cross-Origin-Embedder-Policy': 'require-corp',
-        'Cross-Origin-Resource-Policy': 'same-origin',
-      } } },
-    }),
     tailwindcss(),
     tanstackStart(),
     viteReact(),

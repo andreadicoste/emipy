@@ -40,6 +40,7 @@ Playwright richiede Chromium installato (`bunx playwright install chromium`) e s
 - Dominio `https://emipy.andreadicoste.site` tramite il tunnel Cloudflare esistente `nextcloud` (`cc1060e8-ac9d-4bbc-9e3e-27b4ddf71d95`). DNS proxied CNAME `emipy` verso `cc1060e8-ac9d-4bbc-9e3e-27b4ddf71d95.cfargotunnel.com`; ingress locale del tunnel verso Traefik su `http://localhost:80`, che instrada l'hostname alla porta container `3000`. Non modificare il tunnel separato di `drive.andreadicoste.site` e non creare record A diretti al server.
 - Bind mount `/home/andreadicoste/data/emipy` → `/app/data`. Creare la directory sull'host con UID/GID `1000:1000` prima del deploy. Il Dockerfile crea automaticamente `emipy.db` e applica le migrazioni a ogni avvio.
 - Variabili: `DATABASE_URL=file:/app/data/emipy.db`, `BETTER_AUTH_SECRET`, `BETTER_AUTH_URL=https://emipy.andreadicoste.site`, `APP_ORIGIN=https://emipy.andreadicoste.site`, `HOST=0.0.0.0`, `PORT=3000`, `NODE_ENV=production`.
+- Produzione servita direttamente da Bun con `server.ts`: asset statici da `dist/client`, richieste dinamiche inoltrate all'handler TanStack Start in `dist/server/server.js`. Nitro non è usato.
 - Healthcheck: `/api/health`; verifica una query SQLite. COOP/COEP sono inviati dall'app anche sugli asset.
 - Dopo il primo deploy, aprire un terminale nel container e lanciare `bun run admin:create`.
 
