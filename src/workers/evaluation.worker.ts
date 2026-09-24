@@ -38,7 +38,9 @@ self.onmessage = async (event: MessageEvent<Request>) => {
   pyodide.setStderr({ write: writeChunk('stderr') })
   pyodide.setStdin({ stdin: () => {
     if (inputIndex >= message.stdin.length) { inputExhausted = true; return '' }
-    return message.stdin[inputIndex++]
+    const value = message.stdin[inputIndex++]
+    append('stdout', `${value}\n`)
+    return value
   } })
   try {
     pyodide.FS.mkdirTree(workspace)
