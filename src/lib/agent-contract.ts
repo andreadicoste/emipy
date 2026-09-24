@@ -17,10 +17,20 @@ export const runCurrentProgramInputSchema = z.object({
 })
 
 export const evaluationResultSchema = z.object({
+  stdin: z.array(z.string().max(4096)).max(12).optional(),
   stdout: z.string().max(128 * 1024),
   stderr: z.string().max(128 * 1024),
+  transcript: z.string().max(256 * 1024).optional(),
   timedOut: z.boolean(),
   inputExhausted: z.boolean(),
+})
+
+export const graderRunPlanSchema = z.object({
+  runs: z.array(runCurrentProgramInputSchema).min(1).max(5),
+})
+
+export const gradingEvaluationSchema = z.object({
+  runs: z.array(evaluationResultSchema).min(1).max(5),
 })
 
 export const tutorRequestSchema = z.object({
@@ -42,7 +52,7 @@ export const beginGradingSchema = z.object({
 
 export const finishGradingSchema = z.object({
   submissionId: z.string().min(1),
-  evaluation: evaluationResultSchema,
+  evaluation: gradingEvaluationSchema,
 })
 
 export const graderResultSchema = z.object({
@@ -51,4 +61,5 @@ export const graderResultSchema = z.object({
 })
 
 export type EvaluationResult = z.infer<typeof evaluationResultSchema>
+export type GradingEvaluation = z.infer<typeof gradingEvaluationSchema>
 export type ProgramSnapshot = z.infer<typeof programSnapshotSchema>

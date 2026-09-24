@@ -21,10 +21,12 @@ void loadPyodide({ indexURL: `${self.location.origin}/pyodide/`, packageBaseUrl:
 self.onmessage = async (event: MessageEvent<Request>) => {
   const message = event.data
   if (message.type !== 'run' || !pyodide) return
-  let stdout = '', stderr = '', inputIndex = 0, inputExhausted = false
+  let stdout = '', stderr = '', transcript = '', inputIndex = 0, inputExhausted = false
+  const appendTranscript = (text: string) => { transcript = (transcript + text).slice(0, MAX_OUTPUT_BYTES) }
   const append = (target: 'stdout' | 'stderr', text: string) => {
     if (target === 'stdout') stdout = (stdout + text).slice(0, MAX_OUTPUT_BYTES)
     else stderr = (stderr + text).slice(0, MAX_OUTPUT_BYTES)
+    appendTranscript(text)
   }
   const writeChunk = (target: 'stdout' | 'stderr') => {
     const streamDecoder = new TextDecoder()
@@ -39,7 +41,7 @@ self.onmessage = async (event: MessageEvent<Request>) => {
   pyodide.setStdin({ stdin: () => {
     if (inputIndex >= message.stdin.length) { inputExhausted = true; return '' }
     const value = message.stdin[inputIndex++]
-    append('stdout', `${value}\n`)
+    appendTranscript(`${value}\n`)
     return value
   } })
   try {
@@ -54,5 +56,5 @@ self.onmessage = async (event: MessageEvent<Request>) => {
     append('stderr', `${String(error)}\n`)
   }
   try { await pyodide.runPythonAsync('import sys; sys.stdout.flush(); sys.stderr.flush()') } catch { /* output already captured or runtime stopped */ }
-  self.postMessage({ type: 'result', runId: message.runId, stdout, stderr, timedOut: false, inputExhausted })
+  self.postMessage({ type: 'result', runId: message.runId, stdout, stderr, transcript, timedOut: false, inputExhausted })
 }
