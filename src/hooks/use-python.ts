@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { MAX_INPUT_BYTES, MAX_OUTPUT_BYTES, type WorkerToMain } from '@/lib/python-protocol'
 
-export type OutputLine = { kind: 'stdout' | 'stderr' | 'system' | 'input'; text: string }
+export type OutputChunk = { kind: 'stdout' | 'stderr' | 'system' | 'input'; text: string }
 type Status = 'loading' | 'ready' | 'running' | 'waiting' | 'stopping' | 'error'
 
 export function usePython(enabled = true) {
@@ -14,9 +14,9 @@ export function usePython(enabled = true) {
   const truncated = useRef(false)
   const stopTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
   const [status, setStatus] = useState<Status>('loading')
-  const [output, setOutput] = useState<OutputLine[]>([])
+  const [output, setOutput] = useState<OutputChunk[]>([])
 
-  const append = useCallback((kind: OutputLine['kind'], text: string) => {
+  const append = useCallback((kind: OutputChunk['kind'], text: string) => {
     if (kind !== 'system') {
       outputSize.current += new TextEncoder().encode(text).byteLength
       if (outputSize.current > MAX_OUTPUT_BYTES) {

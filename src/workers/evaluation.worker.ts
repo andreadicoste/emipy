@@ -5,8 +5,8 @@ type Request = { type: 'run'; runId: number; code: string; files: { name: string
 type Pyodide = {
   runPythonAsync: (code: string) => Promise<unknown>
   FS: { mkdirTree: (path: string) => void; writeFile: (path: string, data: string) => void; unlink: (path: string) => void }
-  setStdout: (options: { batched: (text: string) => void }) => void
-  setStderr: (options: { batched: (text: string) => void }) => void
+  setStdout: (options: { write: (buffer: Uint8Array) => number }) => void
+  setStderr: (options: { write: (buffer: Uint8Array) => number }) => void
   setStdin: (options: { stdin: () => string }) => void
 }
 
@@ -26,8 +26,16 @@ self.onmessage = async (event: MessageEvent<Request>) => {
     if (target === 'stdout') stdout = (stdout + text).slice(0, MAX_OUTPUT_BYTES)
     else stderr = (stderr + text).slice(0, MAX_OUTPUT_BYTES)
   }
-  pyodide.setStdout({ batched: (text) => append('stdout', `${text}\n`) })
-  pyodide.setStderr({ batched: (text) => append('stderr', `${text}\n`) })
+  const writeChunk = (target: 'stdout' | 'stderr') => {
+    const streamDecoder = new TextDecoder()
+    return (buffer: Uint8Array) => {
+      const text = streamDecoder.decode(buffer, { stream: true })
+      if (text) append(target, text)
+      return buffer.length
+    }
+  }
+  pyodide.setStdout({ write: writeChunk('stdout') })
+  pyodide.setStderr({ write: writeChunk('stderr') })
   pyodide.setStdin({ stdin: () => {
     if (inputIndex >= message.stdin.length) { inputExhausted = true; return '' }
     return message.stdin[inputIndex++]
@@ -43,5 +51,6 @@ self.onmessage = async (event: MessageEvent<Request>) => {
   } catch (error) {
     append('stderr', `${String(error)}\n`)
   }
+  try { await pyodide.runPythonAsync('import sys; sys.stdout.flush(); sys.stderr.flush()') } catch { /* output already captured or runtime stopped */ }
   self.postMessage({ type: 'result', runId: message.runId, stdout, stderr, timedOut: false, inputExhausted })
 }

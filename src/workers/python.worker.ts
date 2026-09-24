@@ -9,8 +9,8 @@ type Pyodide = {
     writeFile: (path: string, data: string) => void
     unlink: (path: string) => void
   }
-  setStdout: (options: { batched: (text: string) => void }) => void
-  setStderr: (options: { batched: (text: string) => void }) => void
+  setStdout: (options: { write: (buffer: Uint8Array) => number }) => void
+  setStderr: (options: { write: (buffer: Uint8Array) => number }) => void
   setStdin: (options: { stdin: () => string }) => void
   setInterruptBuffer: (buffer: Int32Array) => void
   checkInterrupt: () => void
@@ -20,6 +20,11 @@ const send = (message: WorkerToMain) => self.postMessage(message)
 let pyodide: Pyodide | null = null
 const workspace = '/home/pyodide/emipy'
 let previousFiles: string[] = []
+
+async function flushOutput() {
+  // Mimics interpreter shutdown: pending line-buffered output (e.g. print(..., end="")) is emitted at run end.
+  try { await pyodide?.runPythonAsync('import sys; sys.stdout.flush(); sys.stderr.flush()') } catch { /* output already relayed or runtime stopped */ }
+}
 
 async function load() {
   // Wasm and standard library are copied from pinned npm package into public/pyodide.
@@ -43,13 +48,20 @@ self.onmessage = async (event: MessageEvent<MainToWorker>) => {
   const encoder = new TextEncoder()
   let outputBytes = 0
   const relay = (type: 'stdout' | 'stderr', text: string) => {
-    if (outputBytes > MAX_OUTPUT_BYTES) return
+    if (!text || outputBytes > MAX_OUTPUT_BYTES) return
     outputBytes += encoder.encode(text).byteLength
     send({ type, text, runId })
   }
+  const writeChunk = (type: 'stdout' | 'stderr') => {
+    const streamDecoder = new TextDecoder()
+    return (buffer: Uint8Array) => {
+      relay(type, streamDecoder.decode(buffer, { stream: true }))
+      return buffer.length
+    }
+  }
   pyodide.setInterruptBuffer(interrupt)
-  pyodide.setStdout({ batched: (text) => relay('stdout', `${text}\n`) })
-  pyodide.setStderr({ batched: (text) => relay('stderr', `${text}\n`) })
+  pyodide.setStdout({ write: writeChunk('stdout') })
+  pyodide.setStderr({ write: writeChunk('stderr') })
   pyodide.setStdin({ stdin: () => {
     Atomics.store(inputState, 0, 0)
     send({ type: 'stdin-request', runId })
@@ -70,8 +82,10 @@ self.onmessage = async (event: MessageEvent<MainToWorker>) => {
     previousFiles = message.files.map((file) => file.name)
     await pyodide.runPythonAsync(`import sys, importlib\nif ${JSON.stringify(workspace)} not in sys.path: sys.path.insert(0, ${JSON.stringify(workspace)})\nfor name in ${JSON.stringify(modules)}: sys.modules.pop(name, None)\nimportlib.invalidate_caches()`)
     await pyodide.runPythonAsync(message.code)
+    await flushOutput()
     send({ type: 'done', runId })
   } catch (error) {
+    await flushOutput()
     if (Atomics.load(interrupt, 0) === 2 || String(error).includes('KeyboardInterrupt')) {
       send({ type: 'stopped', runId })
     } else {
