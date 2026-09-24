@@ -8,7 +8,7 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem,
 import { authClient } from '@/lib/auth-client'
 import { createProgram } from '@/lib/programs.functions'
 
-type LessonLink = { externalId: string; title: string; visited: boolean }
+type LessonLink = { externalId: string; title: string; completed: boolean }
 
 export function AppSidebar({ active, course, lessons, currentLessonId, freePrograms = [] }: {
   active: 'courses' | 'playground' | 'library'
@@ -39,7 +39,7 @@ export function AppSidebar({ active, course, lessons, currentLessonId, freeProgr
         <div className="px-2 pb-2 pt-5"><p className="text-[11px] font-bold uppercase tracking-wider text-muted-foreground">Corso</p><p className="mt-1 truncate text-sm font-semibold">{course.title}</p></div>
         <nav aria-label="Lezioni" className="space-y-1 overflow-y-auto pb-4">
           {lessons.map((lesson, index) => <Button key={lesson.externalId} variant="ghost" className={`ide-program-row h-auto min-h-10 w-full justify-start gap-2 px-2 py-2 text-left ${lesson.externalId === currentLessonId ? 'ide-program-row-active' : ''}`} onClick={() => void navigate({ to: '/app/courses/$courseId/$lessonId', params: { courseId: course.externalId, lessonId: lesson.externalId } })}>
-            <span className={`flex size-5 shrink-0 items-center justify-center rounded-full border text-[10px] ${lesson.visited ? 'border-foreground/30 text-foreground' : ''}`}>{index + 1}</span><span className="truncate text-xs">{lesson.title}</span>
+            <span className={`flex size-5 shrink-0 items-center justify-center rounded-full border text-[10px] ${lesson.completed ? 'border-transparent bg-accent text-accent-foreground' : lesson.externalId === currentLessonId ? 'border-transparent bg-foreground text-background' : 'border-border text-muted-foreground'}`}>{index + 1}</span><span className="truncate text-xs">{lesson.title}</span>
           </Button>)}
         </nav>
       </div> : <div className="sidebar-view flex h-full flex-col px-2">

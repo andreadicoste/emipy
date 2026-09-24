@@ -57,9 +57,10 @@ async function lessonView(owner: string, courseId: string, lessonId: string, tou
     update: { lastOpenedAt: new Date() }, create: { userId: owner, lessonId },
   })
   const lessons = registry.lessons.filter((item) => item.courseId === courseId)
+  const allExerciseIds = lessons.flatMap((item) => item.exerciseIds)
   const [lessonProgress, exerciseProgress, submissions] = await Promise.all([
     prisma.lessonProgress.findMany({ where: { userId: owner, lessonId: { in: lessons.map((item) => item.externalId) } }, select: { lessonId: true } }),
-    prisma.exerciseProgress.findMany({ where: { userId: owner, exerciseId: { in: lesson.exerciseIds } } }),
+    prisma.exerciseProgress.findMany({ where: { userId: owner, exerciseId: { in: allExerciseIds } } }),
     prisma.exerciseSubmission.findMany({ where: { userId: owner, exerciseId: { in: lesson.exerciseIds } }, orderBy: { createdAt: 'desc' }, select: { exerciseId: true, status: true } }),
   ])
   const visited = new Set(lessonProgress.map((item) => item.lessonId))
@@ -70,10 +71,14 @@ async function lessonView(owner: string, courseId: string, lessonId: string, tou
     const progress = progressByExercise.get(exercise.externalId)
     return { ...studentExercise(exercise), progress: progress ? { attempts: progress.attempts, completed: !!progress.completedAt, feedback: progress.lastFeedback, submissionStatus: latestStatus.get(exercise.externalId) ?? null } : null }
   })
+  const lessonCompleted = (item: { externalId: string; exerciseIds: string[] }) => {
+    if (!item.exerciseIds.length) return visited.has(item.externalId)
+    return item.exerciseIds.every((id) => !!progressByExercise.get(id)?.completedAt)
+  }
   return {
     course,
     lesson: { ...lesson, exercises },
-    lessons: lessons.map(({ externalId, title, order }) => ({ externalId, title, order, visited: visited.has(externalId) })),
+    lessons: lessons.map(({ externalId, title, order, exerciseIds }) => ({ externalId, title, order, visited: visited.has(externalId), completed: lessonCompleted({ externalId, exerciseIds }) })),
   }
 }
 

@@ -29,7 +29,7 @@ const CodeEditor = lazy(() => import('./code-editor').then((module) => ({ defaul
 const LESSON_FILE_ID = '__lesson__'
 type Program = Awaited<ReturnType<typeof getProgram>>
 type ProgramSummary = { id: string; name: string; exerciseId?: string | null }
-type Learning = { course: Course; lesson: StudentLessonDTO; lessons: { externalId: string; title: string; visited: boolean }[]; exercise?: StudentExerciseView }
+type Learning = { course: Course; lesson: StudentLessonDTO; lessons: { externalId: string; title: string; completed: boolean }[]; exercise?: StudentExerciseView }
 type IconType = Parameters<typeof HugeiconsIcon>[0]['icon']
 
 function Icon({ icon, className }: { icon: IconType; className?: string }) { return <HugeiconsIcon icon={icon} className={className} strokeWidth={1.8} aria-hidden="true" /> }
