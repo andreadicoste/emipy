@@ -41,6 +41,7 @@ export function Ide({ program, programs, learning }: { program: Program | null; 
   const { resolvedTheme } = useTheme()
   const [mounted, setMounted] = useState(false)
   const [isMobile, setIsMobile] = useState(false)
+  const [layoutRestored, setLayoutRestored] = useState(false)
   const [renameOpen, setRenameOpen] = useState(false)
   const [deleteOpen, setDeleteOpen] = useState(false)
   const [newFileOpen, setNewFileOpen] = useState(false)
@@ -76,11 +77,11 @@ export function Ide({ program, programs, learning }: { program: Program | null; 
   }, [])
 
   useEffect(() => {
-    if (window.matchMedia('(max-width: 1023px)').matches) { layoutReady.current = true; return }
+    if (window.matchMedia('(max-width: 1023px)').matches) { layoutReady.current = true; setLayoutRestored(true); return }
     try {
       const shell = localStorage.getItem('emipy-layout-shell'), workspace = localStorage.getItem('emipy-layout-workspace'), vertical = localStorage.getItem('emipy-layout-vertical')
       if (shell) shellRef.current?.setLayout(JSON.parse(shell)); if (workspace) workspaceRef.current?.setLayout(JSON.parse(workspace)); if (vertical) verticalRef.current?.setLayout(JSON.parse(vertical))
-    } catch { /* old layout */ } finally { layoutReady.current = true }
+    } catch { /* old layout */ } finally { layoutReady.current = true; setLayoutRestored(true) }
   }, [shellRef, workspaceRef, leftRef, rightRef, verticalRef])
   useEffect(() => {
     const viewport = outputEnd.current?.closest<HTMLElement>('[data-slot="scroll-area-viewport"]')
@@ -144,7 +145,7 @@ export function Ide({ program, programs, learning }: { program: Program | null; 
   const editorContent = showLesson && lessonForDisplay ? <section className="ide-surface min-h-0 flex-1 overflow-y-auto rounded-md border bg-background"><LessonDocument lesson={lessonForDisplay} onStart={(id) => void startFromLesson(id)} busyExercise={startBusy} /></section> : program && activeFile ? <section aria-label={`Editor ${activeFile.name}`} className="ide-surface flex min-h-0 flex-1 flex-col overflow-hidden rounded-md border bg-[var(--monaco-bg)]"><div className="flex h-8 shrink-0 items-center gap-1.5 border-b px-3 text-[11px] text-muted-foreground"><Icon icon={File01Icon} className="size-3.5" /><span className="font-semibold text-foreground">{activeFile.name}</span><span className="ml-auto">Python</span></div><div className="min-h-0 flex-1">{mounted && <Suspense fallback={<div className="p-5 text-sm text-muted-foreground">Caricamento editor…</div>}><CodeEditor key={activeFile.id} path={`${program.id}/${activeFile.name}`} value={activeFile.code} onChange={(code) => autosave.update(activeFile.id, code)} dark={resolvedTheme === 'dark'} /></Suspense>}</div></section> : null
   const outputContent = <section aria-label="Output programma" className="ide-surface flex min-h-0 flex-1 flex-col overflow-hidden rounded-md border bg-[var(--code-bg)]"><div className="flex h-8 shrink-0 items-center gap-1.5 border-b px-3"><Icon icon={TerminalIcon} className="size-3.5" /><span className="text-[11px] font-bold uppercase tracking-wider">Output</span><span className="ml-auto text-[10px] text-muted-foreground">{python.status === 'waiting' ? 'In attesa di input' : running ? 'In esecuzione' : ''}</span><Button variant="ghost" size="xs" onClick={python.clearOutput}>Pulisci</Button></div><ScrollArea className="min-h-0 flex-1 px-3 py-2"><div data-testid="output" className="output-scroll min-h-full">{python.output.length === 0 ? <span className="font-sans text-xs text-muted-foreground">Premi START per eseguire main.py.</span> : python.output.map((chunk, index) => <span key={index} className={chunk.kind === 'stderr' ? 'text-destructive' : chunk.kind === 'system' ? 'text-muted-foreground' : chunk.kind === 'input' ? 'text-primary' : ''}>{chunk.text}</span>)}<div ref={outputEnd} /></div></ScrollArea><form onSubmit={(event) => { event.preventDefault(); if (python.submitInput(input)) setInput('') }} className="flex shrink-0 gap-1.5 border-t p-1.5"><Input aria-label="Input programma" placeholder={python.status === 'waiting' ? 'Scrivi input e premi Invio…' : 'Input disponibile quando richiesto'} disabled={python.status !== 'waiting'} value={input} onChange={(event) => setInput(event.target.value)} className="h-7 font-mono text-xs" /><Button size="sm" type="submit" disabled={python.status !== 'waiting'}>Invia</Button></form></section>
 
-  return <main className="ide-root bg-[var(--ide-canvas)]" data-layout-ready={mounted}>{isMobile ? <div className="ide-mobile-layout" data-mobile-view={mobileView}>
+  return <main className="ide-root bg-[var(--ide-canvas)]" data-layout-ready={mounted && layoutRestored}>{isMobile ? <div className="ide-mobile-layout" data-mobile-view={mobileView}>
     <section className="ide-mobile-screen ide-mobile-navigation" aria-label="Navigazione" onClickCapture={(event) => { if ((event.target as HTMLElement).closest('nav button')) setMobileView('content') }}>
       <Button type="button" variant="ghost" size="icon-sm" className="mobile-side-dismiss" aria-label="Torna al contenuto" onClick={() => setMobileView('content')}><Icon icon={BorderAll02Icon} /></Button>
       <AppSidebar active={learning ? 'courses' : 'playground'} course={learning?.course} lessons={learning?.lessons} currentLessonId={learning?.lesson.externalId} freePrograms={freePrograms} />

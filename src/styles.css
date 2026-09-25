@@ -57,6 +57,7 @@ html, body, #app { min-height: 100%; }
 body { margin: 0; background: var(--background); color: var(--foreground); font-family: 'Manrope', sans-serif; }
 button { cursor: pointer; }
 .ide-root { height: 100dvh; min-height: 500px; overflow: hidden; }
+.ide-root[data-layout-ready="false"] > .ide-desktop-layout { visibility: hidden; }
 .ide-panel { background: var(--panel); }
 .ide-toolbar { background: var(--toolbar); }
 .ide-files-panel { background: var(--files-panel); }
@@ -76,7 +77,6 @@ button { cursor: pointer; }
   .ide-toggle-motion > [data-panel] { transition: none; }
 }
 @media (max-width: 1023px) {
-  .ide-root[data-layout-ready="false"] > .ide-desktop-layout { visibility: hidden; }
   .mobile-carousel { position: relative; min-height: 0; }
   .mobile-carousel-track { position: relative; overflow: hidden; }
   .mobile-carousel .ide-side-handle { display: none; }
