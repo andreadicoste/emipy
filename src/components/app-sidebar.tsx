@@ -1,6 +1,6 @@
 import { useNavigate, useRouteContext } from '@tanstack/react-router'
 import { HugeiconsIcon } from '@hugeicons/react'
-import { ArrowLeft01Icon, BookOpen02Icon, CodeIcon, LibraryIcon, Logout01Icon, Moon02Icon, PlusSignIcon, Settings02Icon, Sun03Icon, UserGroupIcon } from '@hugeicons/core-free-icons'
+import { ArrowLeft01Icon, BookOpen02Icon, CodeIcon, LibraryIcon, Logout01Icon, Moon02Icon, PlusSignIcon, Sun03Icon, UserGroupIcon } from '@hugeicons/core-free-icons'
 import { useTheme } from 'next-themes'
 import { toast } from 'sonner'
 import { Button } from '@/components/ui/button'
@@ -52,7 +52,7 @@ export function AppSidebar({ active, course, lessons, currentLessonId, freeProgr
       </div>}
     </div>
     <div className="p-2">
-      <DropdownMenu><DropdownMenuTrigger asChild><Button variant="ghost" className="h-10 w-full justify-start gap-2 px-2"><span className="flex size-6 items-center justify-center rounded-full border text-[10px]">{profileName.slice(0, 2).toUpperCase()}</span><span className="min-w-0 flex-1 truncate text-left text-sm">{profileName}</span><HugeiconsIcon icon={Settings02Icon} className="size-4" /></Button></DropdownMenuTrigger>
+      <DropdownMenu><DropdownMenuTrigger asChild><Button variant="ghost" className="h-10 w-full justify-start gap-2 px-2"><span className="flex size-6 items-center justify-center rounded-full border text-[10px]">{profileName.slice(0, 2).toUpperCase()}</span><span className="min-w-0 flex-1 truncate text-left text-sm">{profileName}</span></Button></DropdownMenuTrigger>
         <DropdownMenuContent side="top" align="start" className="w-52"><p className="truncate px-2 py-1.5 text-xs text-muted-foreground">{user.email}</p><DropdownMenuGroup>
           <DropdownMenuItem onSelect={() => setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')}><HugeiconsIcon icon={resolvedTheme === 'dark' ? Sun03Icon : Moon02Icon} /> Tema {resolvedTheme === 'dark' ? 'chiaro' : 'scuro'}</DropdownMenuItem>
           {user.role?.split(',').includes('admin') && <DropdownMenuItem onSelect={() => void navigate({ to: '/admin' })}><HugeiconsIcon icon={UserGroupIcon} /> Utenti</DropdownMenuItem>}

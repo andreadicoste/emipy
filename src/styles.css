@@ -75,6 +75,42 @@ button { cursor: pointer; }
 @media (prefers-reduced-motion: reduce) {
   .ide-toggle-motion > [data-panel] { transition: none; }
 }
+@media (max-width: 1023px) {
+  .mobile-carousel { position: relative; min-height: 0; }
+  .mobile-carousel-track { position: relative; overflow: hidden; }
+  .mobile-carousel .ide-side-handle { display: none; }
+  .mobile-carousel .mobile-nav-panel,
+  .mobile-carousel .mobile-shell-panel,
+  .mobile-carousel .mobile-content-panel,
+  .mobile-carousel .mobile-tutor-panel {
+    position: absolute !important;
+    inset: 0;
+    width: 100% !important;
+    height: 100% !important;
+    min-width: 0 !important;
+    max-width: none !important;
+    flex: 0 0 100% !important;
+  }
+  .mobile-carousel .mobile-nav-panel,
+  .mobile-carousel .mobile-shell-panel {
+    transition: transform 340ms cubic-bezier(.22, 1, .36, 1);
+    will-change: transform;
+  }
+  .mobile-carousel .mobile-nav-panel { z-index: 2; transform: translateX(-100%); }
+  .mobile-carousel .mobile-shell-panel { z-index: 1; overflow: visible !important; transform: translateX(0); }
+  .mobile-carousel .mobile-workspace-track { position: relative; overflow: visible !important; }
+  .mobile-carousel .mobile-tutor-panel { top: -3rem; height: calc(100% + 3rem) !important; transform: translateX(100%); }
+  .mobile-carousel[data-mobile-view="navigation"] .mobile-nav-panel { transform: translateX(0); }
+  .mobile-carousel[data-mobile-view="navigation"] .mobile-shell-panel { transform: translateX(100%); }
+  .mobile-carousel[data-mobile-view="tutor"] .mobile-nav-panel { transform: translateX(-200%); }
+  .mobile-carousel[data-mobile-view="tutor"] .mobile-shell-panel { transform: translateX(-100%); }
+  .mobile-side-dismiss { position: absolute; z-index: 3; top: .125rem; right: .5rem; width: 44px; height: 44px; }
+  .mobile-panel-toggle { min-width: 44px; min-height: 44px; }
+}
+@media (max-width: 1023px) and (prefers-reduced-motion: reduce) {
+  .mobile-carousel .mobile-nav-panel,
+  .mobile-carousel .mobile-shell-panel { transition: none; }
+}
 .ide-program-row { color: var(--muted-foreground); border: 1px solid transparent; }
 .ide-program-row:hover { background: var(--ide-row-hover); color: var(--foreground); }
 .ide-program-row-active { background: var(--ide-row-hover); border-color: var(--border); color: var(--foreground); box-shadow: 0 1px 2px rgb(0 0 0 / 5%); }
