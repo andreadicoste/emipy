@@ -57,7 +57,6 @@ html, body, #app { min-height: 100%; }
 body { margin: 0; background: var(--background); color: var(--foreground); font-family: 'Manrope', sans-serif; }
 button { cursor: pointer; }
 .ide-root { height: 100dvh; min-height: 500px; overflow: hidden; }
-.ide-root[data-layout-ready="false"] > .ide-desktop-layout { visibility: hidden; }
 .ide-panel { background: var(--panel); }
 .ide-toolbar { background: var(--toolbar); }
 .ide-files-panel { background: var(--files-panel); }
@@ -77,6 +76,18 @@ button { cursor: pointer; }
   .ide-toggle-motion > [data-panel] { transition: none; }
 }
 @media (max-width: 1023px) {
+  /* Keep the server-rendered IDE content full width until React selects the mobile layout. */
+  .ide-root[data-layout-ready="false"] > .ide-desktop-layout > #programs,
+  .ide-root[data-layout-ready="false"] > .ide-desktop-layout > .ide-side-handle,
+  .ide-root[data-layout-ready="false"] .ide-desktop-layout #files,
+  .ide-root[data-layout-ready="false"] .ide-desktop-layout .ide-files-handle { display: none !important; }
+  .ide-root[data-layout-ready="false"] > .ide-desktop-layout > #shell,
+  .ide-root[data-layout-ready="false"] .ide-desktop-layout #workspace {
+    flex: 1 1 100% !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: none !important;
+  }
   .mobile-carousel { position: relative; min-height: 0; }
   .mobile-carousel-track { position: relative; overflow: hidden; }
   .mobile-carousel .ide-side-handle { display: none; }
@@ -96,8 +107,6 @@ button { cursor: pointer; }
   .mobile-carousel-track > #shell { z-index: 1; transform: translateX(0); }
   .mobile-carousel .mobile-nav-panel,
   .mobile-carousel .mobile-shell-panel { width: 100%; height: 100%; overflow: hidden !important; }
-  .mobile-carousel .mobile-workspace-track > #workspace { width: 100% !important; max-width: none !important; flex: 0 0 100% !important; }
-  .mobile-carousel .mobile-workspace-track > #files { display: none !important; }
   .mobile-carousel[data-mobile-view="navigation"] .mobile-carousel-track > #programs { transform: translateX(0); }
   .mobile-carousel[data-mobile-view="navigation"] .mobile-carousel-track > #shell { transform: translateX(100%); }
   .mobile-side-dismiss { position: absolute; z-index: 3; top: .125rem; right: .5rem; width: 44px; height: 44px; }
