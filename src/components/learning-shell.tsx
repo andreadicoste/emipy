@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState, type ReactNode } from 'react'
 import { Group, Panel, Separator, useGroupRef, usePanelRef } from 'react-resizable-panels'
 import { HugeiconsIcon } from '@hugeicons/react'
-import { ArrowLeft01Icon, LayoutAlignLeftIcon, LayoutLeftIcon } from '@hugeicons/core-free-icons'
+import { BorderAll02Icon, LayoutAlignLeftIcon, LayoutLeftIcon } from '@hugeicons/core-free-icons'
 import { Button } from '@/components/ui/button'
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
 import { AppSidebar } from './app-sidebar'
@@ -51,7 +51,7 @@ export function LearningShell({ children, active }: {
   const title = active === 'courses' ? 'Corsi' : 'Libreria'
 
   return <main className="ide-root mobile-carousel bg-[var(--ide-canvas)]" data-mobile-view={mobileView}><Group orientation="horizontal" groupRef={shellRef} className={`mobile-carousel-track h-full ${animatedPanel ? 'ide-toggle-motion' : ''}`} onLayoutChanged={(layout) => { if (layoutReady.current) localStorage.setItem('emipy-layout-shell', JSON.stringify(layout)) }}>
-    <Panel id="programs" panelRef={leftRef} defaultSize="16%" minSize={180} maxSize="35%" collapsible collapsedSize={0} className="mobile-nav-panel" onResize={(size) => setLeftOpen(size.inPixels > 0)} onClickCapture={(event) => { if ((event.target as HTMLElement).closest('nav button')) setMobileView('content') }}><Button type="button" variant="ghost" size="icon-sm" className="mobile-side-dismiss lg:hidden" aria-label="Torna al contenuto" onClick={() => setMobileView('content')}><HugeiconsIcon icon={ArrowLeft01Icon} aria-hidden="true" /></Button><AppSidebar active={active} /></Panel>
+    <Panel id="programs" panelRef={leftRef} defaultSize="16%" minSize={180} maxSize="35%" collapsible collapsedSize={0} className="mobile-nav-panel" onResize={(size) => setLeftOpen(size.inPixels > 0)} onClickCapture={(event) => { if ((event.target as HTMLElement).closest('nav button')) setMobileView('content') }}><Button type="button" variant="ghost" size="icon-sm" className="mobile-side-dismiss lg:hidden" aria-label="Torna al contenuto" onClick={() => setMobileView('content')}><HugeiconsIcon icon={BorderAll02Icon} aria-hidden="true" /></Button><AppSidebar active={active} /></Panel>
     <Separator className="ide-handle ide-side-handle w-px" />
     <Panel id="shell" minSize="45%" className="mobile-shell-panel flex min-w-0 flex-col">
       <header className="ide-toolbar flex h-12 shrink-0 items-center gap-1.5 px-2.5 sm:gap-2 sm:px-3">

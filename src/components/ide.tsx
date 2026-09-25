@@ -3,7 +3,7 @@ import { useNavigate, useRouter } from '@tanstack/react-router'
 import { useTheme } from 'next-themes'
 import { Group, Panel, Separator, useGroupRef, usePanelRef } from 'react-resizable-panels'
 import { HugeiconsIcon } from '@hugeicons/react'
-import { ArrowLeft01Icon, Delete02Icon, Edit02Icon, File01Icon, LayoutAlignBottomIcon, LayoutAlignLeftIcon, LayoutAlignRightIcon, LayoutBottomIcon, LayoutLeftIcon, LayoutRightIcon, Loading03Icon, MoreHorizontalIcon, PlayIcon, PlusSignIcon, StopIcon, TerminalIcon } from '@hugeicons/core-free-icons'
+import { BorderAll02Icon, Delete02Icon, Edit02Icon, File01Icon, LayoutAlignBottomIcon, LayoutAlignLeftIcon, LayoutAlignRightIcon, LayoutBottomIcon, LayoutLeftIcon, LayoutRightIcon, Loading03Icon, MoreHorizontalIcon, PlayIcon, PlusSignIcon, StopIcon, TerminalIcon } from '@hugeicons/core-free-icons'
 import { toast } from 'sonner'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
@@ -121,7 +121,7 @@ export function Ide({ program, programs, learning }: { program: Program | null; 
   const showLesson = !!learning && !!lessonForDisplay && (activeFileId === LESSON_FILE_ID || !program)
 
   return <main className="ide-root mobile-carousel bg-[var(--ide-canvas)]" data-mobile-view={mobileView}><Group orientation="horizontal" groupRef={shellRef} className={`mobile-carousel-track h-full ${animatedPanel === 'left' ? 'ide-toggle-motion' : ''}`} onLayoutChanged={(layout) => { if (layoutReady.current) localStorage.setItem('emipy-layout-shell', JSON.stringify(layout)) }}>
-    <Panel id="programs" panelRef={leftRef} defaultSize="16%" minSize={180} maxSize="35%" collapsible collapsedSize={0} className="mobile-nav-panel" onResize={(size) => setLeftOpen(size.inPixels > 0)} onClickCapture={(event) => { if ((event.target as HTMLElement).closest('nav button')) setMobileView('content') }}><Button type="button" variant="ghost" size="icon-sm" className="mobile-side-dismiss lg:hidden" aria-label="Torna al contenuto" onClick={() => setMobileView('content')}><Icon icon={ArrowLeft01Icon} /></Button><AppSidebar active={learning ? 'courses' : 'playground'} course={learning?.course} lessons={learning?.lessons} currentLessonId={learning?.lesson.externalId} freePrograms={freePrograms} /></Panel>
+    <Panel id="programs" panelRef={leftRef} defaultSize="16%" minSize={180} maxSize="35%" collapsible collapsedSize={0} className="mobile-nav-panel" onResize={(size) => setLeftOpen(size.inPixels > 0)} onClickCapture={(event) => { if ((event.target as HTMLElement).closest('nav button')) setMobileView('content') }}><Button type="button" variant="ghost" size="icon-sm" className="mobile-side-dismiss lg:hidden" aria-label="Torna al contenuto" onClick={() => setMobileView('content')}><Icon icon={BorderAll02Icon} /></Button><AppSidebar active={learning ? 'courses' : 'playground'} course={learning?.course} lessons={learning?.lessons} currentLessonId={learning?.lesson.externalId} freePrograms={freePrograms} /></Panel>
     <Separator className="ide-handle ide-side-handle w-px" />
     <Panel id="shell" minSize="45%" className="mobile-shell-panel flex min-w-0 flex-col">
       <header className="ide-toolbar flex h-12 shrink-0 items-center gap-1.5 px-2.5 sm:gap-2 sm:px-3"><IconButton icon={leftOpen ? LayoutLeftIcon : LayoutAlignLeftIcon} label={leftOpen ? 'Nascondi navigazione' : 'Mostra navigazione'} onClick={() => togglePanel('left')} className="mobile-panel-toggle" />
@@ -140,7 +140,7 @@ export function Ide({ program, programs, learning }: { program: Program | null; 
     </Panel>
   </Group>
   <div className="mobile-tutor-overlay lg:hidden" aria-hidden={mobileView !== 'tutor'}>
-    <header className="ide-toolbar flex h-12 shrink-0 items-center gap-2 px-3"><Button type="button" variant="ghost" size="icon-sm" className="mobile-panel-toggle" aria-label="Torna al contenuto" onClick={() => setMobileView('content')}><Icon icon={ArrowLeft01Icon} /></Button><span className="text-sm font-semibold">Tutor</span></header>
+    <header className="ide-toolbar flex h-12 shrink-0 items-center gap-2 px-3"><Button type="button" variant="ghost" size="icon-sm" className="mobile-panel-toggle" aria-label="Torna al contenuto" onClick={() => setMobileView('content')}><Icon icon={BorderAll02Icon} /></Button><span className="text-sm font-semibold">Tutor</span></header>
     <div className="min-h-0 flex-1"><TutorPanel context={tutorContext} runCurrentProgram={learning && program ? (stdin) => evaluation.run(currentSnapshot(), stdin) : undefined} /></div>
   </div>
   <Dialog open={renameOpen} onOpenChange={setRenameOpen}><DialogContent><DialogHeader><DialogTitle>Rinomina programma</DialogTitle><DialogDescription>Scegli un nome breve e riconoscibile.</DialogDescription></DialogHeader><form onSubmit={(event) => { event.preventDefault(); void rename() }} className="flex flex-col gap-4"><Input autoFocus maxLength={80} value={newName} onChange={(event) => setNewName(event.target.value)} aria-label="Nome programma" /><DialogFooter><Button type="submit" disabled={busy || !newName.trim()}>Salva</Button></DialogFooter></form></DialogContent></Dialog>
