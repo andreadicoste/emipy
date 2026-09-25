@@ -83,7 +83,10 @@ export function Ide({ program, programs, learning }: { program: Program | null; 
       if (shell) shellRef.current?.setLayout(JSON.parse(shell)); if (workspace) workspaceRef.current?.setLayout(JSON.parse(workspace)); if (vertical) verticalRef.current?.setLayout(JSON.parse(vertical))
     } catch { /* old layout */ } finally { layoutReady.current = true }
   }, [shellRef, workspaceRef, leftRef, rightRef, verticalRef])
-  useEffect(() => { outputEnd.current?.scrollIntoView({ block: 'end' }) }, [python.output])
+  useEffect(() => {
+    const viewport = outputEnd.current?.closest<HTMLElement>('[data-slot="scroll-area-viewport"]')
+    if (viewport) viewport.scrollTop = viewport.scrollHeight
+  }, [python.output])
   useEffect(() => { if (autosave.status === 'error') toast.error('Salvataggio non riuscito. Modifica il codice per riprovare.') }, [autosave.status])
   useEffect(() => () => { if (animationFrame.current !== null) cancelAnimationFrame(animationFrame.current); if (animationTimeout.current !== null) clearTimeout(animationTimeout.current) }, [])
 

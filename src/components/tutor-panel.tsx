@@ -50,7 +50,10 @@ export function TutorPanel({ context, runCurrentProgram }: {
   })
   const busy = status === 'submitted' || status === 'streaming'
 
-  useEffect(() => { endRef.current?.scrollIntoView({ block: 'end' }) }, [messages, status])
+  useEffect(() => {
+    const viewport = endRef.current?.closest<HTMLElement>('[data-slot="scroll-area-viewport"]')
+    if (viewport) viewport.scrollTop = viewport.scrollHeight
+  }, [messages, status])
 
   function submit() {
     const text = input.trim()
