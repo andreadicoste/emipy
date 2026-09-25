@@ -76,6 +76,7 @@ button { cursor: pointer; }
   .ide-toggle-motion > [data-panel] { transition: none; }
 }
 @media (max-width: 1023px) {
+  .ide-root[data-layout-ready="false"] > .ide-desktop-layout { visibility: hidden; }
   .mobile-carousel { position: relative; min-height: 0; }
   .mobile-carousel-track { position: relative; overflow: hidden; }
   .mobile-carousel .ide-side-handle { display: none; }
