@@ -81,8 +81,7 @@ button { cursor: pointer; }
   .mobile-carousel .ide-side-handle { display: none; }
   .mobile-carousel .mobile-nav-panel,
   .mobile-carousel .mobile-shell-panel,
-  .mobile-carousel .mobile-content-panel,
-  .mobile-carousel .mobile-tutor-panel {
+  .mobile-carousel .mobile-content-panel {
     position: absolute !important;
     inset: 0;
     width: 100% !important;
@@ -97,19 +96,32 @@ button { cursor: pointer; }
     will-change: transform;
   }
   .mobile-carousel .mobile-nav-panel { z-index: 2; transform: translateX(-100%); }
-  .mobile-carousel .mobile-shell-panel { z-index: 1; overflow: visible !important; transform: translateX(0); }
-  .mobile-carousel .mobile-workspace-track { position: relative; overflow: visible !important; }
-  .mobile-carousel .mobile-tutor-panel { top: -3rem; height: calc(100% + 3rem) !important; transform: translateX(100%); }
+  .mobile-carousel .mobile-shell-panel { z-index: 1; overflow: hidden !important; transform: translateX(0); }
+  .mobile-carousel .mobile-workspace-track { position: relative; }
+  .mobile-carousel .mobile-tutor-panel { display: none !important; }
+  .mobile-tutor-overlay {
+    position: absolute;
+    z-index: 3;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    background: var(--files-panel);
+    transform: translateX(100%);
+    transition: transform 340ms cubic-bezier(.22, 1, .36, 1);
+    pointer-events: none;
+  }
   .mobile-carousel[data-mobile-view="navigation"] .mobile-nav-panel { transform: translateX(0); }
   .mobile-carousel[data-mobile-view="navigation"] .mobile-shell-panel { transform: translateX(100%); }
   .mobile-carousel[data-mobile-view="tutor"] .mobile-nav-panel { transform: translateX(-200%); }
   .mobile-carousel[data-mobile-view="tutor"] .mobile-shell-panel { transform: translateX(-100%); }
+  .mobile-carousel[data-mobile-view="tutor"] .mobile-tutor-overlay { transform: translateX(0); pointer-events: auto; }
   .mobile-side-dismiss { position: absolute; z-index: 3; top: .125rem; right: .5rem; width: 44px; height: 44px; }
   .mobile-panel-toggle { min-width: 44px; min-height: 44px; }
 }
 @media (max-width: 1023px) and (prefers-reduced-motion: reduce) {
   .mobile-carousel .mobile-nav-panel,
-  .mobile-carousel .mobile-shell-panel { transition: none; }
+  .mobile-carousel .mobile-shell-panel,
+  .mobile-carousel .mobile-tutor-overlay { transition: none; }
 }
 .ide-program-row { color: var(--muted-foreground); border: 1px solid transparent; }
 .ide-program-row:hover { background: var(--ide-row-hover); color: var(--foreground); }
