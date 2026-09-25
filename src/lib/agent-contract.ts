@@ -26,7 +26,9 @@ export const evaluationResultSchema = z.object({
 })
 
 export const graderRunPlanSchema = z.object({
-  runs: z.array(runCurrentProgramInputSchema).min(1).max(5),
+  runs: z.array(z.object({
+    stdin: z.array(z.string().max(4096)).max(12),
+  })).min(1).max(5),
 })
 
 export const gradingEvaluationSchema = z.object({

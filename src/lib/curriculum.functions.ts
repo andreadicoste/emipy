@@ -149,7 +149,7 @@ export const beginExerciseGrading = createServerFn({ method: 'POST' }).validator
   if (submission.status !== 'PENDING') throw new Error('Consegna già elaborata')
   try {
     const plan = await planGraderRun({ exercise, snapshot: { mainCode: submission.code, files: JSON.parse(submission.filesJson) }, userId: owner })
-    return { submissionId: submission.id, stdin: plan.runs.map((run) => run.stdin ?? []) }
+    return { submissionId: submission.id, stdin: plan.runs.map((run) => run.stdin) }
   } catch (error) {
     await prisma.exerciseSubmission.updateMany({ where: { id: submission.id, userId: owner, status: 'PENDING' }, data: { status: 'ERROR', feedback: 'Grader temporaneamente non disponibile.' } })
     throw error
