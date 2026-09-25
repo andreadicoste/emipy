@@ -5,6 +5,7 @@ import { BorderAll02Icon, LayoutAlignLeftIcon, LayoutLeftIcon } from '@hugeicons
 import { Button } from '@/components/ui/button'
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
 import { AppSidebar } from './app-sidebar'
+import { useLayoutPreferences } from '@/lib/layout-preferences'
 
 export function LearningShell({ children, active }: {
   children: ReactNode
@@ -13,6 +14,7 @@ export function LearningShell({ children, active }: {
   const [leftOpen, setLeftOpen] = useState(true)
   const [mobileView, setMobileView] = useState<'navigation' | 'content'>('content')
   const [animatedPanel, setAnimatedPanel] = useState(false)
+  const { layouts, saveLayout } = useLayoutPreferences()
   const leftRef = usePanelRef()
   const shellRef = useGroupRef()
   const layoutReady = useRef(false)
@@ -23,9 +25,9 @@ export function LearningShell({ children, active }: {
     if (window.matchMedia('(max-width: 1023px)').matches) { layoutReady.current = true; return }
     try {
       const shell = localStorage.getItem('emipy-layout-shell')
-      if (shell) shellRef.current?.setLayout(JSON.parse(shell))
+      if (shell && !layouts.shell) { const layout = JSON.parse(shell); shellRef.current?.setLayout(layout); saveLayout('shell', layout) }
     } catch { /* old layout */ } finally { layoutReady.current = true }
-  }, [shellRef, leftRef])
+  }, [shellRef, layouts.shell, saveLayout])
 
   useEffect(() => () => {
     if (animationFrame.current !== null) cancelAnimationFrame(animationFrame.current)
@@ -50,7 +52,7 @@ export function LearningShell({ children, active }: {
 
   const title = active === 'courses' ? 'Corsi' : 'Libreria'
 
-  return <main className="ide-root mobile-carousel bg-[var(--ide-canvas)]" data-mobile-view={mobileView}><Group orientation="horizontal" groupRef={shellRef} className={`mobile-carousel-track h-full ${animatedPanel ? 'ide-toggle-motion' : ''}`} onLayoutChanged={(layout) => { if (layoutReady.current && !window.matchMedia('(max-width: 1023px)').matches) localStorage.setItem('emipy-layout-shell', JSON.stringify(layout)) }}>
+  return <main className="ide-root mobile-carousel bg-[var(--ide-canvas)]" data-mobile-view={mobileView}><Group orientation="horizontal" groupRef={shellRef} defaultLayout={layouts.shell} className={`mobile-carousel-track h-full ${animatedPanel ? 'ide-toggle-motion' : ''}`} onLayoutChanged={(layout) => { if (layoutReady.current && !window.matchMedia('(max-width: 1023px)').matches) saveLayout('shell', layout) }}>
     <Panel id="programs" panelRef={leftRef} defaultSize="16%" minSize={180} maxSize="35%" collapsible collapsedSize={0} className="mobile-nav-panel" onResize={(size) => setLeftOpen(size.inPixels > 0)} onClickCapture={(event) => { if ((event.target as HTMLElement).closest('nav button')) setMobileView('content') }}><Button type="button" variant="ghost" size="icon-sm" className="mobile-side-dismiss lg:hidden" aria-label="Torna al contenuto" onClick={() => setMobileView('content')}><HugeiconsIcon icon={BorderAll02Icon} aria-hidden="true" /></Button><AppSidebar active={active} /></Panel>
     <Separator className="ide-handle ide-side-handle w-px" />
     <Panel id="shell" minSize="45%" className="mobile-shell-panel flex min-w-0 flex-col">

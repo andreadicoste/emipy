@@ -57,9 +57,6 @@ html, body, #app { min-height: 100%; }
 body { margin: 0; background: var(--background); color: var(--foreground); font-family: 'Manrope', sans-serif; }
 button { cursor: pointer; }
 .ide-root { height: 100dvh; min-height: 500px; overflow: hidden; }
-/* The lesson stays visible while saved panel sizes are restored. */
-.ide-root[data-layout-ready="false"] > .ide-desktop-layout > #programs,
-.ide-root[data-layout-ready="false"] .ide-desktop-layout #files { visibility: hidden; }
 .ide-panel { background: var(--panel); }
 .ide-toolbar { background: var(--toolbar); }
 .ide-files-panel { background: var(--files-panel); }

@@ -19,6 +19,7 @@ import { beginExerciseGrading, finishExerciseGrading, startExercise } from '@/li
 import type { Course, StudentExerciseView, StudentLessonDTO } from '@/lib/curriculum-schema'
 import type { ProgramSnapshot } from '@/lib/agent-contract'
 import { MAIN_FILE_ID, useAutosave } from '@/hooks/use-autosave'
+import { useLayoutPreferences } from '@/lib/layout-preferences'
 import { useEvaluationRunner } from '@/hooks/use-evaluation-runner'
 import { usePython } from '@/hooks/use-python'
 import { AppSidebar } from './app-sidebar'
@@ -39,6 +40,7 @@ export function Ide({ program, programs, learning }: { program: Program | null; 
   const navigate = useNavigate()
   const router = useRouter()
   const { resolvedTheme } = useTheme()
+  const { layouts, saveLayout } = useLayoutPreferences()
   const [mounted, setMounted] = useState(false)
   const [isMobile, setIsMobile] = useState(false)
   const [renameOpen, setRenameOpen] = useState(false)
@@ -79,9 +81,11 @@ export function Ide({ program, programs, learning }: { program: Program | null; 
     if (window.matchMedia('(max-width: 1023px)').matches) { layoutReady.current = true; return }
     try {
       const shell = localStorage.getItem('emipy-layout-shell'), workspace = localStorage.getItem('emipy-layout-workspace'), vertical = localStorage.getItem('emipy-layout-vertical')
-      if (shell) shellRef.current?.setLayout(JSON.parse(shell)); if (workspace) workspaceRef.current?.setLayout(JSON.parse(workspace)); if (vertical) verticalRef.current?.setLayout(JSON.parse(vertical))
+      if (shell && !layouts.shell) { const layout = JSON.parse(shell); shellRef.current?.setLayout(layout); saveLayout('shell', layout) }
+      if (workspace && !layouts.workspace) { const layout = JSON.parse(workspace); workspaceRef.current?.setLayout(layout); saveLayout('workspace', layout) }
+      if (program && vertical && !layouts.vertical) { const layout = JSON.parse(vertical); verticalRef.current?.setLayout(layout); saveLayout('vertical', layout) }
     } catch { /* old layout */ } finally { layoutReady.current = true }
-  }, [shellRef, workspaceRef, leftRef, rightRef, verticalRef])
+  }, [shellRef, workspaceRef, verticalRef, layouts.shell, layouts.workspace, layouts.vertical, program, saveLayout])
   useEffect(() => {
     const viewport = outputEnd.current?.closest<HTMLElement>('[data-slot="scroll-area-viewport"]')
     if (viewport) viewport.scrollTop = viewport.scrollHeight
@@ -160,12 +164,12 @@ export function Ide({ program, programs, learning }: { program: Program | null; 
       <header className="ide-toolbar flex h-12 shrink-0 items-center gap-2 px-3"><Button type="button" variant="ghost" size="icon-sm" className="mobile-panel-toggle" aria-label="Torna al contenuto" onClick={() => setMobileView('content')}><Icon icon={BorderAll02Icon} /></Button><span className="text-sm font-semibold">Tutor</span></header>
       <div className="min-h-0 flex-1"><TutorPanel context={tutorContext} runCurrentProgram={learning && program ? (stdin) => evaluation.run(currentSnapshot(), stdin) : undefined} /></div>
     </section>
-  </div> : <Group orientation="horizontal" groupRef={shellRef} className={`ide-desktop-layout h-full ${animatedPanel === 'left' ? 'ide-toggle-motion' : ''}`} onLayoutChanged={(layout) => { if (layoutReady.current && !window.matchMedia('(max-width: 1023px)').matches) localStorage.setItem('emipy-layout-shell', JSON.stringify(layout)) }}>
+  </div> : <Group orientation="horizontal" groupRef={shellRef} defaultLayout={layouts.shell} className={`ide-desktop-layout h-full ${animatedPanel === 'left' ? 'ide-toggle-motion' : ''}`} onLayoutChanged={(layout) => { if (layoutReady.current && !window.matchMedia('(max-width: 1023px)').matches) saveLayout('shell', layout) }}>
     <Panel id="programs" panelRef={leftRef} defaultSize="16%" minSize={180} maxSize="35%" collapsible collapsedSize={0} onResize={(size) => setLeftOpen(size.inPixels > 0)}><AppSidebar active={learning ? 'courses' : 'playground'} course={learning?.course} lessons={learning?.lessons} currentLessonId={learning?.lesson.externalId} freePrograms={freePrograms} /></Panel>
     <Separator className="ide-handle ide-side-handle w-px" />
     <Panel id="shell" minSize="45%" className="flex min-w-0 flex-col">
       {toolbar}
-      <Group orientation="horizontal" groupRef={workspaceRef} className={`min-h-0 flex-1 ${animatedPanel === 'right' ? 'ide-toggle-motion' : ''}`} onLayoutChanged={(layout) => { if (layoutReady.current && !window.matchMedia('(max-width: 1023px)').matches) localStorage.setItem('emipy-layout-workspace', JSON.stringify(layout)) }}><Panel id="workspace" minSize="35%" className="flex min-w-0 flex-col"><Group orientation="vertical" groupRef={verticalRef} className={`min-h-0 flex-1 ${animatedPanel === 'output' ? 'ide-toggle-motion' : ''}`} onLayoutChanged={(layout) => { if (layoutReady.current && !window.matchMedia('(max-width: 1023px)').matches) localStorage.setItem('emipy-layout-vertical', JSON.stringify(layout)) }}>
+      <Group orientation="horizontal" groupRef={workspaceRef} defaultLayout={layouts.workspace} className={`min-h-0 flex-1 ${animatedPanel === 'right' ? 'ide-toggle-motion' : ''}`} onLayoutChanged={(layout) => { if (layoutReady.current && !window.matchMedia('(max-width: 1023px)').matches) saveLayout('workspace', layout) }}><Panel id="workspace" minSize="35%" className="flex min-w-0 flex-col"><Group orientation="vertical" groupRef={verticalRef} defaultLayout={program ? layouts.vertical : undefined} className={`min-h-0 flex-1 ${animatedPanel === 'output' ? 'ide-toggle-motion' : ''}`} onLayoutChanged={(layout) => { if (program && layoutReady.current && !window.matchMedia('(max-width: 1023px)').matches) saveLayout('vertical', layout) }}>
         <Panel id="editor" defaultSize="70%" minSize="25%" className="flex min-h-0 flex-col pb-1 pl-2 pr-2">{editorContent}</Panel>
         {program && <><Separator className="ide-handle ide-output-handle h-1" /><Panel id="output" panelRef={outputRef} defaultSize="30%" minSize="12%" maxSize="70%" collapsible collapsedSize={0} onResize={(size) => setOutputOpen(size.inPixels > 0)} className="flex min-h-0 flex-col p-2 pt-1">{outputContent}</Panel></>}
       </Group></Panel><Separator className="ide-handle ide-side-handle ide-files-handle w-px" /><Panel id="files" panelRef={rightRef} defaultSize="18%" minSize={220} maxSize="40%" collapsible collapsedSize={0} onResize={(size) => setRightOpen(size.inPixels > 0)}><TutorPanel context={tutorContext} runCurrentProgram={learning && program ? (stdin) => evaluation.run(currentSnapshot(), stdin) : undefined} /></Panel></Group>
