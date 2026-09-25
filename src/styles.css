@@ -97,29 +97,31 @@ button { cursor: pointer; }
   .mobile-carousel .mobile-shell-panel { width: 100%; height: 100%; overflow: hidden !important; }
   .mobile-carousel .mobile-workspace-track > #workspace { width: 100% !important; max-width: none !important; flex: 0 0 100% !important; }
   .mobile-carousel .mobile-workspace-track > #files { display: none !important; }
-  .mobile-tutor-overlay {
-    position: absolute;
-    z-index: 3;
-    inset: 0;
-    display: flex;
-    flex-direction: column;
-    background: var(--files-panel);
-    transform: translateX(100%);
-    transition: transform 340ms cubic-bezier(.22, 1, .36, 1);
-    pointer-events: none;
-  }
   .mobile-carousel[data-mobile-view="navigation"] .mobile-carousel-track > #programs { transform: translateX(0); }
   .mobile-carousel[data-mobile-view="navigation"] .mobile-carousel-track > #shell { transform: translateX(100%); }
-  .mobile-carousel[data-mobile-view="tutor"] .mobile-carousel-track > #programs { transform: translateX(-200%); }
-  .mobile-carousel[data-mobile-view="tutor"] .mobile-carousel-track > #shell { transform: translateX(-100%); }
-  .mobile-carousel[data-mobile-view="tutor"] .mobile-tutor-overlay { transform: translateX(0); pointer-events: auto; }
   .mobile-side-dismiss { position: absolute; z-index: 3; top: .125rem; right: .5rem; width: 44px; height: 44px; }
   .mobile-panel-toggle { min-width: 44px; min-height: 44px; }
+  .ide-mobile-layout { position: relative; height: 100%; overflow: hidden; }
+  .ide-mobile-screen {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+    transition: transform 340ms cubic-bezier(.22, 1, .36, 1);
+  }
+  .ide-mobile-navigation { z-index: 2; transform: translateX(-100%); background: var(--panel); }
+  .ide-mobile-content { z-index: 1; transform: translateX(0); }
+  .ide-mobile-tutor { z-index: 3; transform: translateX(100%); background: var(--files-panel); }
+  .ide-mobile-layout[data-mobile-view="navigation"] .ide-mobile-navigation { transform: translateX(0); }
+  .ide-mobile-layout[data-mobile-view="navigation"] .ide-mobile-content { transform: translateX(100%); }
+  .ide-mobile-layout[data-mobile-view="tutor"] .ide-mobile-content { transform: translateX(-100%); }
+  .ide-mobile-layout[data-mobile-view="tutor"] .ide-mobile-tutor { transform: translateX(0); }
 }
 @media (max-width: 1023px) and (prefers-reduced-motion: reduce) {
   .mobile-carousel-track > #programs,
   .mobile-carousel-track > #shell,
-  .mobile-carousel .mobile-tutor-overlay { transition: none; }
+  .ide-mobile-screen { transition: none; }
 }
 .ide-program-row { color: var(--muted-foreground); border: 1px solid transparent; }
 .ide-program-row:hover { background: var(--ide-row-hover); color: var(--foreground); }
