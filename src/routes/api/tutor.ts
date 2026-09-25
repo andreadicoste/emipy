@@ -4,7 +4,7 @@ import { auth } from '@/lib/auth'
 import { createTutorAgent } from '@/lib/agents.server'
 import { tutorRequestSchema } from '@/lib/agent-contract'
 import { prisma } from '@/lib/prisma'
-import { findExerciseContext, loadRegistry, studentExercise } from '@/lib/curriculum.server'
+import { buildLearningState, findExerciseContext, loadRegistry, studentExercise } from '@/lib/curriculum.server'
 
 export const Route = createFileRoute('/api/tutor')({
   server: { handlers: {
@@ -29,8 +29,14 @@ export const Route = createFileRoute('/api/tutor')({
       const course = courses.find((item) => item.externalId === courseId)
       const lesson = lessons.find((item) => item.externalId === lessonId && item.courseId === courseId)
       if (!course || !lesson) return Response.json({ error: 'Lezione non trovata' }, { status: 404 })
+      const [lessonProgress, exerciseProgress] = await Promise.all([
+        prisma.lessonProgress.findMany({ where: { userId: session.user.id }, select: { lessonId: true } }),
+        prisma.exerciseProgress.findMany({ where: { userId: session.user.id }, select: { exerciseId: true, completedAt: true } }),
+      ])
+      const state = buildLearningState({ courses, lessons, exercises }, new Set(lessonProgress.map((item) => item.lessonId)), new Set(exerciseProgress.map((item) => item.exerciseId)), new Set(exerciseProgress.filter((item) => item.completedAt).map((item) => item.exerciseId)))
+      if (!state.lessons.get(lessonId)?.unlocked || (exerciseId && !state.exercises.get(exerciseId)?.unlocked)) return Response.json({ error: 'Completa prima il contenuto precedente.' }, { status: 403 })
       const lessonExercises = lesson.exerciseIds.map((id) => exercises.find((item) => item.externalId === id)).filter((item) => item !== undefined)
-      const lessonDto = { ...lesson, exercises: lessonExercises.map((item) => ({ ...studentExercise(item), progress: null })) }
+      const lessonDto = { ...lesson, exercises: lessonExercises.map((item) => ({ ...studentExercise(item), progress: null, ...state.exercises.get(item.externalId)! })) }
       const exercise = exerciseId ? lessonExercises.find((item) => item.externalId === exerciseId) ?? null : null
       const agent = createTutorAgent({ lesson: lessonDto, exercise: exercise ? studentExercise(exercise) : null, snapshot: context.snapshot, lastExecution: context.lastExecution, userId: session.user.id })
       return createAgentUIStreamResponse({ agent, uiMessages: messages, abortSignal: request.signal, timeout: 45_000 })

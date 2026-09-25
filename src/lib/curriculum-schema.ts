@@ -53,13 +53,13 @@ export type Lesson = z.infer<typeof lessonSchema>
 export type Exercise = z.infer<typeof exerciseSchema>
 export type LessonBlock = Lesson['blocks'][number]
 
-export type CourseSummary = Course & { lessonCount: number; visitedCount: number }
+export type CourseSummary = Course & { lessonCount: number; completedCount: number; unlocked: boolean; completed: boolean; learningStatus: 'locked' | 'available' | 'in_progress' | 'completed' }
 export type StudentExerciseDTO = Pick<Exercise, 'externalId' | 'title' | 'instructions' | 'language' | 'learningObjectives'>
 export type StudentExerciseView = StudentExerciseDTO & { progress: null | {
   attempts: number
   completed: boolean
   feedback: string | null
   submissionStatus: string | null
-} }
+}; unlocked: boolean; completed: boolean }
 export type StudentLessonDTO = Lesson & { exercises: StudentExerciseView[] }
 export type GraderExerciseSpec = Exercise

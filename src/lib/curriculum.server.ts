@@ -2,7 +2,45 @@ import { readdir, readFile } from 'node:fs/promises'
 import path from 'node:path'
 import { courseSchema, exerciseSchema, lessonSchema, type Course, type Exercise, type Lesson, type StudentExerciseDTO } from './curriculum-schema'
 
-type Registry = { courses: Course[]; lessons: Lesson[]; exercises: Exercise[] }
+export type Registry = { courses: Course[]; lessons: Lesson[]; exercises: Exercise[] }
+
+export type LearningStatus = 'locked' | 'available' | 'in_progress' | 'completed'
+type ItemState = { unlocked: boolean; completed: boolean; learningStatus: LearningStatus }
+
+export function buildLearningState(registry: Registry, visitedLessons: Set<string>, startedExercises: Set<string>, completedExercises: Set<string>) {
+  const courses = new Map<string, ItemState & { lessonCount: number; completedCount: number }>()
+  const lessons = new Map<string, ItemState>()
+  const exercises = new Map<string, ItemState>()
+  let courseUnlocked = true
+
+  for (const course of registry.courses.filter((item) => item.status === 'published').sort((a, b) => a.order - b.order)) {
+    const courseLessons = registry.lessons.filter((item) => item.status === 'published' && item.courseId === course.externalId).sort((a, b) => a.order - b.order)
+    let lessonUnlocked = courseUnlocked
+    let completedCount = 0
+    let courseStarted = false
+
+    for (const lesson of courseLessons) {
+      const completed = lesson.exerciseIds.length > 0
+        ? lesson.exerciseIds.every((id) => completedExercises.has(id))
+        : visitedLessons.has(lesson.externalId)
+      const started = visitedLessons.has(lesson.externalId) || lesson.exerciseIds.some((id) => startedExercises.has(id))
+      lessons.set(lesson.externalId, { unlocked: lessonUnlocked, completed, learningStatus: completed ? 'completed' : !lessonUnlocked ? 'locked' : started ? 'in_progress' : 'available' })
+      if (completed) completedCount++
+      if (started) courseStarted = true
+
+      for (const id of lesson.exerciseIds) {
+        const exerciseCompleted = completedExercises.has(id)
+        exercises.set(id, { unlocked: lessonUnlocked, completed: exerciseCompleted, learningStatus: exerciseCompleted ? 'completed' : !lessonUnlocked ? 'locked' : startedExercises.has(id) ? 'in_progress' : 'available' })
+      }
+      lessonUnlocked = lessonUnlocked && completed
+    }
+
+    const completed = courseLessons.length > 0 && completedCount === courseLessons.length
+    courses.set(course.externalId, { unlocked: courseUnlocked, completed, learningStatus: completed ? 'completed' : !courseUnlocked ? 'locked' : courseStarted ? 'in_progress' : 'available', lessonCount: courseLessons.length, completedCount })
+    courseUnlocked = courseUnlocked && completed
+  }
+  return { courses, lessons, exercises }
+}
 
 async function readCollection<T>(folder: string, parse: (value: unknown) => T): Promise<T[]> {
   const root = path.join(process.cwd(), 'content', folder)

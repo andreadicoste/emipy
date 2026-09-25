@@ -2,7 +2,7 @@ import { createServerFn } from '@tanstack/react-start'
 import { getRequestHeaders } from '@tanstack/react-start/server'
 import { auth } from './auth'
 import { prisma } from './prisma'
-import { findExerciseContext, loadRegistry, studentExercise } from './curriculum.server'
+import { buildLearningState, findExerciseContext, loadRegistry, studentExercise, type Registry } from './curriculum.server'
 import { beginGradingSchema, finishGradingSchema, programSnapshotSchema } from './agent-contract'
 import { judgeGraderResult, planGraderRun } from './agents.server'
 import { courseIdSchema, lessonIdSchema, startExerciseSchema, workspaceSchema } from './validation'
@@ -22,16 +22,30 @@ async function publishedRegistry() {
   }
 }
 
+async function learningState(owner: string, registry: Registry) {
+  const [lessons, exercises] = await Promise.all([
+    prisma.lessonProgress.findMany({ where: { userId: owner }, select: { lessonId: true } }),
+    prisma.exerciseProgress.findMany({ where: { userId: owner }, select: { exerciseId: true, completedAt: true } }),
+  ])
+  return buildLearningState(
+    registry,
+    new Set(lessons.map((item) => item.lessonId)),
+    new Set(exercises.map((item) => item.exerciseId)),
+    new Set(exercises.filter((item) => item.completedAt).map((item) => item.exerciseId)),
+  )
+}
+
+function requireUnlocked(unlocked: boolean | undefined) {
+  if (!unlocked) throw new Error('Completa prima il contenuto precedente.')
+}
+
 export const listCourses = createServerFn({ method: 'GET' }).handler(async () => {
   const owner = await ownerId()
-  const [registry, progress] = await Promise.all([
-    publishedRegistry(),
-    prisma.lessonProgress.findMany({ where: { userId: owner }, select: { lessonId: true } }),
-  ])
-  const visited = new Set(progress.map((item) => item.lessonId))
+  const registry = await publishedRegistry()
+  const state = await learningState(owner, registry)
   return registry.courses.map((course) => {
-    const lessons = registry.lessons.filter((lesson) => lesson.courseId === course.externalId)
-    return { ...course, lessonCount: lessons.length, visitedCount: lessons.filter((lesson) => visited.has(lesson.externalId)).length }
+    const progress = state.courses.get(course.externalId)!
+    return { ...course, ...progress }
   })
 })
 
@@ -40,11 +54,15 @@ export const getCourseDestination = createServerFn({ method: 'GET' }).validator(
   const registry = await publishedRegistry()
   const course = registry.courses.find((item) => item.externalId === data.courseId)
   if (!course) throw new Error('Corso non trovato')
+  const state = await learningState(owner, registry)
+  requireUnlocked(state.courses.get(course.externalId)?.unlocked)
   const lessons = registry.lessons.filter((item) => item.courseId === course.externalId)
   if (!lessons[0]) throw new Error('Corso senza lezioni')
-  const ids = lessons.map((item) => item.externalId)
-  const latest = await prisma.lessonProgress.findFirst({ where: { userId: owner, lessonId: { in: ids } }, orderBy: { lastOpenedAt: 'desc' } })
-  return { lessonId: latest?.lessonId ?? lessons[0].externalId }
+  const next = lessons.find((item) => {
+    const progress = state.lessons.get(item.externalId)
+    return progress?.unlocked && !progress.completed
+  })
+  return { lessonId: next?.externalId ?? lessons.at(-1)!.externalId }
 })
 
 async function lessonView(owner: string, courseId: string, lessonId: string, touch: boolean) {
@@ -52,33 +70,37 @@ async function lessonView(owner: string, courseId: string, lessonId: string, tou
   const course = registry.courses.find((item) => item.externalId === courseId)
   const lesson = registry.lessons.find((item) => item.externalId === lessonId && item.courseId === courseId)
   if (!course || !lesson) throw new Error('Lezione non trovata')
+  const access = await learningState(owner, registry)
+  requireUnlocked(access.lessons.get(lessonId)?.unlocked)
   if (touch) await prisma.lessonProgress.upsert({
     where: { userId_lessonId: { userId: owner, lessonId } },
     update: { lastOpenedAt: new Date() }, create: { userId: owner, lessonId },
   })
+  if (touch && !lesson.exerciseIds.length) await prisma.lessonProgress.updateMany({
+    where: { userId: owner, lessonId, completedAt: null }, data: { completedAt: new Date() },
+  })
   const lessons = registry.lessons.filter((item) => item.courseId === courseId)
-  const allExerciseIds = lessons.flatMap((item) => item.exerciseIds)
-  const [lessonProgress, exerciseProgress, submissions] = await Promise.all([
-    prisma.lessonProgress.findMany({ where: { userId: owner, lessonId: { in: lessons.map((item) => item.externalId) } }, select: { lessonId: true } }),
-    prisma.exerciseProgress.findMany({ where: { userId: owner, exerciseId: { in: allExerciseIds } } }),
-    prisma.exerciseSubmission.findMany({ where: { userId: owner, exerciseId: { in: lesson.exerciseIds } }, orderBy: { createdAt: 'desc' }, select: { exerciseId: true, status: true } }),
+  const [state, exerciseProgress, submissions] = await Promise.all([
+    touch ? learningState(owner, registry) : Promise.resolve(access),
+    prisma.exerciseProgress.findMany({ where: { userId: owner, exerciseId: { in: lesson.exerciseIds } } }),
+    prisma.exerciseSubmission.findMany({ where: { userId: owner, exerciseId: { in: lesson.exerciseIds } }, orderBy: { createdAt: 'desc' }, select: { exerciseId: true, status: true, feedback: true } }),
   ])
-  const visited = new Set(lessonProgress.map((item) => item.lessonId))
   const progressByExercise = new Map(exerciseProgress.map((item) => [item.exerciseId, item]))
-  const latestStatus = new Map<string, string>()
-  for (const submission of submissions) if (!latestStatus.has(submission.exerciseId)) latestStatus.set(submission.exerciseId, submission.status)
+  const latestStatus = new Map<string, { status: string; feedback: string | null }>()
+  for (const submission of submissions) if (!latestStatus.has(submission.exerciseId)) latestStatus.set(submission.exerciseId, submission)
   const exercises = lesson.exerciseIds.map((id) => registry.exercises.find((item) => item.externalId === id)).filter((item) => item !== undefined).map((exercise) => {
     const progress = progressByExercise.get(exercise.externalId)
-    return { ...studentExercise(exercise), progress: progress ? { attempts: progress.attempts, completed: !!progress.completedAt, feedback: progress.lastFeedback, submissionStatus: latestStatus.get(exercise.externalId) ?? null } : null }
+    const latest = latestStatus.get(exercise.externalId)
+    return { ...studentExercise(exercise), progress: progress ? { attempts: progress.attempts, completed: !!progress.completedAt, feedback: latest?.status === 'ERROR' ? latest.feedback : progress.lastFeedback, submissionStatus: latest?.status ?? null } : null }
   })
-  const lessonCompleted = (item: { externalId: string; exerciseIds: string[] }) => {
-    if (!item.exerciseIds.length) return visited.has(item.externalId)
-    return item.exerciseIds.every((id) => !!progressByExercise.get(id)?.completedAt)
-  }
   return {
     course,
-    lesson: { ...lesson, exercises },
-    lessons: lessons.map(({ externalId, title, order, exerciseIds }) => ({ externalId, title, order, visited: visited.has(externalId), completed: lessonCompleted({ externalId, exerciseIds }) })),
+    lesson: { ...lesson, exercises: exercises.map((exercise) => {
+      const itemState = state.exercises.get(exercise.externalId)
+      if (!itemState) throw new Error('Esercizio non disponibile')
+      return { ...exercise, ...itemState }
+    }) },
+    lessons: lessons.map(({ externalId, title, order }) => ({ externalId, title, order, ...state.lessons.get(externalId)! })),
   }
 }
 
@@ -93,6 +115,8 @@ export const startExercise = createServerFn({ method: 'POST' }).validator(startE
   const lesson = registry.lessons.find((item) => item.externalId === data.lessonId && item.courseId === data.courseId && item.exerciseIds.includes(data.exerciseId))
   const exercise = registry.exercises.find((item) => item.externalId === data.exerciseId)
   if (!lesson || !exercise) throw new Error('Esercizio non disponibile')
+  const state = await learningState(owner, registry)
+  requireUnlocked(state.exercises.get(exercise.externalId)?.unlocked)
   return prisma.$transaction(async (tx) => {
     const program = await tx.program.upsert({
       where: { userId_exerciseId: { userId: owner, exerciseId: exercise.externalId } },
@@ -121,6 +145,7 @@ export const getExerciseWorkspace = createServerFn({ method: 'GET' }).validator(
   if (!program?.exerciseId || !view.lesson.exerciseIds.includes(program.exerciseId)) throw new Error('Workspace non trovato')
   const exercise = view.lesson.exercises.find((item) => item.externalId === program.exerciseId)
   if (!exercise) throw new Error('Esercizio non trovato')
+  requireUnlocked(exercise.unlocked)
   return { ...view, program, exercise }
 })
 
@@ -131,6 +156,8 @@ export const beginExerciseGrading = createServerFn({ method: 'POST' }).validator
   if (!program?.exerciseId) throw new Error('Questo programma non è un esercizio')
   const exercise = registry.exercises.find((item) => item.externalId === program.exerciseId)
   if (!exercise || !findExerciseContext(registry, exercise.externalId)) throw new Error('Esercizio non disponibile')
+  const state = await learningState(owner, registry)
+  requireUnlocked(state.exercises.get(exercise.externalId)?.unlocked)
   const snapshot = programSnapshotSchema.parse(data.snapshot)
   const submission = await prisma.$transaction(async (tx) => {
     const existing = await tx.exerciseSubmission.findUnique({ where: { userId_idempotencyKey: { userId: owner, idempotencyKey: data.idempotencyKey } } })
@@ -156,13 +183,24 @@ export const beginExerciseGrading = createServerFn({ method: 'POST' }).validator
   }
 })
 
+export const failExerciseGrading = createServerFn({ method: 'POST' }).validator(finishGradingSchema.pick({ submissionId: true })).handler(async ({ data }) => {
+  const owner = await ownerId()
+  await prisma.exerciseSubmission.updateMany({
+    where: { id: data.submissionId, userId: owner, status: 'PENDING' },
+    data: { status: 'ERROR', feedback: 'Esecuzione non riuscita. Riprova.', gradedAt: new Date() },
+  })
+})
+
 export const finishExerciseGrading = createServerFn({ method: 'POST' }).validator(finishGradingSchema).handler(async ({ data }) => {
   const owner = await ownerId()
   const submission = await prisma.exerciseSubmission.findFirst({ where: { id: data.submissionId, userId: owner } })
   if (!submission) throw new Error('Consegna non trovata')
   if (submission.status !== 'PENDING') return { completed: submission.status === 'COMPLETED', feedback: submission.feedback ?? '', status: submission.status }
-  const exercise = (await publishedRegistry()).exercises.find((item) => item.externalId === submission.exerciseId)
+  const registry = await publishedRegistry()
+  const exercise = registry.exercises.find((item) => item.externalId === submission.exerciseId)
   if (!exercise) throw new Error('Esercizio non disponibile')
+  const context = findExerciseContext(registry, exercise.externalId)
+  if (!context) throw new Error('Contesto esercizio non trovato')
   const snapshot = programSnapshotSchema.parse({ mainCode: submission.code, files: JSON.parse(submission.filesJson) })
   try {
     const result = await judgeGraderResult({ exercise, snapshot, evaluation: data.evaluation, userId: owner })
@@ -174,6 +212,12 @@ export const finishExerciseGrading = createServerFn({ method: 'POST' }).validato
         where: { userId_exerciseId: { userId: owner, exerciseId: submission.exerciseId } },
         data: { lastFeedback: result.feedback, ...(result.completed ? { completedAt: new Date() } : {}) },
       })
+      if (result.completed) {
+        const completedExercises = await tx.exerciseProgress.count({ where: { userId: owner, exerciseId: { in: context.lesson.exerciseIds }, completedAt: { not: null } } })
+        if (completedExercises === context.lesson.exerciseIds.length) await tx.lessonProgress.updateMany({
+          where: { userId: owner, lessonId: context.lesson.externalId, completedAt: null }, data: { completedAt: new Date() },
+        })
+      }
     })
     return { ...result, status }
   } catch (error) {

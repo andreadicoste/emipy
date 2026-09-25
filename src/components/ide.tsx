@@ -15,7 +15,7 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem,
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog'
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from '@/components/ui/alert-dialog'
 import { createProgramFile, deleteProgram, renameProgram, type getProgram } from '@/lib/programs.functions'
-import { beginExerciseGrading, finishExerciseGrading, startExercise } from '@/lib/curriculum.functions'
+import { beginExerciseGrading, failExerciseGrading, finishExerciseGrading, startExercise } from '@/lib/curriculum.functions'
 import type { Course, StudentExerciseView, StudentLessonDTO } from '@/lib/curriculum-schema'
 import type { ProgramSnapshot } from '@/lib/agent-contract'
 import { MAIN_FILE_ID, useAutosave } from '@/hooks/use-autosave'
@@ -31,7 +31,7 @@ const CodeEditor = lazy(() => import('./code-editor').then((module) => ({ defaul
 const LESSON_FILE_ID = '__lesson__'
 type Program = Awaited<ReturnType<typeof getProgram>>
 type ProgramSummary = { id: string; name: string; exerciseId?: string | null }
-type Learning = { course: Course; lesson: StudentLessonDTO; lessons: { externalId: string; title: string; completed: boolean }[]; exercise?: StudentExerciseView }
+type Learning = { course: Course; lesson: StudentLessonDTO; lessons: { externalId: string; title: string; completed: boolean; unlocked: boolean }[]; exercise?: StudentExerciseView }
 type IconType = Parameters<typeof HugeiconsIcon>[0]['icon']
 
 function Icon({ icon, className }: { icon: IconType; className?: string }) { return <HugeiconsIcon icon={icon} className={className} strokeWidth={1.8} aria-hidden="true" /> }
@@ -117,17 +117,21 @@ export function Ide({ program, programs, learning }: { program: Program | null; 
   async function submit() {
     if (!learning || !program) return
     setSubmitting(true)
+    let submissionId: string | null = null
     try {
       await autosave.flush()
       const snapshot = currentSnapshot()
       const planned = await beginExerciseGrading({ data: { programId: program.id, idempotencyKey: crypto.randomUUID(), snapshot } })
-      const result = await evaluation.run(snapshot, planned.stdin)
+      submissionId = planned.submissionId
+      let result: Awaited<ReturnType<typeof evaluation.run>>
+      try { result = await evaluation.run(snapshot, planned.stdin) }
+      catch (error) { await failExerciseGrading({ data: { submissionId } }); throw error }
       const grade = await finishExerciseGrading({ data: { submissionId: planned.submissionId, evaluation: result } })
       setExerciseProgress({ attempts: (exerciseProgress?.attempts ?? 0) + 1, completed: grade.completed || !!exerciseProgress?.completed, feedback: grade.feedback, submissionStatus: grade.status })
       await router.invalidate()
       if (grade.completed) toast.success('Esercizio completato.')
       else toast.info(grade.feedback)
-    } catch { toast.error('Valutazione non riuscita. Riprova.') }
+    } catch { await router.invalidate(); toast.error('Valutazione non riuscita. Riprova.') }
     finally { setSubmitting(false) }
   }
 
@@ -135,7 +139,7 @@ export function Ide({ program, programs, learning }: { program: Program | null; 
   const saveLabel = autosave.status === 'saved' ? 'Salvato' : autosave.status === 'error' ? 'Errore salvataggio' : 'Salvataggio…'
   const activeFile = autosave.files.find((file) => file.id === activeFileId) ?? autosave.files[0], mainFile = autosave.files[0]
   const freePrograms = programs.filter((item) => !item.exerciseId)
-  const gradeLabel = submitting ? 'Valutazione…' : exerciseProgress?.completed ? 'Completato' : exerciseProgress?.attempts ? 'Da rivedere' : null
+  const gradeLabel = submitting ? 'Valutazione…' : exerciseProgress?.completed ? 'Completato' : exerciseProgress?.submissionStatus === 'ERROR' ? 'Errore valutazione' : exerciseProgress?.submissionStatus === 'PENDING' ? 'In valutazione' : exerciseProgress?.submissionStatus === 'NEEDS_WORK' ? 'Da rivedere' : exerciseProgress ? 'In corso' : null
   const snapshot = currentSnapshot()
   const tutorContext = learning ? { programId: program?.id ?? null, courseId: learning.course.externalId, lessonId: learning.lesson.externalId, snapshot: program ? snapshot : null, lastExecution: program ? python.output.map((chunk) => `[${chunk.kind}] ${chunk.text}`).join('') : '' } : null
   const lessonForDisplay = learning ? { ...learning.lesson, exercises: learning.lesson.exercises.map((exercise) => learning.exercise && exercise.externalId === learning.exercise.externalId ? { ...exercise, progress: exerciseProgress } : exercise) } : null
