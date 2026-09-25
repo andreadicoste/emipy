@@ -20,6 +20,7 @@ import type { Course, StudentExerciseView, StudentLessonDTO } from '@/lib/curric
 import type { ProgramSnapshot } from '@/lib/agent-contract'
 import { MAIN_FILE_ID, useAutosave } from '@/hooks/use-autosave'
 import { useLayoutPreferences } from '@/lib/layout-preferences'
+import { panelDefaultSize } from '@/lib/layout-storage'
 import { useEvaluationRunner } from '@/hooks/use-evaluation-runner'
 import { usePython } from '@/hooks/use-python'
 import { AppSidebar } from './app-sidebar'
@@ -41,6 +42,7 @@ export function Ide({ program, programs, learning }: { program: Program | null; 
   const router = useRouter()
   const { resolvedTheme } = useTheme()
   const { layouts, saveLayout } = useLayoutPreferences()
+  const initialLayouts = useRef(layouts).current
   const [mounted, setMounted] = useState(false)
   const [isMobile, setIsMobile] = useState(false)
   const [renameOpen, setRenameOpen] = useState(false)
@@ -56,10 +58,10 @@ export function Ide({ program, programs, learning }: { program: Program | null; 
   const [submitting, setSubmitting] = useState(false)
   const [startBusy, setStartBusy] = useState<string | null>(null)
   const [exerciseProgress, setExerciseProgress] = useState(learning?.exercise?.progress ?? null)
-  const [leftOpen, setLeftOpen] = useState(true)
-  const [rightOpen, setRightOpen] = useState(true)
+  const [leftOpen, setLeftOpen] = useState(initialLayouts.shell?.programs !== 0)
+  const [rightOpen, setRightOpen] = useState(initialLayouts.workspace?.files !== 0)
   const [mobileView, setMobileView] = useState<'navigation' | 'content' | 'tutor'>('content')
-  const [outputOpen, setOutputOpen] = useState(true)
+  const [outputOpen, setOutputOpen] = useState(initialLayouts.vertical?.output !== 0)
   const [animatedPanel, setAnimatedPanel] = useState<'left' | 'right' | 'output' | null>(null)
   const autosave = useAutosave(program?.id ?? null, program ? [{ id: MAIN_FILE_ID, name: 'main.py', code: program.code }, ...program.files.map((file) => ({ id: file.id, name: file.name, code: file.code }))] : [])
   const python = usePython(!!program)
@@ -166,15 +168,15 @@ export function Ide({ program, programs, learning }: { program: Program | null; 
       <header className="ide-toolbar flex h-12 shrink-0 items-center gap-2 px-3"><Button type="button" variant="ghost" size="icon-sm" className="mobile-panel-toggle" aria-label="Torna al contenuto" onClick={() => setMobileView('content')}><Icon icon={BorderAll02Icon} /></Button><span className="text-sm font-semibold">Tutor</span></header>
       <div className="min-h-0 flex-1"><TutorPanel context={tutorContext} runCurrentProgram={learning && program ? (stdin) => evaluation.run(currentSnapshot(), stdin) : undefined} /></div>
     </section>
-  </div> : <Group orientation="horizontal" groupRef={shellRef} defaultLayout={layouts.shell} className={`ide-desktop-layout h-full ${animatedPanel === 'left' ? 'ide-toggle-motion' : ''}`} onLayoutChanged={(layout) => { if (layoutReady.current && !window.matchMedia('(max-width: 1023px)').matches) saveLayout('shell', layout) }}>
-    <Panel id="programs" panelRef={leftRef} defaultSize="16%" minSize={180} maxSize="35%" collapsible collapsedSize={0} onResize={(size) => setLeftOpen(size.inPixels > 0)}><AppSidebar active={learning ? 'courses' : 'playground'} course={learning?.course} lessons={learning?.lessons} currentLessonId={learning?.lesson.externalId} freePrograms={freePrograms} /></Panel>
+  </div> : <Group orientation="horizontal" groupRef={shellRef} defaultLayout={initialLayouts.shell} className={`ide-desktop-layout h-full ${animatedPanel === 'left' ? 'ide-toggle-motion' : ''}`} onLayoutChanged={(layout) => { if (layoutReady.current && !window.matchMedia('(max-width: 1023px)').matches) saveLayout('shell', layout) }}>
+    <Panel id="programs" panelRef={leftRef} defaultSize={panelDefaultSize(initialLayouts.shell, 'programs', 16)} minSize={180} maxSize="35%" collapsible collapsedSize={0} onResize={(size) => setLeftOpen(size.inPixels > 0)}><AppSidebar active={learning ? 'courses' : 'playground'} course={learning?.course} lessons={learning?.lessons} currentLessonId={learning?.lesson.externalId} freePrograms={freePrograms} /></Panel>
     <Separator className="ide-handle ide-side-handle w-px" />
-    <Panel id="shell" minSize="45%" className="flex min-w-0 flex-col">
+    <Panel id="shell" defaultSize={panelDefaultSize(initialLayouts.shell, 'shell', 84)} minSize="45%" className="flex min-w-0 flex-col">
       {toolbar}
-      <Group orientation="horizontal" groupRef={workspaceRef} defaultLayout={layouts.workspace} className={`min-h-0 flex-1 ${animatedPanel === 'right' ? 'ide-toggle-motion' : ''}`} onLayoutChanged={(layout) => { if (layoutReady.current && !window.matchMedia('(max-width: 1023px)').matches) saveLayout('workspace', layout) }}><Panel id="workspace" minSize="35%" className="flex min-w-0 flex-col"><Group orientation="vertical" groupRef={verticalRef} defaultLayout={program ? layouts.vertical : undefined} className={`min-h-0 flex-1 ${animatedPanel === 'output' ? 'ide-toggle-motion' : ''}`} onLayoutChanged={(layout) => { if (program && layoutReady.current && !window.matchMedia('(max-width: 1023px)').matches) saveLayout('vertical', layout) }}>
-        <Panel id="editor" defaultSize="70%" minSize="25%" className="flex min-h-0 flex-col pb-1 pl-2 pr-2">{editorContent}</Panel>
-        {program && <><Separator className="ide-handle ide-output-handle h-1" /><Panel id="output" panelRef={outputRef} defaultSize="30%" minSize="12%" maxSize="70%" collapsible collapsedSize={0} onResize={(size) => setOutputOpen(size.inPixels > 0)} className="flex min-h-0 flex-col p-2 pt-1">{outputContent}</Panel></>}
-      </Group></Panel><Separator className="ide-handle ide-side-handle ide-files-handle w-px" /><Panel id="files" panelRef={rightRef} defaultSize="18%" minSize={220} maxSize="40%" collapsible collapsedSize={0} onResize={(size) => setRightOpen(size.inPixels > 0)}><TutorPanel context={tutorContext} runCurrentProgram={learning && program ? (stdin) => evaluation.run(currentSnapshot(), stdin) : undefined} /></Panel></Group>
+      <Group orientation="horizontal" groupRef={workspaceRef} defaultLayout={initialLayouts.workspace} className={`min-h-0 flex-1 ${animatedPanel === 'right' ? 'ide-toggle-motion' : ''}`} onLayoutChanged={(layout) => { if (layoutReady.current && !window.matchMedia('(max-width: 1023px)').matches) saveLayout('workspace', layout) }}><Panel id="workspace" defaultSize={panelDefaultSize(initialLayouts.workspace, 'workspace', 82)} minSize="35%" className="flex min-w-0 flex-col"><Group orientation="vertical" groupRef={verticalRef} defaultLayout={program ? initialLayouts.vertical : undefined} className={`min-h-0 flex-1 ${animatedPanel === 'output' ? 'ide-toggle-motion' : ''}`} onLayoutChanged={(layout) => { if (program && layoutReady.current && !window.matchMedia('(max-width: 1023px)').matches) saveLayout('vertical', layout) }}>
+        <Panel id="editor" defaultSize={program ? panelDefaultSize(initialLayouts.vertical, 'editor', 70) : '100%'} minSize="25%" className="flex min-h-0 flex-col pb-1 pl-2 pr-2">{editorContent}</Panel>
+        {program && <><Separator className="ide-handle ide-output-handle h-1" /><Panel id="output" panelRef={outputRef} defaultSize={panelDefaultSize(initialLayouts.vertical, 'output', 30)} minSize="12%" maxSize="70%" collapsible collapsedSize={0} onResize={(size) => setOutputOpen(size.inPixels > 0)} className="flex min-h-0 flex-col p-2 pt-1">{outputContent}</Panel></>}
+      </Group></Panel><Separator className="ide-handle ide-side-handle ide-files-handle w-px" /><Panel id="files" panelRef={rightRef} defaultSize={panelDefaultSize(initialLayouts.workspace, 'files', 18)} minSize={220} maxSize="40%" collapsible collapsedSize={0} onResize={(size) => setRightOpen(size.inPixels > 0)}><TutorPanel context={tutorContext} runCurrentProgram={learning && program ? (stdin) => evaluation.run(currentSnapshot(), stdin) : undefined} /></Panel></Group>
     </Panel>
   </Group>}
   <Dialog open={renameOpen} onOpenChange={setRenameOpen}><DialogContent><DialogHeader><DialogTitle>Rinomina programma</DialogTitle><DialogDescription>Scegli un nome breve e riconoscibile.</DialogDescription></DialogHeader><form onSubmit={(event) => { event.preventDefault(); void rename() }} className="flex flex-col gap-4"><Input autoFocus maxLength={80} value={newName} onChange={(event) => setNewName(event.target.value)} aria-label="Nome programma" /><DialogFooter><Button type="submit" disabled={busy || !newName.trim()}>Salva</Button></DialogFooter></form></DialogContent></Dialog>

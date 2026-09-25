@@ -6,15 +6,17 @@ import { Button } from '@/components/ui/button'
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
 import { AppSidebar } from './app-sidebar'
 import { useLayoutPreferences } from '@/lib/layout-preferences'
+import { panelDefaultSize } from '@/lib/layout-storage'
 
 export function LearningShell({ children, active }: {
   children: ReactNode
   active: 'courses' | 'library'
 }) {
-  const [leftOpen, setLeftOpen] = useState(true)
+  const { layouts, saveLayout } = useLayoutPreferences()
+  const initialLayouts = useRef(layouts).current
+  const [leftOpen, setLeftOpen] = useState(initialLayouts.shell?.programs !== 0)
   const [mobileView, setMobileView] = useState<'navigation' | 'content'>('content')
   const [animatedPanel, setAnimatedPanel] = useState(false)
-  const { layouts, saveLayout } = useLayoutPreferences()
   const leftRef = usePanelRef()
   const shellRef = useGroupRef()
   const layoutReady = useRef(false)
@@ -52,10 +54,10 @@ export function LearningShell({ children, active }: {
 
   const title = active === 'courses' ? 'Corsi' : 'Libreria'
 
-  return <main className="ide-root mobile-carousel bg-[var(--ide-canvas)]" data-mobile-view={mobileView}><Group orientation="horizontal" groupRef={shellRef} defaultLayout={layouts.shell} className={`mobile-carousel-track h-full ${animatedPanel ? 'ide-toggle-motion' : ''}`} onLayoutChanged={(layout) => { if (layoutReady.current && !window.matchMedia('(max-width: 1023px)').matches) saveLayout('shell', layout) }}>
-    <Panel id="programs" panelRef={leftRef} defaultSize="16%" minSize={180} maxSize="35%" collapsible collapsedSize={0} className="mobile-nav-panel" onResize={(size) => setLeftOpen(size.inPixels > 0)} onClickCapture={(event) => { if ((event.target as HTMLElement).closest('nav button')) setMobileView('content') }}><Button type="button" variant="ghost" size="icon-sm" className="mobile-side-dismiss lg:hidden" aria-label="Torna al contenuto" onClick={() => setMobileView('content')}><HugeiconsIcon icon={BorderAll02Icon} aria-hidden="true" /></Button><AppSidebar active={active} /></Panel>
+  return <main className="ide-root mobile-carousel bg-[var(--ide-canvas)]" data-mobile-view={mobileView}><Group orientation="horizontal" groupRef={shellRef} defaultLayout={initialLayouts.shell} className={`mobile-carousel-track h-full ${animatedPanel ? 'ide-toggle-motion' : ''}`} onLayoutChanged={(layout) => { if (layoutReady.current && !window.matchMedia('(max-width: 1023px)').matches) saveLayout('shell', layout) }}>
+    <Panel id="programs" panelRef={leftRef} defaultSize={panelDefaultSize(initialLayouts.shell, 'programs', 16)} minSize={180} maxSize="35%" collapsible collapsedSize={0} className="mobile-nav-panel" onResize={(size) => setLeftOpen(size.inPixels > 0)} onClickCapture={(event) => { if ((event.target as HTMLElement).closest('nav button')) setMobileView('content') }}><Button type="button" variant="ghost" size="icon-sm" className="mobile-side-dismiss lg:hidden" aria-label="Torna al contenuto" onClick={() => setMobileView('content')}><HugeiconsIcon icon={BorderAll02Icon} aria-hidden="true" /></Button><AppSidebar active={active} /></Panel>
     <Separator className="ide-handle ide-side-handle w-px" />
-    <Panel id="shell" minSize="45%" className="mobile-shell-panel flex min-w-0 flex-col">
+    <Panel id="shell" defaultSize={panelDefaultSize(initialLayouts.shell, 'shell', 84)} minSize="45%" className="mobile-shell-panel flex min-w-0 flex-col">
       <header className="ide-toolbar flex h-12 shrink-0 items-center gap-1.5 px-2.5 sm:gap-2 sm:px-3">
         <Tooltip><TooltipTrigger asChild><Button type="button" variant="ghost" size="icon-sm" className="mobile-panel-toggle" aria-label={leftOpen ? 'Nascondi navigazione' : 'Mostra navigazione'} onClick={togglePanel}><HugeiconsIcon icon={leftOpen ? LayoutLeftIcon : LayoutAlignLeftIcon} aria-hidden="true" /></Button></TooltipTrigger><TooltipContent>{leftOpen ? 'Nascondi navigazione' : 'Mostra navigazione'}</TooltipContent></Tooltip>
         <span className="px-1 text-sm font-semibold">{title}</span>

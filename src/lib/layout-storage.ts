@@ -6,6 +6,11 @@ export type LayoutPreferences = Partial<Record<LayoutKey, Layout>>
 export const layoutCookieName = 'emipy-layout-v1'
 const layoutKeys: LayoutKey[] = ['shell', 'workspace', 'vertical']
 
+// Panel needs its own size for SSR: Group's initial fallback skips saved zero-size panels.
+export function panelDefaultSize(layout: Layout | undefined, panelId: string, fallback: number) {
+  return `${layout?.[panelId] ?? fallback}%`
+}
+
 export function readLayoutCookie(header: string): LayoutPreferences {
   const raw = header.split(';').map((part) => part.trim()).find((part) => part.startsWith(`${layoutCookieName}=`))?.slice(layoutCookieName.length + 1)
   if (!raw) return {}
