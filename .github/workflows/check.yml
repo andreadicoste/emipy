@@ -15,4 +15,4 @@ jobs:
       - run: bun run db:generate
       - run: bun run typecheck
       - run: bun run build
-      - run: bun test src/lib/c-runtime/compiler.test.ts src/lib/curriculum.server.test.ts src/lib/javascript-runtime/engine.test.ts
+      - run: bun test src/lib/c-runtime/compiler.test.ts src/lib/curriculum.server.test.ts src/lib/javascript-runtime/engine.test.ts src/lib/typescript-runtime/compiler.test.ts
