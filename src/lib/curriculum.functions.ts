@@ -6,6 +6,7 @@ import { buildLearningState, findExerciseContext, loadRegistry, studentExercise,
 import { beginGradingSchema, finishGradingSchema, programSnapshotSchema } from './agent-contract'
 import { judgeGraderResult, planGraderRun } from './agents.server'
 import { courseIdSchema, lessonIdSchema, startExerciseSchema, workspaceSchema } from './validation'
+import { languages, languageSchema } from './languages'
 
 async function ownerId() {
   const session = await auth.api.getSession({ headers: getRequestHeaders() })
@@ -39,11 +40,26 @@ function requireUnlocked(unlocked: boolean | undefined) {
   if (!unlocked) throw new Error('Completa prima il contenuto precedente.')
 }
 
-export const listCourses = createServerFn({ method: 'GET' }).handler(async () => {
+export const listLanguages = createServerFn({ method: 'GET' }).handler(async () => {
   const owner = await ownerId()
   const registry = await publishedRegistry()
   const state = await learningState(owner, registry)
-  return registry.courses.map((course) => {
+  return languageSchema.options.map((language) => {
+    const courses = registry.courses.filter((course) => course.language === language)
+    return {
+      language,
+      label: languages[language].label,
+      courseCount: courses.length,
+      completedCount: courses.filter((course) => state.courses.get(course.externalId)?.completed).length,
+    }
+  })
+})
+
+export const listCourses = createServerFn({ method: 'GET' }).validator(languageSchema).handler(async ({ data: language }) => {
+  const owner = await ownerId()
+  const registry = await publishedRegistry()
+  const state = await learningState(owner, registry)
+  return registry.courses.filter((course) => course.language === language).map((course) => {
     const progress = state.courses.get(course.externalId)!
     return { ...course, ...progress }
   })

@@ -1,6 +1,7 @@
 import { readdir, readFile } from 'node:fs/promises'
 import path from 'node:path'
 import { courseSchema, exerciseSchema, lessonSchema, type Course, type Exercise, type Lesson, type StudentExerciseDTO } from './curriculum-schema'
+import type { Language } from './languages'
 
 export type Registry = { courses: Course[]; lessons: Lesson[]; exercises: Exercise[] }
 
@@ -11,9 +12,10 @@ export function buildLearningState(registry: Registry, visitedLessons: Set<strin
   const courses = new Map<string, ItemState & { lessonCount: number; completedCount: number }>()
   const lessons = new Map<string, ItemState>()
   const exercises = new Map<string, ItemState>()
-  let courseUnlocked = true
+  const languageUnlocked = new Map<Language, boolean>()
 
   for (const course of registry.courses.filter((item) => item.status === 'published').sort((a, b) => a.order - b.order)) {
+    const courseUnlocked = languageUnlocked.get(course.language) ?? true
     const courseLessons = registry.lessons.filter((item) => item.status === 'published' && item.courseId === course.externalId).sort((a, b) => a.order - b.order)
     let lessonUnlocked = courseUnlocked
     let completedCount = 0
@@ -37,7 +39,7 @@ export function buildLearningState(registry: Registry, visitedLessons: Set<strin
 
     const completed = courseLessons.length > 0 && completedCount === courseLessons.length
     courses.set(course.externalId, { unlocked: courseUnlocked, completed, learningStatus: completed ? 'completed' : !courseUnlocked ? 'locked' : courseStarted ? 'in_progress' : 'available', lessonCount: courseLessons.length, completedCount })
-    courseUnlocked = courseUnlocked && completed
+    languageUnlocked.set(course.language, courseUnlocked && completed)
   }
   return { courses, lessons, exercises }
 }
@@ -72,6 +74,9 @@ export function validateRegistry(registry: Registry) {
   unique(registry.exercises.map((item) => item.externalId), 'exercises')
   unique([...registry.courses, ...registry.lessons, ...registry.exercises].map((item) => item.externalId), 'curriculum')
   unique(registry.courses.map((item) => item.slug), 'course slug')
+  for (const language of new Set(registry.courses.map((item) => item.language))) {
+    unique(registry.courses.filter((item) => item.language === language).map((item) => String(item.order)), `${language}: course order`)
+  }
   const courses = new Map(registry.courses.map((item) => [item.externalId, item]))
   const exercises = new Map(registry.exercises.map((item) => [item.externalId, item]))
   const references = new Map<string, number>()
@@ -88,6 +93,7 @@ export function validateRegistry(registry: Registry) {
     for (const id of lesson.exerciseIds) {
       const exercise = exercises.get(id)
       if (!exercise) throw new Error(`${lesson.externalId}: esercizio ${id} inesistente`)
+      if (exercise.language !== course.language) throw new Error(`${lesson.externalId}: esercizio ${id} con linguaggio diverso dal corso`)
       if (lesson.status === 'published' && exercise.status !== 'published') throw new Error(`${lesson.externalId}: esercizio ${id} non pubblicato`)
       references.set(id, (references.get(id) ?? 0) + 1)
       if (lesson.status === 'published') publishedReferences.set(id, (publishedReferences.get(id) ?? 0) + 1)

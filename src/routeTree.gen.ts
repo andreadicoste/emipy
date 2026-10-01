@@ -20,6 +20,8 @@ import { Route as AppProgramIdRouteImport } from './routes/app/$programId'
 import { Route as AppLibraryRouteImport } from './routes/app/library'
 import { Route as ApiAuthSplatRouteImport } from './routes/api/auth/$'
 import { Route as AppCoursesIndexRouteImport } from './routes/app/courses/index'
+import { Route as AppLanguagesIndexRouteImport } from './routes/app/languages/index'
+import { Route as AppLanguagesLanguageRouteImport } from './routes/app/languages/$language'
 import { Route as AppPlaygroundProgramIdRouteImport } from './routes/app/playground/$programId'
 import { Route as AppCoursesCourseIdIndexRouteImport } from './routes/app/courses/$courseId/index'
 import { Route as AppCoursesCourseIdLessonIdIndexRouteImport } from './routes/app/courses/$courseId/$lessonId/index'
@@ -80,6 +82,16 @@ const AppCoursesIndexRoute = AppCoursesIndexRouteImport.update({
   path: '/courses/',
   getParentRoute: () => AppRouteRoute,
 } as any)
+const AppLanguagesIndexRoute = AppLanguagesIndexRouteImport.update({
+  id: '/languages/',
+  path: '/languages/',
+  getParentRoute: () => AppRouteRoute,
+} as any)
+const AppLanguagesLanguageRoute = AppLanguagesLanguageRouteImport.update({
+  id: '/languages/$language',
+  path: '/languages/$language',
+  getParentRoute: () => AppRouteRoute,
+} as any)
 const AppPlaygroundProgramIdRoute = AppPlaygroundProgramIdRouteImport.update({
   id: '/playground/$programId',
   path: '/playground/$programId',
@@ -114,8 +126,10 @@ export interface FileRoutesByFullPath {
   '/app/library': typeof AppLibraryRoute
   '/app/': typeof AppIndexRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
+  '/app/languages/$language': typeof AppLanguagesLanguageRoute
   '/app/playground/$programId': typeof AppPlaygroundProgramIdRoute
   '/app/courses/': typeof AppCoursesIndexRoute
+  '/app/languages/': typeof AppLanguagesIndexRoute
   '/app/courses/$courseId/': typeof AppCoursesCourseIdIndexRoute
   '/app/courses/$courseId/$lessonId/$programId': typeof AppCoursesCourseIdLessonIdProgramIdRoute
   '/app/courses/$courseId/$lessonId/': typeof AppCoursesCourseIdLessonIdIndexRoute
@@ -130,8 +144,10 @@ export interface FileRoutesByTo {
   '/app/library': typeof AppLibraryRoute
   '/app': typeof AppIndexRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
+  '/app/languages/$language': typeof AppLanguagesLanguageRoute
   '/app/playground/$programId': typeof AppPlaygroundProgramIdRoute
   '/app/courses': typeof AppCoursesIndexRoute
+  '/app/languages': typeof AppLanguagesIndexRoute
   '/app/courses/$courseId': typeof AppCoursesCourseIdIndexRoute
   '/app/courses/$courseId/$lessonId/$programId': typeof AppCoursesCourseIdLessonIdProgramIdRoute
   '/app/courses/$courseId/$lessonId': typeof AppCoursesCourseIdLessonIdIndexRoute
@@ -148,8 +164,10 @@ export interface FileRoutesById {
   '/app/library': typeof AppLibraryRoute
   '/app/': typeof AppIndexRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
+  '/app/languages/$language': typeof AppLanguagesLanguageRoute
   '/app/playground/$programId': typeof AppPlaygroundProgramIdRoute
   '/app/courses/': typeof AppCoursesIndexRoute
+  '/app/languages/': typeof AppLanguagesIndexRoute
   '/app/courses/$courseId/': typeof AppCoursesCourseIdIndexRoute
   '/app/courses/$courseId/$lessonId/$programId': typeof AppCoursesCourseIdLessonIdProgramIdRoute
   '/app/courses/$courseId/$lessonId/': typeof AppCoursesCourseIdLessonIdIndexRoute
@@ -167,8 +185,10 @@ export interface FileRouteTypes {
     | '/app/library'
     | '/app/'
     | '/api/auth/$'
+    | '/app/languages/$language'
     | '/app/playground/$programId'
     | '/app/courses/'
+    | '/app/languages/'
     | '/app/courses/$courseId/'
     | '/app/courses/$courseId/$lessonId/$programId'
     | '/app/courses/$courseId/$lessonId/'
@@ -183,8 +203,10 @@ export interface FileRouteTypes {
     | '/app/library'
     | '/app'
     | '/api/auth/$'
+    | '/app/languages/$language'
     | '/app/playground/$programId'
     | '/app/courses'
+    | '/app/languages'
     | '/app/courses/$courseId'
     | '/app/courses/$courseId/$lessonId/$programId'
     | '/app/courses/$courseId/$lessonId'
@@ -200,8 +222,10 @@ export interface FileRouteTypes {
     | '/app/library'
     | '/app/'
     | '/api/auth/$'
+    | '/app/languages/$language'
     | '/app/playground/$programId'
     | '/app/courses/'
+    | '/app/languages/'
     | '/app/courses/$courseId/'
     | '/app/courses/$courseId/$lessonId/$programId'
     | '/app/courses/$courseId/$lessonId/'
@@ -296,6 +320,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppCoursesIndexRouteImport
       parentRoute: typeof AppRouteRoute
     }
+    '/app/languages/': {
+      id: '/app/languages/'
+      path: '/languages'
+      fullPath: '/app/languages/'
+      preLoaderRoute: typeof AppLanguagesIndexRouteImport
+      parentRoute: typeof AppRouteRoute
+    }
+    '/app/languages/$language': {
+      id: '/app/languages/$language'
+      path: '/languages/$language'
+      fullPath: '/app/languages/$language'
+      preLoaderRoute: typeof AppLanguagesLanguageRouteImport
+      parentRoute: typeof AppRouteRoute
+    }
     '/app/playground/$programId': {
       id: '/app/playground/$programId'
       path: '/playground/$programId'
@@ -331,8 +369,10 @@ interface AppRouteRouteChildren {
   AppProgramIdRoute: typeof AppProgramIdRoute
   AppLibraryRoute: typeof AppLibraryRoute
   AppIndexRoute: typeof AppIndexRoute
+  AppLanguagesLanguageRoute: typeof AppLanguagesLanguageRoute
   AppPlaygroundProgramIdRoute: typeof AppPlaygroundProgramIdRoute
   AppCoursesIndexRoute: typeof AppCoursesIndexRoute
+  AppLanguagesIndexRoute: typeof AppLanguagesIndexRoute
   AppCoursesCourseIdIndexRoute: typeof AppCoursesCourseIdIndexRoute
   AppCoursesCourseIdLessonIdProgramIdRoute: typeof AppCoursesCourseIdLessonIdProgramIdRoute
   AppCoursesCourseIdLessonIdIndexRoute: typeof AppCoursesCourseIdLessonIdIndexRoute
@@ -342,8 +382,10 @@ const AppRouteRouteChildren: AppRouteRouteChildren = {
   AppProgramIdRoute: AppProgramIdRoute,
   AppLibraryRoute: AppLibraryRoute,
   AppIndexRoute: AppIndexRoute,
+  AppLanguagesLanguageRoute: AppLanguagesLanguageRoute,
   AppPlaygroundProgramIdRoute: AppPlaygroundProgramIdRoute,
   AppCoursesIndexRoute: AppCoursesIndexRoute,
+  AppLanguagesIndexRoute: AppLanguagesIndexRoute,
   AppCoursesCourseIdIndexRoute: AppCoursesCourseIdIndexRoute,
   AppCoursesCourseIdLessonIdProgramIdRoute:
     AppCoursesCourseIdLessonIdProgramIdRoute,

@@ -11,6 +11,7 @@ const starterFile = z.object({
 
 export const courseSchema = z.object({
   externalId: externalIdSchema,
+  language: languageSchema,
   slug: z.string().regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/),
   title: z.string().min(1),
   description: z.string().min(1),

@@ -31,7 +31,7 @@ Lo script chiede email, nome e password interattivamente; non accetta password d
 ```sh
 bun run typecheck
 bun run build
-bun test src/lib/c-runtime/compiler.test.ts
+bun test src/lib/c-runtime/compiler.test.ts src/lib/curriculum.server.test.ts
 E2E_EMAIL=admin@example.com E2E_PASSWORD='...' bunx playwright test
 ```
 
@@ -50,6 +50,12 @@ Il percorso Python/C aggiornato si verifica con `bunx playwright test tests/c-ru
 - Dopo il primo deploy, aprire un terminale nel container e lanciare `bun run admin:create`.
 
 Il database SQLite deve restare sul volume tra rebuild/redeploy. Fare backup del file `emipy.db` con l'app fermata o con il comando SQLite `VACUUM INTO`; non copiare solo il file mentre esiste un WAL attivo.
+
+## Gerarchia dei corsi
+
+La schermata iniziale (`/app/languages`) fa scegliere il linguaggio; `/app/languages/python` e `/app/languages/c` mostrano soltanto i relativi corsi. Ogni corso in `content/courses/` deve dichiarare `language` (`python` o `c`), modificabile anche in TinaCMS. Le lezioni continuano a riferirsi al corso tramite `courseId`, e gli esercizi devono avere lo stesso linguaggio del corso. I corsi si sbloccano in ordine all'interno del linguaggio: iniziare C non richiede di completare Python.
+
+I contenuti restano nei file JSON; nel DB sono salvati i progressi attraverso gli ID esistenti. Questa gerarchia non richiede nuove tabelle o migrazioni Prisma. Tutti i sei corsi esistenti sono associati esplicitamente a Python, senza cambiare ID o progressi. C è selezionabile ma mostra "Corsi in arrivo" finché non vengono pubblicati corsi e lezioni. I link esistenti a corsi/lezioni/esercizi restano validi; `/app/courses` rimanda alla selezione del linguaggio.
 
 ## Runtime C
 

@@ -18,6 +18,7 @@ export default defineConfig({
         name: 'course', label: 'Corsi', path: 'content/courses', format: 'json',
         fields: [
           { type: 'string', name: 'externalId', label: 'External ID', required: true, isTitle: true },
+          { type: 'string', name: 'language', label: 'Linguaggio', required: true, options: ['python', 'c'] },
           { type: 'string', name: 'slug', label: 'Slug', required: true },
           { type: 'string', name: 'title', label: 'Titolo', required: true },
           { type: 'string', name: 'description', label: 'Descrizione', required: true, ui: { component: 'textarea' } },
