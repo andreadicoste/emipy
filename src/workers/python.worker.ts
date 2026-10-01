@@ -1,5 +1,5 @@
-import type { MainToWorker, WorkerToMain } from '@/lib/python-protocol'
-import { MAX_INPUT_BYTES, MAX_OUTPUT_BYTES } from '@/lib/python-protocol'
+import type { MainToWorker, WorkerToMain } from '@/lib/runtime-protocol'
+import { MAX_INPUT_BYTES, MAX_OUTPUT_BYTES } from '@/lib/runtime-protocol'
 import { loadPyodide } from 'pyodide'
 
 type Pyodide = {

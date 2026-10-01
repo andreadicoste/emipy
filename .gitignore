@@ -20,3 +20,4 @@ playwright-report/
 test-results/
 public/content-admin/
 tina/__generated__/
+public/c-runtime/

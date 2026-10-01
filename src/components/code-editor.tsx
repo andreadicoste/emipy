@@ -1,7 +1,9 @@
 import * as monaco from 'monaco-editor/editor/editor.api.js'
 import 'monaco-editor/languages/definitions/python/register.js'
+import 'monaco-editor/languages/definitions/cpp/register.js'
 import Editor, { loader } from '@monaco-editor/react'
 import editorWorker from 'monaco-editor/editor/editor.worker.js?worker'
+import type { Language } from '@/lib/languages'
 
 self.MonacoEnvironment = { getWorker: () => new editorWorker() }
 loader.config({ monaco })
@@ -25,10 +27,10 @@ monaco.editor.defineTheme('emipy-dark', {
   },
 })
 
-export function CodeEditor({ path, value, onChange, dark }: { path: string; value: string; onChange: (code: string) => void; dark: boolean }) {
+export function CodeEditor({ path, value, onChange, dark, language }: { path: string; value: string; onChange: (code: string) => void; dark: boolean; language: Language }) {
   return <Editor
     height="100%"
-    language="python"
+    language={language}
     path={path}
     value={value}
     theme={dark ? 'emipy-dark' : 'emipy-light'}

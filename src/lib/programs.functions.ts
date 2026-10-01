@@ -3,6 +3,7 @@ import { getRequestHeaders } from '@tanstack/react-start/server'
 import { auth } from './auth'
 import { prisma } from './prisma'
 import { createFileSchema, createSchema, idSchema, renameSchema, saveFileSchema, saveSchema } from './validation'
+import { languages, languageSchema, validFileName } from './languages'
 
 async function userId() {
   const session = await auth.api.getSession({ headers: getRequestHeaders() })
@@ -10,7 +11,7 @@ async function userId() {
   return session.user.id
 }
 
-const summary = { id: true, name: true, exerciseId: true, createdAt: true, updatedAt: true } as const
+const summary = { id: true, name: true, language: true, exerciseId: true, createdAt: true, updatedAt: true } as const
 
 export const listPrograms = createServerFn({ method: 'GET' }).handler(async () => {
   const owner = await userId()
@@ -26,7 +27,8 @@ export const getProgram = createServerFn({ method: 'GET' }).validator(idSchema).
 
 export const createProgram = createServerFn({ method: 'POST' }).validator(createSchema).handler(async ({ data }) => {
   const owner = await userId()
-  return prisma.program.create({ data: { userId: owner, name: data.name ?? 'Senza titolo', code: 'print("Ciao, Emipy!")\n' } })
+  const language = data.language ?? 'python'
+  return prisma.program.create({ data: { userId: owner, name: data.name ?? 'Senza titolo', language, code: languages[language].starterCode } })
 })
 
 export const renameProgram = createServerFn({ method: 'POST' }).validator(renameSchema).handler(async ({ data }) => {
@@ -45,8 +47,10 @@ export const saveProgramCode = createServerFn({ method: 'POST' }).validator(save
 
 export const createProgramFile = createServerFn({ method: 'POST' }).validator(createFileSchema).handler(async ({ data }) => {
   const owner = await userId()
-  const program = await prisma.program.findFirst({ where: { id: data.programId, userId: owner }, select: { id: true } })
+  const program = await prisma.program.findFirst({ where: { id: data.programId, userId: owner }, select: { id: true, language: true, _count: { select: { files: true } } } })
   if (!program) throw new Error('Programma non trovato')
+  if (!validFileName(data.name, languageSchema.parse(program.language))) throw new Error('Estensione non valida per il linguaggio del programma')
+  if (program._count.files >= 24) throw new Error('Massimo 24 file aggiuntivi')
   const existing = await prisma.programFile.findUnique({ where: { programId_name: { programId: data.programId, name: data.name } }, select: { id: true } })
   if (existing) throw new Error('File già presente')
   return prisma.programFile.create({ data: { programId: data.programId, name: data.name } })

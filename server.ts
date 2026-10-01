@@ -37,11 +37,11 @@ async function indexStaticFiles() {
   return files
 }
 
-function staticHeaders(file: Bun.BunFile) {
+function staticHeaders(file: Bun.BunFile, pathname: string) {
   return {
     ...isolationHeaders,
     'Content-Type': file.type || 'application/octet-stream',
-    'Cache-Control': 'public, max-age=3600',
+    'Cache-Control': /^\/c-runtime\/[a-f0-9]{40}\//.test(pathname) ? 'public, max-age=31536000, immutable' : 'public, max-age=3600',
     'X-Content-Type-Options': 'nosniff',
   }
 }
@@ -62,7 +62,7 @@ const server = Bun.serve({
 
       if (filePath) {
         const file = Bun.file(filePath)
-        const headers = staticHeaders(file)
+        const headers = staticHeaders(file, pathname)
         if (request.method === 'HEAD') return new Response(null, { status: 200, headers })
         return new Response(file, { status: 200, headers })
       }
