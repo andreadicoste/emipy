@@ -38,6 +38,7 @@ export const Route = createFileRoute('/api/tutor')({
       const lessonExercises = lesson.exerciseIds.map((id) => exercises.find((item) => item.externalId === id)).filter((item) => item !== undefined)
       const lessonDto = { ...lesson, exercises: lessonExercises.map((item) => ({ ...studentExercise(item), progress: null, ...state.exercises.get(item.externalId)! })) }
       const exercise = exerciseId ? lessonExercises.find((item) => item.externalId === exerciseId) ?? null : null
+      if (exercise && context.snapshot && context.snapshot.language !== exercise.language) return Response.json({ error: 'Linguaggio del workspace non valido' }, { status: 400 })
       const agent = createTutorAgent({ lesson: lessonDto, exercise: exercise ? studentExercise(exercise) : null, snapshot: context.snapshot, lastExecution: context.lastExecution, userId: session.user.id })
       return createAgentUIStreamResponse({ agent, uiMessages: messages, abortSignal: request.signal, timeout: 45_000 })
     },

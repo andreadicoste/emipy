@@ -35,7 +35,7 @@ function Login() {
     <div className="w-full max-w-[360px] rounded-xl border border-border bg-background p-6 shadow-sm sm:p-7">
       <img src="/assets/emipy-wordmark.svg" alt="Emipy" className="brand-wordmark h-10 w-auto" />
       <h1 className="mt-7 text-xl font-semibold tracking-tight">Bentornato.</h1>
-      <p className="mt-1.5 text-sm text-muted-foreground">I tuoi programmi Python sono qui.</p>
+      <p className="mt-1.5 text-sm text-muted-foreground">I tuoi programmi sono qui.</p>
       <form onSubmit={submit} className="mt-6">
         <FieldGroup>
           <Field><FieldLabel htmlFor="email">Email</FieldLabel><Input id="email" type="email" autoComplete="username" required disabled={!hydrated} value={email} onChange={(event) => setEmail(event.target.value)} /></Field>

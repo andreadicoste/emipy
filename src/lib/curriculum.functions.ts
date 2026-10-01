@@ -122,7 +122,7 @@ export const startExercise = createServerFn({ method: 'POST' }).validator(startE
       where: { userId_exerciseId: { userId: owner, exerciseId: exercise.externalId } },
       update: {},
       create: {
-        userId: owner, name: exercise.title, code: exercise.starterCode, exerciseId: exercise.externalId,
+        userId: owner, name: exercise.title, code: exercise.starterCode, language: exercise.language, exerciseId: exercise.externalId,
         files: { create: exercise.starterFiles },
       },
     })
@@ -152,19 +152,20 @@ export const getExerciseWorkspace = createServerFn({ method: 'GET' }).validator(
 export const beginExerciseGrading = createServerFn({ method: 'POST' }).validator(beginGradingSchema).handler(async ({ data }) => {
   const owner = await ownerId()
   const registry = await publishedRegistry()
-  const program = await prisma.program.findFirst({ where: { id: data.programId, userId: owner }, select: { id: true, exerciseId: true } })
+  const program = await prisma.program.findFirst({ where: { id: data.programId, userId: owner }, select: { id: true, exerciseId: true, language: true } })
   if (!program?.exerciseId) throw new Error('Questo programma non è un esercizio')
   const exercise = registry.exercises.find((item) => item.externalId === program.exerciseId)
   if (!exercise || !findExerciseContext(registry, exercise.externalId)) throw new Error('Esercizio non disponibile')
   const state = await learningState(owner, registry)
   requireUnlocked(state.exercises.get(exercise.externalId)?.unlocked)
   const snapshot = programSnapshotSchema.parse(data.snapshot)
+  if (snapshot.language !== program.language || snapshot.language !== exercise.language) throw new Error('Linguaggio della consegna non valido')
   const submission = await prisma.$transaction(async (tx) => {
     const existing = await tx.exerciseSubmission.findUnique({ where: { userId_idempotencyKey: { userId: owner, idempotencyKey: data.idempotencyKey } } })
     if (existing) return existing
     const created = await tx.exerciseSubmission.create({ data: {
       userId: owner, programId: program.id, exerciseId: exercise.externalId, idempotencyKey: data.idempotencyKey,
-      code: snapshot.mainCode, filesJson: JSON.stringify(snapshot.files),
+      code: snapshot.mainCode, language: snapshot.language, filesJson: JSON.stringify(snapshot.files),
     } })
     await tx.exerciseProgress.upsert({
       where: { userId_exerciseId: { userId: owner, exerciseId: exercise.externalId } },
@@ -175,7 +176,7 @@ export const beginExerciseGrading = createServerFn({ method: 'POST' }).validator
   })
   if (submission.status !== 'PENDING') throw new Error('Consegna già elaborata')
   try {
-    const plan = await planGraderRun({ exercise, snapshot: { mainCode: submission.code, files: JSON.parse(submission.filesJson) }, userId: owner })
+    const plan = await planGraderRun({ exercise, snapshot: programSnapshotSchema.parse({ language: submission.language, mainCode: submission.code, files: JSON.parse(submission.filesJson) }), userId: owner })
     return { submissionId: submission.id, stdin: plan.runs.map((run) => run.stdin) }
   } catch (error) {
     await prisma.exerciseSubmission.updateMany({ where: { id: submission.id, userId: owner, status: 'PENDING' }, data: { status: 'ERROR', feedback: 'Grader temporaneamente non disponibile.' } })
@@ -201,7 +202,7 @@ export const finishExerciseGrading = createServerFn({ method: 'POST' }).validato
   if (!exercise) throw new Error('Esercizio non disponibile')
   const context = findExerciseContext(registry, exercise.externalId)
   if (!context) throw new Error('Contesto esercizio non trovato')
-  const snapshot = programSnapshotSchema.parse({ mainCode: submission.code, files: JSON.parse(submission.filesJson) })
+  const snapshot = programSnapshotSchema.parse({ language: submission.language, mainCode: submission.code, files: JSON.parse(submission.filesJson) })
   try {
     const result = await judgeGraderResult({ exercise, snapshot, evaluation: data.evaluation, userId: owner })
     const status = result.completed ? 'COMPLETED' : 'NEEDS_WORK'
@@ -230,7 +231,7 @@ export const listLibrary = createServerFn({ method: 'GET' }).handler(async () =>
   const owner = await ownerId()
   const [registry, programs] = await Promise.all([
     publishedRegistry(),
-    prisma.program.findMany({ where: { userId: owner }, select: { id: true, name: true, exerciseId: true, createdAt: true, updatedAt: true }, orderBy: { updatedAt: 'desc' } }),
+    prisma.program.findMany({ where: { userId: owner }, select: { id: true, name: true, language: true, exerciseId: true, createdAt: true, updatedAt: true }, orderBy: { updatedAt: 'desc' } }),
   ])
   return programs.map((program) => {
     const context = program.exerciseId ? findExerciseContext(registry, program.exerciseId) : null

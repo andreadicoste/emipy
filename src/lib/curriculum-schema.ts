@@ -1,10 +1,11 @@
 import { z } from 'zod'
+import { languageSchema, projectFileNameSchema, validFileName } from './languages'
 
 export const externalIdSchema = z.string().regex(/^[a-z][a-z0-9_]+$/)
 const statusSchema = z.enum(['draft', 'published', 'archived'])
 const codeSize = z.string().refine((value) => new TextEncoder().encode(value).byteLength <= 512 * 1024, 'Codice oltre 512 KiB')
-const pythonFile = z.object({
-  name: z.string().regex(/^[A-Za-z_][A-Za-z0-9_]{0,74}\.py$/).refine((name) => name !== 'main.py'),
+const starterFile = z.object({
+  name: projectFileNameSchema,
   code: codeSize,
 })
 
@@ -39,13 +40,19 @@ export const exerciseSchema = z.object({
   externalId: externalIdSchema,
   title: z.string().min(1),
   instructions: z.string().min(1),
-  language: z.literal('python'),
+  language: languageSchema,
   starterCode: codeSize,
-  starterFiles: z.array(pythonFile).default([]),
+  starterFiles: z.array(starterFile).max(24).default([]),
   learningObjectives: z.array(z.string().min(1)).min(1),
   expectedBehavior: z.string().min(1),
   graderInstructions: z.string().min(1),
   status: statusSchema,
+}).superRefine((exercise, context) => {
+  const names = new Set<string>()
+  for (const [index, file] of exercise.starterFiles.entries()) {
+    if (!validFileName(file.name, exercise.language) || names.has(file.name)) context.addIssue({ code: 'custom', path: ['starterFiles', index, 'name'], message: 'Nome file duplicato o non valido per il linguaggio' })
+    names.add(file.name)
+  }
 })
 
 export type Course = z.infer<typeof courseSchema>

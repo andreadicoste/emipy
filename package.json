@@ -6,9 +6,10 @@
     "#/*": "./src/*"
   },
   "scripts": {
-    "dev": "vite dev --port 3000",
+    "dev": "bun run runtime:prepare && vite dev --port 3000",
+    "runtime:prepare": "bun scripts/prepare-c-runtime.ts",
     "generate-routes": "tsr generate",
-    "build": "vite build",
+    "build": "bun run runtime:prepare && vite build",
     "preview": "vite preview",
     "start": "bun run server.ts",
     "typecheck": "tsc --noEmit",

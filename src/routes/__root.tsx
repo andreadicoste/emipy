@@ -15,7 +15,7 @@ export const Route = createRootRoute({
         content: 'width=device-width, initial-scale=1',
       },
       {
-        title: 'Emipy — scrivi Python, premi START',
+        title: 'Emipy — scrivi codice, premi START',
       },
     ],
     links: [

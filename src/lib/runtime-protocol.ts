@@ -8,6 +8,7 @@ export type WorkerToMain =
   | { type: 'ready' }
   | { type: 'stdout' | 'stderr'; text: string; runId: number }
   | { type: 'stdin-request'; runId: number }
-  | { type: 'done'; runId: number }
+  | { type: 'phase'; phase: 'compiling' | 'linking' | 'running'; runId: number }
+  | { type: 'done'; runId: number; exitCode?: number }
   | { type: 'stopped'; runId: number }
   | { type: 'fatal'; message: string; runId?: number }

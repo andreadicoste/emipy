@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
 import { authClient } from '@/lib/auth-client'
 import { createProgram } from '@/lib/programs.functions'
+import { languages, type Language } from '@/lib/languages'
 
 type LessonLink = { externalId: string; title: string; completed: boolean; unlocked: boolean }
 
@@ -22,9 +23,9 @@ export function AppSidebar({ active, course, lessons, currentLessonId, freeProgr
   const { resolvedTheme, setTheme } = useTheme()
   const profileName = user.name?.trim() || user.email
 
-  async function newPlayground() {
+  async function newPlayground(language: Language) {
     try {
-      const program = await createProgram({ data: {} })
+      const program = await createProgram({ data: { language } })
       await navigate({ to: '/app/playground/$programId', params: { programId: program.id } })
     } catch { toast.error('Impossibile creare il programma.') }
   }
@@ -45,7 +46,7 @@ export function AppSidebar({ active, course, lessons, currentLessonId, freeProgr
       </div> : <div className="sidebar-view flex h-full flex-col px-2">
         <nav aria-label="Navigazione principale" className="space-y-1">
           <Button variant="ghost" className={navClass(active === 'courses')} onClick={() => void navigate({ to: '/app/courses' })}><HugeiconsIcon icon={BookOpen02Icon} className="size-4" /> Corsi</Button>
-          <Button variant="ghost" className={navClass(active === 'playground')} onClick={() => void newPlayground()}><HugeiconsIcon icon={CodeIcon} className="size-4" /> Playground <HugeiconsIcon icon={PlusSignIcon} className="ml-auto size-3.5" /></Button>
+          <DropdownMenu><DropdownMenuTrigger asChild><Button variant="ghost" className={navClass(active === 'playground')} aria-label="Nuovo playground"><HugeiconsIcon icon={CodeIcon} className="size-4" /> Playground <HugeiconsIcon icon={PlusSignIcon} className="ml-auto size-3.5" /></Button></DropdownMenuTrigger><DropdownMenuContent align="start"><DropdownMenuGroup>{(Object.keys(languages) as Language[]).map((language) => <DropdownMenuItem key={language} onSelect={() => void newPlayground(language)}>Nuovo programma {languages[language].label}</DropdownMenuItem>)}</DropdownMenuGroup></DropdownMenuContent></DropdownMenu>
           <Button variant="ghost" className={navClass(active === 'library')} onClick={() => void navigate({ to: '/app/library' })}><HugeiconsIcon icon={LibraryIcon} className="size-4" /> Libreria</Button>
         </nav>
         {active === 'playground' && freePrograms.length > 0 && <div className="mt-6 min-h-0 flex-1"><p className="px-2 text-[11px] font-bold uppercase tracking-wider text-muted-foreground">Programmi liberi</p><nav className="mt-2 space-y-1 overflow-y-auto">{freePrograms.map((program) => <Button key={program.id} variant="ghost" className="ide-program-row h-9 w-full justify-start truncate px-2 text-xs" onClick={() => void navigate({ to: '/app/playground/$programId', params: { programId: program.id } })}>{program.name}</Button>)}</nav></div>}

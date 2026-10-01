@@ -1,15 +1,23 @@
 import { z } from 'zod'
+import { languageSchema, projectFileNameSchema, validFileName } from './languages'
 
 const agentCodeSchema = z.string().max(512 * 1024)
 
 export const agentFileSchema = z.object({
-  name: z.string().regex(/^[A-Za-z_][A-Za-z0-9_]{0,74}\.py$/).refine((name) => name !== 'main.py'),
+  name: projectFileNameSchema,
   code: agentCodeSchema,
 })
 
 export const programSnapshotSchema = z.object({
+  language: languageSchema.default('python'),
   mainCode: agentCodeSchema,
   files: z.array(agentFileSchema).max(24),
+}).superRefine((snapshot, context) => {
+  const names = new Set<string>()
+  for (const [index, file] of snapshot.files.entries()) {
+    if (!validFileName(file.name, snapshot.language) || names.has(file.name)) context.addIssue({ code: 'custom', path: ['files', index, 'name'], message: 'Nome file duplicato o non valido per il linguaggio' })
+    names.add(file.name)
+  }
 })
 
 export const runCurrentProgramInputSchema = z.object({
@@ -17,6 +25,8 @@ export const runCurrentProgramInputSchema = z.object({
 })
 
 export const evaluationResultSchema = z.object({
+  exitCode: z.number().int().optional(),
+  compileFailed: z.boolean().optional(),
   stdin: z.array(z.string().max(4096)).max(12).optional(),
   stdout: z.string().max(128 * 1024),
   stderr: z.string().max(128 * 1024),

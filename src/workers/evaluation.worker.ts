@@ -1,5 +1,5 @@
 import { loadPyodide } from 'pyodide'
-import { MAX_OUTPUT_BYTES } from '@/lib/python-protocol'
+import { MAX_OUTPUT_BYTES } from '@/lib/runtime-protocol'
 
 type Request = { type: 'run'; runId: number; code: string; files: { name: string; code: string }[]; stdin: string[] }
 type Pyodide = {
