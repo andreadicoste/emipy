@@ -1,5 +1,6 @@
 import * as monaco from 'monaco-editor/editor/editor.api.js'
 import 'monaco-editor/languages/definitions/python/register.js'
+import 'monaco-editor/languages/definitions/javascript/register.js'
 import 'monaco-editor/languages/definitions/cpp/register.js'
 import Editor, { loader } from '@monaco-editor/react'
 import editorWorker from 'monaco-editor/editor/editor.worker.js?worker'

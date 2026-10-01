@@ -1,6 +1,6 @@
 # Emipy
 
-Un piccolo ambiente Python, C e C++: programmi privati, editor Monaco, esecuzione WebAssembly nel browser e gestione utenti amministrativa. Il codice viene salvato sul server, ma compilato ed eseguito nel browser.
+Un piccolo ambiente Python, C, C++ e JavaScript: programmi privati, editor Monaco, esecuzione WebAssembly nel browser e gestione utenti amministrativa. Il codice viene salvato sul server, ma compilato ed eseguito nel browser.
 
 ## Sviluppo
 
@@ -37,7 +37,7 @@ E2E_EMAIL=admin@example.com E2E_PASSWORD='...' bunx playwright test
 
 Playwright richiede Chromium installato (`bunx playwright install chromium`) e server locale avviato. I test modificano il database configurato: usare un DB di test.
 
-Il percorso Python/C/C++ aggiornato si verifica con `bunx playwright test tests/c-runtime.spec.ts tests/cpp-runtime.spec.ts`. I test dei worker usano gli URL di sviluppo Vite, quindi richiede `bun run dev`.
+Il percorso Python/C/C++/JavaScript aggiornato si verifica con `bunx playwright test tests/c-runtime.spec.ts tests/cpp-runtime.spec.ts tests/javascript-runtime.spec.ts`. I test dei worker usano gli URL di sviluppo Vite, quindi richiedono `bun run dev`.
 
 ## Coolify
 
@@ -53,9 +53,9 @@ Il database SQLite deve restare sul volume tra rebuild/redeploy. Fare backup del
 
 ## Gerarchia dei corsi
 
-La schermata iniziale (`/app/languages`) fa scegliere il linguaggio; `/app/languages/python`, `/app/languages/c` e `/app/languages/cpp` mostrano soltanto i relativi corsi. Ogni corso in `content/courses/` deve dichiarare `language` (`python`, `c` o `cpp`), modificabile anche in TinaCMS. Le lezioni continuano a riferirsi al corso tramite `courseId`, e gli esercizi devono avere lo stesso linguaggio del corso. I corsi si sbloccano in ordine all'interno del linguaggio: iniziare C non richiede di completare Python.
+La schermata iniziale (`/app/languages`) fa scegliere il linguaggio; `/app/languages/python`, `/app/languages/c`, `/app/languages/cpp` e `/app/languages/javascript` mostrano soltanto i relativi corsi. Ogni corso in `content/courses/` deve dichiarare `language` (`python`, `c`, `cpp` o `javascript`), modificabile anche in TinaCMS. Le lezioni continuano a riferirsi al corso tramite `courseId`, e gli esercizi devono avere lo stesso linguaggio del corso. I corsi si sbloccano in ordine all'interno del linguaggio: iniziare C non richiede di completare Python.
 
-I contenuti restano nei file JSON; nel DB sono salvati i progressi attraverso gli ID esistenti. Questa gerarchia non richiede nuove tabelle o migrazioni Prisma. Tutti i sei corsi esistenti sono associati esplicitamente a Python, senza cambiare ID o progressi. C e C++ sono selezionabili ma mostrano "Corsi in arrivo" finché non vengono pubblicati corsi e lezioni. I link esistenti a corsi/lezioni/esercizi restano validi; `/app/courses` rimanda alla selezione del linguaggio.
+I contenuti restano nei file JSON; nel DB sono salvati i progressi attraverso gli ID esistenti. Questa gerarchia non richiede nuove tabelle o migrazioni Prisma. Tutti i sei corsi esistenti sono associati esplicitamente a Python, senza cambiare ID o progressi. C, C++ e JavaScript sono selezionabili ma mostrano "Corsi in arrivo" finché non vengono pubblicati corsi e lezioni. I link esistenti a corsi/lezioni/esercizi restano validi; `/app/courses` rimanda alla selezione del linguaggio.
 
 ## Runtime C e C++
 
@@ -69,6 +69,14 @@ Il filesystem e l'istanza del programma vengono ricreati a ogni START. I file ge
 
 Gli asset sono fissati alla revisione `648c4a89997a351eef75cdaec3ef5b89d4937dec` di [binji/wasm-clang](https://github.com/binji/wasm-clang). Lo shim console deriva dal progetto e conserva le licenze Apache-2.0 e LLVM in `src/lib/c-runtime/vendor/`. Gli asset binari vengono preparati durante la build e inclusi nell'immagine Docker, senza gonfiare la cronologia Git.
 
+## Runtime JavaScript
+
+Dal menu Playground scegliere **Nuovo programma JavaScript**. `main.js` viene interpretato da QuickJS 0.32.0 compilato in WASM, in un Worker; non viene eseguito con `eval` nel browser. I binari QuickJS (circa 500 KiB) sono inclusi da Vite nella build e serviti dallo stesso dominio, caricati solo quando si apre JavaScript. Le dipendenze sono fissate nel lockfile.
+
+Si possono aggiungere fino a 24 moduli `.js` nella stessa directory e importarli con `import { funzione } from "./funzioni.js"`. `console.log/info/debug` scrivono su stdout, `console.warn/error` su stderr; `print` è un alias di `console.log`. `input("Nome? ")` e `prompt("Nome? ")` leggono una riga senza newline; nelle valutazioni restituiscono `null` a fine input. Sono supportate Promise, async/await e top-level await, con esecuzione della coda di microtask. Usare `await` per propagare gli errori asincroni alla valutazione; le Promise rifiutate e abbandonate non vengono segnalate come errori del modulo.
+
+Ogni START crea un runtime e un contesto nuovi. STOP termina il Worker anche durante loop, microtask o attesa input. Limiti: 30 secondi di esecuzione interattiva (attesa input esclusa), 10 secondi per valutazione, heap QuickJS di 64 MiB, stack da 1 MiB e output di 1 MiB. Il limite di heap non comprende tutta la memoria del Worker/WASM. Niente DOM, browser API, rete, Node, npm, timer, filesystem o import remoti; questo è un ambiente JavaScript da console. Salvataggio, esercizi, TinaCMS e tutor/grader accettano `language: "javascript"`. Non serve una migrazione DB e non sono aggiunti nuovi corsi.
+
 ## Limiti
 
-I programmi Python partono da `main.py` e possono aggiungere file Python importabili. Nessun pip, cartelle, signup pubblico, email o OAuth. Pyodide e il runtime C/C++ sono serviti same-origin; l'input interattivo usa `SharedArrayBuffer`, quindi servono HTTPS e isolamento cross-origin. La migrazione assegna `python` a tutti i programmi e alle consegne preesistenti.
+I programmi Python partono da `main.py` e possono aggiungere file Python importabili. Nessun pip, cartelle, signup pubblico, email o OAuth. Pyodide e i runtime C/C++ e JavaScript sono serviti same-origin; l'input interattivo usa `SharedArrayBuffer`, quindi servono HTTPS e isolamento cross-origin. La migrazione assegna `python` a tutti i programmi e alle consegne preesistenti.

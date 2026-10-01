@@ -22,6 +22,8 @@ export function useEvaluationRunner() {
     // Independent workers prevent globals and files from leaking between tests.
     const worker = isCompiledLanguage(snapshot.language)
       ? new Worker(new URL('../workers/compiled.worker.ts', import.meta.url), { type: 'module' })
+      : snapshot.language === 'javascript'
+      ? new Worker(new URL('../workers/javascript.worker.ts', import.meta.url), { type: 'module' })
       : new Worker(new URL('../workers/evaluation.worker.ts', import.meta.url), { type: 'module' })
     return new Promise((resolve, reject) => {
       const finish = (result?: EvaluationResult, error?: Error) => {
