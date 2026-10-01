@@ -18,7 +18,7 @@ export default defineConfig({
         name: 'course', label: 'Corsi', path: 'content/courses', format: 'json',
         fields: [
           { type: 'string', name: 'externalId', label: 'External ID', required: true, isTitle: true },
-          { type: 'string', name: 'language', label: 'Linguaggio', required: true, options: ['python', 'c'] },
+          { type: 'string', name: 'language', label: 'Linguaggio', required: true, options: ['python', 'c', 'cpp'] },
           { type: 'string', name: 'slug', label: 'Slug', required: true },
           { type: 'string', name: 'title', label: 'Titolo', required: true },
           { type: 'string', name: 'description', label: 'Descrizione', required: true, ui: { component: 'textarea' } },
@@ -56,7 +56,7 @@ export default defineConfig({
           { type: 'string', name: 'externalId', label: 'External ID', required: true, isTitle: true },
           { type: 'string', name: 'title', label: 'Titolo', required: true },
           { type: 'string', name: 'instructions', label: 'Consegna', required: true, ui: { component: 'textarea' } },
-          { type: 'string', name: 'language', label: 'Linguaggio', required: true, options: ['python', 'c'] },
+          { type: 'string', name: 'language', label: 'Linguaggio', required: true, options: ['python', 'c', 'cpp'] },
           { type: 'string', name: 'starterCode', label: 'Codice del file principale', required: true, ui: { component: 'textarea' } },
           { type: 'object', name: 'starterFiles', label: 'Starter file', list: true, fields: [
             { type: 'string', name: 'name', label: 'Nome', required: true },

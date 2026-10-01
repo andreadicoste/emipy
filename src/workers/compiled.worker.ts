@@ -1,14 +1,16 @@
-import { C_ASSET_BASE, executeC, loadCToolchain, type CPhase } from '@/lib/c-runtime/compiler'
+import { C_ASSET_BASE, executeCompiled, loadCToolchain, type CPhase } from '@/lib/c-runtime/compiler'
+import type { CompiledLanguage } from '@/lib/languages'
 import { MAX_INPUT_BYTES, MAX_OUTPUT_BYTES, type WorkerToMain } from '@/lib/runtime-protocol'
 
 type Request = {
   type: 'run'; runId: number; code: string; files: { name: string; code: string }[]
+  language?: CompiledLanguage
   inputBuffer?: SharedArrayBuffer; stdin?: string[]; evaluation?: boolean
 }
 const send = (message: WorkerToMain) => self.postMessage(message)
 const toolchain = loadCToolchain(async (name) => {
   const response = await fetch(`${C_ASSET_BASE}${name}`)
-  if (!response.ok) throw new Error(`Runtime C: ${name}, HTTP ${response.status}`)
+  if (!response.ok) throw new Error(`Toolchain C/C++: ${name}, HTTP ${response.status}`)
   return response.arrayBuffer()
 })
 void toolchain.then(() => send({ type: 'ready' })).catch((error: unknown) => send({ type: 'fatal', message: String(error) }))
@@ -21,6 +23,7 @@ self.onmessage = async (event: MessageEvent<Request>) => {
   let inputIndex = 0, inputExhausted = false, outputBytes = 0, truncated = false
   let stdout = '', stderr = '', transcript = ''
   const pendingOutput = { stdout: '', stderr: '' }
+  const firstRuntimeLine = { stdout: true, stderr: true }
   let lastFlush = performance.now()
   const flush = () => {
     if (message.evaluation) return
@@ -42,8 +45,12 @@ self.onmessage = async (event: MessageEvent<Request>) => {
       transcript = (transcript + text).slice(0, 256 * 1024)
     } else {
       pendingOutput[kind] += text
+      // Send the first complete runtime line even if a synchronous WASM loop
+      // follows it: timers cannot flush a worker while WASM is still running.
+      const firstLine = state.phase === 'running' && firstRuntimeLine[kind] && text.includes('\n')
+      if (firstLine) firstRuntimeLine[kind] = false
       // Bound message volume for tight printf loops so the UI can still STOP.
-      if (pendingOutput[kind].length >= 8192 || performance.now() - lastFlush >= 50) flush()
+      if (firstLine || pendingOutput[kind].length >= 8192 || performance.now() - lastFlush >= 50) flush()
     }
   }
   const write = (fd: number, bytes: Uint8Array) => {
@@ -82,10 +89,10 @@ self.onmessage = async (event: MessageEvent<Request>) => {
   }
   let exitCode = 1
   try {
-    exitCode = await executeC(await toolchain, message.code, message.files, {
+    exitCode = await executeCompiled(await toolchain, message.code, message.files, {
       write, read,
       phase: (next) => { state.phase = next; send({ type: 'phase', phase: next, runId }) },
-    })
+    }, message.language ?? 'c')
     if (exitCode !== 0 && !message.evaluation) append('stderr', `\n${state.phase === 'running' ? 'Programma terminato' : 'Compilazione non riuscita'} (codice ${exitCode}).\n`)
   } catch (error) { append('stderr', `${String(error)}\n`) }
   append('stdout', decoders.stdout.decode())

@@ -1,6 +1,6 @@
 # Emipy
 
-Un piccolo ambiente Python e C: programmi privati, editor Monaco, esecuzione WebAssembly nel browser e gestione utenti amministrativa. Il codice viene salvato sul server, ma compilato ed eseguito nel browser.
+Un piccolo ambiente Python, C e C++: programmi privati, editor Monaco, esecuzione WebAssembly nel browser e gestione utenti amministrativa. Il codice viene salvato sul server, ma compilato ed eseguito nel browser.
 
 ## Sviluppo
 
@@ -16,7 +16,7 @@ bun run db:deploy
 bun run dev
 ```
 
-`dev` e `build` preparano automaticamente gli asset C. Il primo avvio richiede rete per scaricare circa 58 MiB da una revisione fissa di `binji/wasm-clang`, con verifica SHA-256. Gli avvii successivi riutilizzano i file validati in `public/c-runtime/<revision>/`. Per prepararli separatamente: `bun run runtime:prepare`. In produzione il browser scarica gli asset dal dominio di Emipy solo quando apre un programma C.
+`dev` e `build` preparano automaticamente gli asset C/C++. Il primo avvio richiede rete per scaricare circa 58 MiB da una revisione fissa di `binji/wasm-clang`, con verifica SHA-256. Gli avvii successivi riutilizzano i file validati in `public/c-runtime/<revision>/`. Per prepararli separatamente: `bun run runtime:prepare`. In produzione il browser scarica gli asset dal dominio di Emipy solo quando apre un programma C o C++.
 
 Impostare in `.env` almeno `DATABASE_URL`, `BETTER_AUTH_SECRET` (casuale, lungo almeno 32 caratteri), `BETTER_AUTH_URL` e `APP_ORIGIN`. Non pubblicare `.env`. Per creare il primo admin:
 
@@ -37,7 +37,7 @@ E2E_EMAIL=admin@example.com E2E_PASSWORD='...' bunx playwright test
 
 Playwright richiede Chromium installato (`bunx playwright install chromium`) e server locale avviato. I test modificano il database configurato: usare un DB di test.
 
-Il percorso Python/C aggiornato si verifica con `bunx playwright test tests/c-runtime.spec.ts`. L'ultimo test del worker usa gli URL di sviluppo Vite, quindi richiede `bun run dev`.
+Il percorso Python/C/C++ aggiornato si verifica con `bunx playwright test tests/c-runtime.spec.ts tests/cpp-runtime.spec.ts`. I test dei worker usano gli URL di sviluppo Vite, quindi richiede `bun run dev`.
 
 ## Coolify
 
@@ -53,20 +53,22 @@ Il database SQLite deve restare sul volume tra rebuild/redeploy. Fare backup del
 
 ## Gerarchia dei corsi
 
-La schermata iniziale (`/app/languages`) fa scegliere il linguaggio; `/app/languages/python` e `/app/languages/c` mostrano soltanto i relativi corsi. Ogni corso in `content/courses/` deve dichiarare `language` (`python` o `c`), modificabile anche in TinaCMS. Le lezioni continuano a riferirsi al corso tramite `courseId`, e gli esercizi devono avere lo stesso linguaggio del corso. I corsi si sbloccano in ordine all'interno del linguaggio: iniziare C non richiede di completare Python.
+La schermata iniziale (`/app/languages`) fa scegliere il linguaggio; `/app/languages/python`, `/app/languages/c` e `/app/languages/cpp` mostrano soltanto i relativi corsi. Ogni corso in `content/courses/` deve dichiarare `language` (`python`, `c` o `cpp`), modificabile anche in TinaCMS. Le lezioni continuano a riferirsi al corso tramite `courseId`, e gli esercizi devono avere lo stesso linguaggio del corso. I corsi si sbloccano in ordine all'interno del linguaggio: iniziare C non richiede di completare Python.
 
-I contenuti restano nei file JSON; nel DB sono salvati i progressi attraverso gli ID esistenti. Questa gerarchia non richiede nuove tabelle o migrazioni Prisma. Tutti i sei corsi esistenti sono associati esplicitamente a Python, senza cambiare ID o progressi. C è selezionabile ma mostra "Corsi in arrivo" finché non vengono pubblicati corsi e lezioni. I link esistenti a corsi/lezioni/esercizi restano validi; `/app/courses` rimanda alla selezione del linguaggio.
+I contenuti restano nei file JSON; nel DB sono salvati i progressi attraverso gli ID esistenti. Questa gerarchia non richiede nuove tabelle o migrazioni Prisma. Tutti i sei corsi esistenti sono associati esplicitamente a Python, senza cambiare ID o progressi. C e C++ sono selezionabili ma mostrano "Corsi in arrivo" finché non vengono pubblicati corsi e lezioni. I link esistenti a corsi/lezioni/esercizi restano validi; `/app/courses` rimanda alla selezione del linguaggio.
 
-## Runtime C
+## Runtime C e C++
 
 Dal menu Playground scegliere **Nuovo programma C**. Il file principale è `main.c`; si possono aggiungere fino a 24 sorgenti `.c` e header `.h` nella stessa directory. Tutti i sorgenti vengono compilati e collegati insieme. Sono supportati programmi da console C11, `printf`, `fprintf`, `scanf`, `getchar` e file nel filesystem temporaneo del runtime. I prompt vengono emessi immediatamente; ogni input inviato dalla console termina con un newline.
 
+Per C++ scegliere **Nuovo programma C++**: il file principale è `main.cpp`, con standard C++17 e libc++/libc++abi. Sono disponibili `iostream`, `string`, `vector`, algoritmi, template e smart pointer. Si possono aggiungere `.cpp`, `.cc`, `.cxx`, sorgenti C `.c` (C11) e header `.h`, `.hpp`, `.hh`, `.hxx`; le funzioni C richiamate da C++ richiedono `extern "C"`. Le eccezioni (`throw`/`try`/`catch`) sono disabilitate. C e C++ condividono gli stessi asset, senza download aggiuntivi.
+
 Clang e LLD 8.0.1 sono eseguiti in un Web Worker tramite WASM/WASI. Questa prima toolchain è sperimentale e datata: non offre compilatori recenti, librerie native aggiuntive, processi, rete o thread. I limiti sono 60 secondi per compilazione/linking, 30 secondi per esecuzione interattiva (attesa input esclusa), 1 MiB di output e 64 MiB di memoria per il programma compilato, con stack da 1 MiB. Il compilatore stesso può richiedere più memoria. STOP termina il Worker anche durante compilazione o attesa input.
 
-Il filesystem e l'istanza del programma vengono ricreati a ogni START. I file generati durante l'esecuzione non vengono salvati nel progetto. Anche ogni valutazione ha un Worker indipendente, con limite di esecuzione di 10 secondi dopo la compilazione. Il runtime restituisce diagnostica, codice di uscita e stato di compilazione al tutor/grader. TinaCMS e gli schemi degli esercizi accettano `language: "c"`; non sono aggiunti nuovi corsi in questa modifica.
+Il filesystem e l'istanza del programma vengono ricreati a ogni START. I file generati durante l'esecuzione non vengono salvati nel progetto. Anche ogni valutazione ha un Worker indipendente, con limite di esecuzione di 10 secondi dopo la compilazione. Il runtime restituisce diagnostica, codice di uscita e stato di compilazione al tutor/grader. TinaCMS e gli schemi degli esercizi accettano `language: "c"` e `language: "cpp"`; non sono aggiunti nuovi corsi in questa modifica.
 
 Gli asset sono fissati alla revisione `648c4a89997a351eef75cdaec3ef5b89d4937dec` di [binji/wasm-clang](https://github.com/binji/wasm-clang). Lo shim console deriva dal progetto e conserva le licenze Apache-2.0 e LLVM in `src/lib/c-runtime/vendor/`. Gli asset binari vengono preparati durante la build e inclusi nell'immagine Docker, senza gonfiare la cronologia Git.
 
 ## Limiti
 
-I programmi Python partono da `main.py` e possono aggiungere file Python importabili. Nessun pip, cartelle, signup pubblico, email o OAuth. Pyodide e il runtime C sono serviti same-origin; l'input interattivo usa `SharedArrayBuffer`, quindi servono HTTPS e isolamento cross-origin. La migrazione assegna `python` a tutti i programmi e alle consegne preesistenti.
+I programmi Python partono da `main.py` e possono aggiungere file Python importabili. Nessun pip, cartelle, signup pubblico, email o OAuth. Pyodide e il runtime C/C++ sono serviti same-origin; l'input interattivo usa `SharedArrayBuffer`, quindi servono HTTPS e isolamento cross-origin. La migrazione assegna `python` a tutti i programmi e alle consegne preesistenti.

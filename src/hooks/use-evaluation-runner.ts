@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useRef } from 'react'
+import { isCompiledLanguage } from '@/lib/languages'
 import type { EvaluationResult, GradingEvaluation, ProgramSnapshot } from '@/lib/agent-contract'
 
 type RunEvaluation = {
@@ -19,8 +20,8 @@ export function useEvaluationRunner() {
   const runOne = useCallback((snapshot: ProgramSnapshot, stdin: string[] = []): Promise<EvaluationResult> => {
     if (disposed.current) return Promise.reject(new Error('Workspace chiuso'))
     // Independent workers prevent globals and files from leaking between tests.
-    const worker = snapshot.language === 'c'
-      ? new Worker(new URL('../workers/c.worker.ts', import.meta.url), { type: 'module' })
+    const worker = isCompiledLanguage(snapshot.language)
+      ? new Worker(new URL('../workers/compiled.worker.ts', import.meta.url), { type: 'module' })
       : new Worker(new URL('../workers/evaluation.worker.ts', import.meta.url), { type: 'module' })
     return new Promise((resolve, reject) => {
       const finish = (result?: EvaluationResult, error?: Error) => {
@@ -45,8 +46,8 @@ export function useEvaluationRunner() {
         const message = event.data
         if (message.type === 'fatal') { finish(undefined, new Error(message.message ?? 'Runtime non disponibile')); return }
         if (message.type === 'ready') {
-          arm(snapshot.language === 'c' ? 60_000 : 10_000, snapshot.language === 'c' ? 'Compilazione interrotta: limite 60 secondi.' : 'Esecuzione interrotta: limite 10 secondi.')
-          worker.postMessage({ type: 'run', runId: 1, code: snapshot.mainCode, files: snapshot.files, stdin, evaluation: true })
+          arm(isCompiledLanguage(snapshot.language) ? 60_000 : 10_000, isCompiledLanguage(snapshot.language) ? 'Compilazione interrotta: limite 60 secondi.' : 'Esecuzione interrotta: limite 10 secondi.')
+          worker.postMessage({ type: 'run', language: snapshot.language, runId: 1, code: snapshot.mainCode, files: snapshot.files, stdin, evaluation: true })
         }
         if (message.type === 'phase' && message.phase === 'running') arm(10_000, 'Esecuzione interrotta: limite 10 secondi.')
         if (message.type === 'result') finish({
