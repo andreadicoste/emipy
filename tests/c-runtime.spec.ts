@@ -110,7 +110,7 @@ test('Python: runtime still handles input, output and STOP', async ({ page }) =>
 test('C: evaluation worker returns real results and EOF', async ({ page }) => {
   await page.goto('/login')
   const result = await page.evaluate(async () => {
-    const worker = new Worker('/src/workers/c.worker.ts', { type: 'module' })
+    const worker = new Worker('/src/workers/compiled.worker.ts', { type: 'module' })
     return new Promise<{ stdout: string; exitCode: number; inputExhausted: boolean; compileFailed: boolean }>((resolve, reject) => {
       const timer = setTimeout(() => { worker.terminate(); reject(new Error('worker timeout')) }, 30_000)
       worker.onerror = (error) => { clearTimeout(timer); worker.terminate(); reject(new Error(error.message)) }

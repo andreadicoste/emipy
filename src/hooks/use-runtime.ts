@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { MAX_INPUT_BYTES, MAX_OUTPUT_BYTES, type WorkerToMain } from '@/lib/runtime-protocol'
-import { languages, type Language } from '@/lib/languages'
+import { languages, isCompiledLanguage, type Language } from '@/lib/languages'
 
 export type OutputChunk = { kind: 'stdout' | 'stderr' | 'system' | 'input'; text: string }
 type Status = 'loading' | 'ready' | 'compiling' | 'linking' | 'running' | 'waiting' | 'stopping' | 'error'
@@ -37,8 +37,8 @@ export function useRuntime(language: Language, enabled = true) {
     if (stopTimer.current) clearTimeout(stopTimer.current)
     worker.current?.terminate()
     setStatus('loading')
-    const next = language === 'c'
-      ? new Worker(new URL('../workers/c.worker.ts', import.meta.url), { type: 'module' })
+    const next = isCompiledLanguage(language)
+      ? new Worker(new URL('../workers/compiled.worker.ts', import.meta.url), { type: 'module' })
       : new Worker(new URL('../workers/python.worker.ts', import.meta.url), { type: 'module' })
     worker.current = next
     deadline.current = setTimeout(() => {
@@ -99,13 +99,13 @@ export function useRuntime(language: Language, enabled = true) {
     interrupt.current = new Int32Array(interruptBuffer)
     inputState.current = new Int32Array(inputBuffer, 0, 2)
     inputBytes.current = new Uint8Array(inputBuffer, 8, MAX_INPUT_BYTES)
-    setStatus(language === 'c' ? 'compiling' : 'running')
-    if (language === 'c') deadline.current = setTimeout(() => {
+    setStatus(isCompiledLanguage(language) ? 'compiling' : 'running')
+    if (isCompiledLanguage(language)) deadline.current = setTimeout(() => {
       runId.current += 1
       append('system', 'Compilazione interrotta: limite 60 secondi.')
       createWorker()
     }, 60_000)
-    worker.current.postMessage({ type: 'run', code, files, runId: runId.current, interruptBuffer, inputBuffer })
+    worker.current.postMessage({ type: 'run', language, code, files, runId: runId.current, interruptBuffer, inputBuffer })
   }, [append, status, language, createWorker])
 
   const submitInput = useCallback((value: string) => {
@@ -118,7 +118,7 @@ export function useRuntime(language: Language, enabled = true) {
     Atomics.notify(inputState.current, 0)
     append('input', `${value}\n`)
     setStatus('running')
-    if (language === 'c') deadline.current = setTimeout(() => {
+    if (isCompiledLanguage(language)) deadline.current = setTimeout(() => {
       runId.current += 1
       append('system', 'Esecuzione interrotta: limite 30 secondi.')
       createWorker()
@@ -128,9 +128,9 @@ export function useRuntime(language: Language, enabled = true) {
 
   const stop = useCallback(() => {
     if (!['compiling', 'linking', 'running', 'waiting'].includes(status)) return
-    if (language === 'c') {
+    if (isCompiledLanguage(language)) {
       runId.current += 1
-      append('system', 'Esecuzione fermata. Riavvio C…')
+      append('system', `Esecuzione fermata. Riavvio ${languages[language].label}…`)
       createWorker()
       return
     }

@@ -9,6 +9,7 @@ export const Route = createFileRoute('/app/languages/')({ loader: () => listLang
 const descriptions = {
   python: 'Parti dalle basi e impara a costruire programmi, lavorare con i dati e realizzare piccoli progetti.',
   c: 'Esplora la programmazione in C: tipi, funzioni, memoria e programmi compilati.',
+  cpp: 'Impara C++, dalla libreria standard a classi, oggetti e programmi compilati.',
 } as const
 
 function Languages() {
@@ -26,7 +27,7 @@ function Languages() {
       className="course-card group rounded-xl border bg-card p-6 text-left"
       onClick={() => void navigate({ to: '/app/languages/$language', params: { language: item.language } })}
     >
-      <div className="flex items-start justify-between"><span className="flex size-12 items-center justify-center rounded-xl bg-accent font-mono text-xl font-semibold" aria-hidden="true">{item.language === 'python' ? 'Py' : 'C'}</span><HugeiconsIcon icon={ArrowRight01Icon} className="size-4 text-muted-foreground transition-transform group-hover:translate-x-0.5" aria-hidden="true" /></div>
+      <div className="flex items-start justify-between"><span className="flex size-12 items-center justify-center rounded-xl bg-accent font-mono text-xl font-semibold" aria-hidden="true">{item.language === 'python' ? 'Py' : item.label}</span><HugeiconsIcon icon={ArrowRight01Icon} className="size-4 text-muted-foreground transition-transform group-hover:translate-x-0.5" aria-hidden="true" /></div>
       <h2 className="mt-7 text-lg font-semibold">{item.label}</h2>
       <p className="mt-2 min-h-15 text-sm leading-5 text-muted-foreground">{descriptions[item.language]}</p>
       <div className="-mx-6 mt-5 flex items-center justify-between border-t px-6 pt-4 text-xs text-muted-foreground">
