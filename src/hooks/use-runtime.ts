@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { MAX_INPUT_BYTES, MAX_OUTPUT_BYTES, type WorkerToMain } from '@/lib/runtime-protocol'
-import { languages, isCompiledLanguage, type Language } from '@/lib/languages'
+import { languages, isCompiledLanguage, needsCompilation, type Language } from '@/lib/languages'
 
 export type OutputChunk = { kind: 'stdout' | 'stderr' | 'system' | 'input'; text: string }
 type Status = 'loading' | 'ready' | 'compiling' | 'linking' | 'running' | 'waiting' | 'stopping' | 'error'
@@ -39,6 +39,8 @@ export function useRuntime(language: Language, enabled = true) {
     setStatus('loading')
     const next = isCompiledLanguage(language)
       ? new Worker(new URL('../workers/compiled.worker.ts', import.meta.url), { type: 'module' })
+      : language === 'typescript'
+      ? new Worker(new URL('../workers/typescript.worker.ts', import.meta.url), { type: 'module' })
       : language === 'javascript'
       ? new Worker(new URL('../workers/javascript.worker.ts', import.meta.url), { type: 'module' })
       : new Worker(new URL('../workers/python.worker.ts', import.meta.url), { type: 'module' })
@@ -101,8 +103,8 @@ export function useRuntime(language: Language, enabled = true) {
     interrupt.current = new Int32Array(interruptBuffer)
     inputState.current = new Int32Array(inputBuffer, 0, 2)
     inputBytes.current = new Uint8Array(inputBuffer, 8, MAX_INPUT_BYTES)
-    setStatus(isCompiledLanguage(language) ? 'compiling' : 'running')
-    if (isCompiledLanguage(language)) deadline.current = setTimeout(() => {
+    setStatus(needsCompilation(language) ? 'compiling' : 'running')
+    if (needsCompilation(language)) deadline.current = setTimeout(() => {
       runId.current += 1
       append('system', 'Compilazione interrotta: limite 60 secondi.')
       createWorker()

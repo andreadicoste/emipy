@@ -4,6 +4,7 @@ export type JavaScriptHost = {
   write: (kind: 'stdout' | 'stderr', text: string) => void
   read: () => string | null
   timeoutMs?: number
+  extensionlessImports?: boolean
 }
 
 // Only source strings and console/input primitives cross the WASM boundary.
@@ -24,6 +25,7 @@ export function executeJavaScript(engine: QuickJSWASMModule, code: string, files
     if (source === undefined) throw new Error(`Modulo locale non trovato: ${name}`)
     return source
   }, (_base, name) => {
+    if (host.extensionlessImports && /^\.\/[A-Za-z_][A-Za-z0-9_]*$/.test(name)) name += '.js'
     if (!/^\.\/[A-Za-z_][A-Za-z0-9_]*\.js$/.test(name)) throw new Error('Import consentiti soltanto da file locali ./nome.js')
     return name.slice(2)
   })
