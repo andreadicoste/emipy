@@ -39,6 +39,8 @@ export function useRuntime(language: Language, enabled = true) {
     setStatus('loading')
     const next = isCompiledLanguage(language)
       ? new Worker(new URL('../workers/compiled.worker.ts', import.meta.url), { type: 'module' })
+      : language === 'javascript'
+      ? new Worker(new URL('../workers/javascript.worker.ts', import.meta.url), { type: 'module' })
       : new Worker(new URL('../workers/python.worker.ts', import.meta.url), { type: 'module' })
     worker.current = next
     deadline.current = setTimeout(() => {
@@ -118,7 +120,7 @@ export function useRuntime(language: Language, enabled = true) {
     Atomics.notify(inputState.current, 0)
     append('input', `${value}\n`)
     setStatus('running')
-    if (isCompiledLanguage(language)) deadline.current = setTimeout(() => {
+    if (language !== 'python') deadline.current = setTimeout(() => {
       runId.current += 1
       append('system', 'Esecuzione interrotta: limite 30 secondi.')
       createWorker()
@@ -128,7 +130,7 @@ export function useRuntime(language: Language, enabled = true) {
 
   const stop = useCallback(() => {
     if (!['compiling', 'linking', 'running', 'waiting'].includes(status)) return
-    if (isCompiledLanguage(language)) {
+    if (language !== 'python') {
       runId.current += 1
       append('system', `Esecuzione fermata. Riavvio ${languages[language].label}…`)
       createWorker()
