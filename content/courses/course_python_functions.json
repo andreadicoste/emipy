@@ -1,5 +1,6 @@
 {
   "externalId": "course_python_functions",
+  "language": "python",
   "slug": "python-funzioni",
   "title": "Funzioni e struttura del codice",
   "description": "Impara a dividere un programma in parti riutilizzabili, leggibili e facili da verificare.",

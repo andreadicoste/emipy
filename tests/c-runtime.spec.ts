@@ -5,7 +5,7 @@ async function newProgram(page: Page, language: 'C' | 'Python') {
   await page.getByLabel('Email').fill(process.env.E2E_EMAIL ?? '')
   await page.getByLabel('Password').fill(process.env.E2E_PASSWORD ?? '')
   await page.getByRole('button', { name: 'Accedi' }).click()
-  await expect(page).toHaveURL(/\/app\/courses/)
+  await expect(page).toHaveURL(/\/app\/languages/)
   await page.getByRole('button', { name: 'Nuovo playground' }).click()
   await page.getByRole('menuitem', { name: `Nuovo programma ${language}`, exact: true }).click()
   await expect(page).toHaveURL(/\/app\/playground\//)

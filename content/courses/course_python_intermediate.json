@@ -1,5 +1,6 @@
 {
   "externalId": "course_python_intermediate",
+  "language": "python",
   "slug": "python-intermedio",
   "title": "Python intermedio",
   "description": "Fai il salto verso programmi più strutturati con classi, type hints, sorting e test.",

@@ -1,5 +1,6 @@
 {
   "externalId": "course_python_data",
+  "language": "python",
   "slug": "python-dati",
   "title": "Errori, file e dati reali",
   "description": "Gestisci input imperfetti, eccezioni e file TXT, CSV e JSON.",

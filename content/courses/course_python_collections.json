@@ -1,5 +1,6 @@
 {
   "externalId": "course_python_collections",
+  "language": "python",
   "slug": "python-collezioni",
   "title": "Collezioni e dati",
   "description": "Lavora con stringhe, liste, tuple, set e dizionari per organizzare e trasformare dati.",
