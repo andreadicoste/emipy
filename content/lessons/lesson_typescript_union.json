@@ -1,0 +1,31 @@
+{
+  "externalId": "lesson_typescript_union",
+  "courseId": "course_typescript_base",
+  "slug": "typescript-union",
+  "title": "Union e literal types",
+  "description": "Rappresenta valori alternativi senza perdere informazione nel tipo.",
+  "order": 3,
+  "status": "published",
+  "blocks": [
+    {
+      "type": "markdown",
+      "body": "# Union e literal types\n\nRappresenta valori alternativi senza perdere informazione nel tipo.\n\nTypeScript qui gira in modalità strict: usa il compilatore come feedback sul design, non come un ostacolo da aggirare con `any`."
+    },
+    {
+      "type": "code",
+      "language": "typescript",
+      "filename": "main.ts",
+      "code": "type Stato = \"idle\" | \"loading\" | \"done\";\n\nfunction descrivi(stato: Stato): string {\n  return stato === \"done\" ? \"finito\" : stato;\n}\n\nconsole.log(descrivi(\"loading\"));",
+      "caption": "Esempio TypeScript"
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "Prima i tipi, poi il codice",
+      "body": "Quando una funzione è poco chiara, prova prima a scriverne la firma: spesso il tipo giusto rende ovvia anche l'implementazione."
+    }
+  ],
+  "exerciseIds": [
+    "ex_typescript_union_01"
+  ]
+}

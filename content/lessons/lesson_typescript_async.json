@@ -1,0 +1,31 @@
+{
+  "externalId": "lesson_typescript_async",
+  "courseId": "course_typescript_advanced",
+  "slug": "typescript-async",
+  "title": "Promise e async tipizzate",
+  "description": "Mantieni tipi precisi anche quando il risultato arriva tramite Promise.",
+  "order": 4,
+  "status": "published",
+  "blocks": [
+    {
+      "type": "markdown",
+      "body": "# Promise e async tipizzate\n\nMantieni tipi precisi anche quando il risultato arriva tramite Promise.\n\nTypeScript qui gira in modalità strict: usa il compilatore come feedback sul design, non come un ostacolo da aggirare con `any`."
+    },
+    {
+      "type": "code",
+      "language": "typescript",
+      "filename": "main.ts",
+      "code": "async function raddoppia(x: number): Promise<number> {\n  return x * 2;\n}\n\nconsole.log(await raddoppia(6));",
+      "caption": "Esempio TypeScript"
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "Prima i tipi, poi il codice",
+      "body": "Quando una funzione è poco chiara, prova prima a scriverne la firma: spesso il tipo giusto rende ovvia anche l'implementazione."
+    }
+  ],
+  "exerciseIds": [
+    "ex_typescript_async_01"
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "externalId": "ex_typescript_inferenza_01",
+  "title": "Profilo tipizzato",
+  "instructions": "Definisci variabili `nome: string`, `eta: number` e `attivo: boolean` e stampa una frase che le usi.",
+  "language": "typescript",
+  "starterCode": "const nome: string = \"Ada\";\n// completa\n",
+  "starterFiles": [],
+  "learningObjectives": [
+    "Usare annotazioni primitive",
+    "Capire l'inferenza"
+  ],
+  "expectedBehavior": "Il programma compila in strict mode e stampa i tre valori in modo riconoscibile.",
+  "graderInstructions": "Verificare tipi corretti e assenza di cast che aggirino il controllo.",
+  "status": "published"
+}

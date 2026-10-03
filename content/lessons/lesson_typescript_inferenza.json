@@ -1,0 +1,31 @@
+{
+  "externalId": "lesson_typescript_inferenza",
+  "courseId": "course_typescript_base",
+  "slug": "typescript-inferenza",
+  "title": "Inferenza e annotazioni",
+  "description": "Lascia inferire i tipi semplici e annota i confini dove il contratto conta.",
+  "order": 1,
+  "status": "published",
+  "blocks": [
+    {
+      "type": "markdown",
+      "body": "# Inferenza e annotazioni\n\nLascia inferire i tipi semplici e annota i confini dove il contratto conta.\n\nTypeScript qui gira in modalità strict: usa il compilatore come feedback sul design, non come un ostacolo da aggirare con `any`."
+    },
+    {
+      "type": "code",
+      "language": "typescript",
+      "filename": "main.ts",
+      "code": "const nome = \"Emipy\";\nlet punti: number = 10;\npunti += 5;\nconsole.log(nome, punti);",
+      "caption": "Esempio TypeScript"
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "Prima i tipi, poi il codice",
+      "body": "Quando una funzione è poco chiara, prova prima a scriverne la firma: spesso il tipo giusto rende ovvia anche l'implementazione."
+    }
+  ],
+  "exerciseIds": [
+    "ex_typescript_inferenza_01"
+  ]
+}

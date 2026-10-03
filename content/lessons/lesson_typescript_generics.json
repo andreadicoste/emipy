@@ -1,0 +1,31 @@
+{
+  "externalId": "lesson_typescript_generics",
+  "courseId": "course_typescript_advanced",
+  "slug": "typescript-generics",
+  "title": "Generics",
+  "description": "Mantieni la relazione tra tipi in input e output senza ricorrere a any.",
+  "order": 1,
+  "status": "published",
+  "blocks": [
+    {
+      "type": "markdown",
+      "body": "# Generics\n\nMantieni la relazione tra tipi in input e output senza ricorrere a any.\n\nTypeScript qui gira in modalità strict: usa il compilatore come feedback sul design, non come un ostacolo da aggirare con `any`."
+    },
+    {
+      "type": "code",
+      "language": "typescript",
+      "filename": "main.ts",
+      "code": "function primo<T>(valori: T[]): T | undefined {\n  return valori[0];\n}\n\nconsole.log(primo<number>([10, 20, 30]));",
+      "caption": "Esempio TypeScript"
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "Prima i tipi, poi il codice",
+      "body": "Quando una funzione è poco chiara, prova prima a scriverne la firma: spesso il tipo giusto rende ovvia anche l'implementazione."
+    }
+  ],
+  "exerciseIds": [
+    "ex_typescript_generics_01"
+  ]
+}

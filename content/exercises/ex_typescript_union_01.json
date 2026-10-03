@@ -1,0 +1,15 @@
+{
+  "externalId": "ex_typescript_union_01",
+  "title": "Formato ID",
+  "instructions": "Scrivi `formatId(id: string | number): string` che restituisca sempre una stringa prefissata da `ID:`.",
+  "language": "typescript",
+  "starterCode": "function formatId(id: string | number): string {\n  return \"\";\n}\n\nconsole.log(formatId(42));\nconsole.log(formatId(\"abc\"));\n",
+  "starterFiles": [],
+  "learningObjectives": [
+    "Usare un union type",
+    "Restituire un tipo coerente"
+  ],
+  "expectedBehavior": "Produce stringhe che includono 42 e abc con prefisso ID.",
+  "graderInstructions": "Verificare input string e number; non usare any.",
+  "status": "published"
+}

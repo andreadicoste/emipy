@@ -1,0 +1,15 @@
+{
+  "externalId": "ex_typescript_moduli_01",
+  "title": "API di conversione",
+  "instructions": "Scrivi due funzioni tipizzate `celsiusToFahrenheit` e `fahrenheitToCelsius` adatte a essere esportate.",
+  "language": "typescript",
+  "starterCode": "function celsiusToFahrenheit(c: number): number {\n  return 0;\n}\n\nfunction fahrenheitToCelsius(f: number): number {\n  return 0;\n}\n\nconsole.log(celsiusToFahrenheit(0), fahrenheitToCelsius(32));\n",
+  "starterFiles": [],
+  "learningObjectives": [
+    "Progettare un'API tipizzata",
+    "Separare contratto e utilizzo"
+  ],
+  "expectedBehavior": "0 C produce 32 F e 32 F produce 0 C.",
+  "graderInstructions": "Verificare firme number->number e conversioni note.",
+  "status": "published"
+}

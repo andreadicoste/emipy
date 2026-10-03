@@ -1,0 +1,31 @@
+{
+  "externalId": "lesson_typescript_funzioni",
+  "courseId": "course_typescript_base",
+  "slug": "typescript-funzioni",
+  "title": "Funzioni tipizzate",
+  "description": "Descrivi tipi di parametri e ritorno per rendere esplicito il contratto della funzione.",
+  "order": 2,
+  "status": "published",
+  "blocks": [
+    {
+      "type": "markdown",
+      "body": "# Funzioni tipizzate\n\nDescrivi tipi di parametri e ritorno per rendere esplicito il contratto della funzione.\n\nTypeScript qui gira in modalità strict: usa il compilatore come feedback sul design, non come un ostacolo da aggirare con `any`."
+    },
+    {
+      "type": "code",
+      "language": "typescript",
+      "filename": "main.ts",
+      "code": "function area(base: number, altezza: number): number {\n  return base * altezza;\n}\n\nconsole.log(area(4, 3));",
+      "caption": "Esempio TypeScript"
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "Prima i tipi, poi il codice",
+      "body": "Quando una funzione è poco chiara, prova prima a scriverne la firma: spesso il tipo giusto rende ovvia anche l'implementazione."
+    }
+  ],
+  "exerciseIds": [
+    "ex_typescript_funzioni_01"
+  ]
+}

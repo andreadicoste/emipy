@@ -1,0 +1,15 @@
+{
+  "externalId": "ex_typescript_async_01",
+  "title": "Caricamento simulato",
+  "instructions": "Scrivi `async function preparaNome(nome: string): Promise<string>` che attenda `Promise.resolve(nome)`, faccia trim e restituisca il risultato in maiuscolo.",
+  "language": "typescript",
+  "starterCode": "async function preparaNome(nome: string): Promise<string> {\n  return \"\";\n}\n\nconsole.log(await preparaNome(\"  emipy  \"));\n",
+  "starterFiles": [],
+  "learningObjectives": [
+    "Tipizzare Promise",
+    "Usare await senza perdere il tipo"
+  ],
+  "expectedBehavior": "Per '  emipy  ' restituisce EMIPY.",
+  "graderInstructions": "Verificare che la funzione sia async, ritorni Promise<string> e trasformi più stringhe.",
+  "status": "published"
+}

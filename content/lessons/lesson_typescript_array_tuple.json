@@ -1,0 +1,31 @@
+{
+  "externalId": "lesson_typescript_array_tuple",
+  "courseId": "course_typescript_base",
+  "slug": "typescript-array-tuple",
+  "title": "Array e tuple",
+  "description": "Tipizza collezioni omogenee e strutture a lunghezza nota.",
+  "order": 4,
+  "status": "published",
+  "blocks": [
+    {
+      "type": "markdown",
+      "body": "# Array e tuple\n\nTipizza collezioni omogenee e strutture a lunghezza nota.\n\nTypeScript qui gira in modalità strict: usa il compilatore come feedback sul design, non come un ostacolo da aggirare con `any`."
+    },
+    {
+      "type": "code",
+      "language": "typescript",
+      "filename": "main.ts",
+      "code": "const voti: number[] = [7, 8, 9];\nconst punto: [number, number] = [4, 2];\nconsole.log(voti.length, punto[0]);",
+      "caption": "Esempio TypeScript"
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "Prima i tipi, poi il codice",
+      "body": "Quando una funzione è poco chiara, prova prima a scriverne la firma: spesso il tipo giusto rende ovvia anche l'implementazione."
+    }
+  ],
+  "exerciseIds": [
+    "ex_typescript_array_tuple_01"
+  ]
+}
