@@ -1,0 +1,31 @@
+{
+  "externalId": "lesson_typescript_keyof",
+  "courseId": "course_typescript_advanced",
+  "slug": "typescript-keyof",
+  "title": "keyof e accesso sicuro",
+  "description": "Vincola una chiave alle proprietà reali di un oggetto.",
+  "order": 2,
+  "status": "published",
+  "blocks": [
+    {
+      "type": "markdown",
+      "body": "# keyof e accesso sicuro\n\nVincola una chiave alle proprietà reali di un oggetto.\n\nTypeScript qui gira in modalità strict: usa il compilatore come feedback sul design, non come un ostacolo da aggirare con `any`."
+    },
+    {
+      "type": "code",
+      "language": "typescript",
+      "filename": "main.ts",
+      "code": "function leggi<T, K extends keyof T>(oggetto: T, chiave: K): T[K] {\n  return oggetto[chiave];\n}\n\nconsole.log(leggi({ nome: \"Ada\", eta: 36 }, \"nome\"));",
+      "caption": "Esempio TypeScript"
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "Prima i tipi, poi il codice",
+      "body": "Quando una funzione è poco chiara, prova prima a scriverne la firma: spesso il tipo giusto rende ovvia anche l'implementazione."
+    }
+  ],
+  "exerciseIds": [
+    "ex_typescript_keyof_01"
+  ]
+}

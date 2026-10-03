@@ -1,0 +1,31 @@
+{
+  "externalId": "lesson_python_architettura_datamodel",
+  "courseId": "course_python_architecture",
+  "slug": "architettura-datamodel",
+  "title": "Data model e metodi speciali",
+  "description": "Integra gli oggetti con `len`, `in` e rappresentazioni leggibili.",
+  "order": 2,
+  "status": "published",
+  "blocks": [
+    {
+      "type": "markdown",
+      "body": "# Data model e metodi speciali\n\nIntegra gli oggetti con `len`, `in` e rappresentazioni leggibili.\n\nStudia il meccanismo e prova a prevedere il risultato prima di eseguire il codice."
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "filename": "main.py",
+      "code": "class Carrello:\n    def __init__(self, prodotti):\n        self.prodotti = list(prodotti)\n\n    def __len__(self):\n        return len(self.prodotti)",
+      "caption": "Esempio"
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "Metodo",
+      "body": "Modifica un valore dell'esempio e verifica se il tuo modello mentale prevede correttamente il nuovo risultato."
+    }
+  ],
+  "exerciseIds": [
+    "ex_python_architettura_datamodel_01"
+  ]
+}

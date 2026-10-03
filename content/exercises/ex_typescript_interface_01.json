@@ -1,0 +1,15 @@
+{
+  "externalId": "ex_typescript_interface_01",
+  "title": "Prodotto tipizzato",
+  "instructions": "Definisci un'interfaccia `Prodotto` con nome, prezzo e disponibile e una funzione che restituisca il prezzo solo se disponibile, altrimenti 0.",
+  "language": "typescript",
+  "starterCode": "interface Prodotto {\n  // completa\n}\n\nfunction prezzoAcquistabile(prodotto: Prodotto): number {\n  return 0;\n}\n",
+  "starterFiles": [],
+  "learningObjectives": [
+    "Definire un'interfaccia",
+    "Usare un oggetto tipizzato"
+  ],
+  "expectedBehavior": "Restituisce il prezzo per prodotti disponibili e 0 altrimenti.",
+  "graderInstructions": "Verificare entrambe le condizioni e proprietà correttamente tipizzate.",
+  "status": "published"
+}

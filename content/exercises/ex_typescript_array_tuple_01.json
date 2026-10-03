@@ -1,0 +1,15 @@
+{
+  "externalId": "ex_typescript_array_tuple_01",
+  "title": "Coordinate",
+  "instructions": "Scrivi `distanzaManhattan(a: [number, number], b: [number, number]): number`.",
+  "language": "typescript",
+  "starterCode": "function distanzaManhattan(a: [number, number], b: [number, number]): number {\n  return 0;\n}\n\nconsole.log(distanzaManhattan([0, 0], [3, 4]));\n",
+  "starterFiles": [],
+  "learningObjectives": [
+    "Usare tuple",
+    "Tipizzare array strutturati"
+  ],
+  "expectedBehavior": "Per [0,0] e [3,4] restituisce 7.",
+  "graderInstructions": "Provare coordinate positive e negative.",
+  "status": "published"
+}

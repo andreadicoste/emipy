@@ -1,0 +1,31 @@
+{
+  "externalId": "lesson_typescript_narrowing",
+  "courseId": "course_typescript_models",
+  "slug": "typescript-narrowing",
+  "title": "Narrowing con typeof e discriminanti",
+  "description": "Restringi un union prima di usare operazioni specifiche del tipo.",
+  "order": 2,
+  "status": "published",
+  "blocks": [
+    {
+      "type": "markdown",
+      "body": "# Narrowing con typeof e discriminanti\n\nRestringi un union prima di usare operazioni specifiche del tipo.\n\nTypeScript qui gira in modalità strict: usa il compilatore come feedback sul design, non come un ostacolo da aggirare con `any`."
+    },
+    {
+      "type": "code",
+      "language": "typescript",
+      "filename": "main.ts",
+      "code": "function lunghezza(valore: string | string[]): number {\n  if (typeof valore === \"string\") return valore.length;\n  return valore.length;\n}\n\nconsole.log(lunghezza(\"ciao\"));",
+      "caption": "Esempio TypeScript"
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "Prima i tipi, poi il codice",
+      "body": "Quando una funzione è poco chiara, prova prima a scriverne la firma: spesso il tipo giusto rende ovvia anche l'implementazione."
+    }
+  ],
+  "exerciseIds": [
+    "ex_typescript_narrowing_01"
+  ]
+}

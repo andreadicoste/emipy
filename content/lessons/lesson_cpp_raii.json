@@ -1,0 +1,31 @@
+{
+  "externalId": "lesson_cpp_raii",
+  "courseId": "course_cpp_modern",
+  "slug": "cpp-raii",
+  "title": "RAII e durata delle risorse",
+  "description": "Lega la durata di una risorsa alla durata di un oggetto invece di gestire cleanup sparso.",
+  "order": 2,
+  "status": "published",
+  "blocks": [
+    {
+      "type": "markdown",
+      "body": "# RAII e durata delle risorse\n\nLega la durata di una risorsa alla durata di un oggetto invece di gestire cleanup sparso.\n\nIn C++ prova a distinguere sempre valore, riferimento e ownership: questa distinzione rende il codice molto più prevedibile."
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "filename": "main.cpp",
+      "code": "#include <iostream>\n#include <vector>\n\nclass Buffer {\npublic:\n    explicit Buffer(std::size_t n) : dati_(n, 0) {}\n    std::size_t size() const { return dati_.size(); }\nprivate:\n    std::vector<int> dati_;\n};\n\nint main() {\n    Buffer b(10);\n    std::cout << b.size() << std::endl;\n}",
+      "caption": "Esempio C++17"
+    },
+    {
+      "type": "callout",
+      "variant": "info",
+      "title": "Runtime Emipy",
+      "body": "Il percorso usa C++17. Le eccezioni sono disabilitate nel runtime, quindi gli esempi e gli esercizi evitano throw/try/catch."
+    }
+  ],
+  "exerciseIds": [
+    "ex_cpp_raii_01"
+  ]
+}

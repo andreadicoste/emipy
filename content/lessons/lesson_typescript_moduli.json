@@ -1,0 +1,31 @@
+{
+  "externalId": "lesson_typescript_moduli",
+  "courseId": "course_typescript_advanced",
+  "slug": "typescript-moduli",
+  "title": "Moduli tipizzati",
+  "description": "Esporta contratti e implementazioni mantenendo i tipi attraverso gli import.",
+  "order": 3,
+  "status": "published",
+  "blocks": [
+    {
+      "type": "markdown",
+      "body": "# Moduli tipizzati\n\nEsporta contratti e implementazioni mantenendo i tipi attraverso gli import.\n\nTypeScript qui gira in modalità strict: usa il compilatore come feedback sul design, non come un ostacolo da aggirare con `any`."
+    },
+    {
+      "type": "code",
+      "language": "typescript",
+      "filename": "main.ts",
+      "code": "export interface Punto {\n  x: number;\n  y: number;\n}\n\nexport function distanzaZero(p: Punto): number {\n  return Math.sqrt(p.x * p.x + p.y * p.y);\n}",
+      "caption": "Esempio TypeScript"
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "Prima i tipi, poi il codice",
+      "body": "Quando una funzione è poco chiara, prova prima a scriverne la firma: spesso il tipo giusto rende ovvia anche l'implementazione."
+    }
+  ],
+  "exerciseIds": [
+    "ex_typescript_moduli_01"
+  ]
+}

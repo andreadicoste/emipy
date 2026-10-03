@@ -1,0 +1,15 @@
+{
+  "externalId": "ex_cpp_tipi_input_01",
+  "title": "Area del rettangolo",
+  "instructions": "Leggi base e altezza intere e stampa l'area.",
+  "language": "cpp",
+  "starterCode": "#include <iostream>\n\nint main() {\n    int base, altezza;\n    // leggi e calcola\n    return 0;\n}\n",
+  "starterFiles": [],
+  "learningObjectives": [
+    "Leggere con std::cin",
+    "Calcolare con variabili"
+  ],
+  "expectedBehavior": "Con 7 e 5 stampa 35.",
+  "graderInstructions": "Provare più coppie di interi non negativi.",
+  "status": "published"
+}

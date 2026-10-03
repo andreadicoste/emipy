@@ -1,0 +1,15 @@
+{
+  "externalId": "ex_cpp_funzioni_riferimenti_01",
+  "title": "Scambia con riferimenti",
+  "instructions": "Scrivi `void scambia(int& a, int& b)` che scambi i due interi.",
+  "language": "cpp",
+  "starterCode": "#include <iostream>\n\nvoid scambia(int& a, int& b) {\n    // completa\n}\n\nint main() {\n    int a = 3, b = 9;\n    scambia(a, b);\n    std::cout << a << \" \" << b << std::endl;\n}\n",
+  "starterFiles": [],
+  "learningObjectives": [
+    "Usare riferimenti",
+    "Modificare argomenti"
+  ],
+  "expectedBehavior": "Stampa 9 3 per l'esempio.",
+  "graderInstructions": "Verificare con più coppie, inclusi valori uguali.",
+  "status": "published"
+}

@@ -1,0 +1,15 @@
+{
+  "externalId": "ex_javascript_promise_01",
+  "title": "Pipeline Promise",
+  "instructions": "Parti da `Promise.resolve(5)` e costruisci una catena che prima raddoppi e poi aggiunga 3, stampando 13.",
+  "language": "javascript",
+  "starterCode": "const valore = Promise.resolve(5);\n// completa\n",
+  "starterFiles": [],
+  "learningObjectives": [
+    "Usare Promise.then",
+    "Comporre trasformazioni asincrone"
+  ],
+  "expectedBehavior": "Stampa 13.",
+  "graderInstructions": "Verificare una catena Promise reale, non un 13 hardcoded.",
+  "status": "published"
+}

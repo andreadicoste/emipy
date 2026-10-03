@@ -1,0 +1,15 @@
+{
+  "externalId": "ex_c_primo_programma_01",
+  "title": "Saluto in C",
+  "instructions": "Completa il programma affinché stampi una riga di saluto e termini con codice 0.",
+  "language": "c",
+  "starterCode": "#include <stdio.h>\n\nint main(void) {\n    /* scrivi qui */\n    return 0;\n}\n",
+  "starterFiles": [],
+  "learningObjectives": [
+    "Scrivere una funzione main valida",
+    "Stampare con printf"
+  ],
+  "expectedBehavior": "Stampa un saluto su stdout e termina normalmente.",
+  "graderInstructions": "Verificare compilazione, output non vuoto e exit code 0.",
+  "status": "published"
+}

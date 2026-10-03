@@ -1,0 +1,15 @@
+{
+  "externalId": "ex_c_struct_enum_01",
+  "title": "Media di studenti",
+  "instructions": "Definisci una struct `Studente` con nome e voto e calcola la media dei voti di un array di studenti.",
+  "language": "c",
+  "starterCode": "#include <stdio.h>\n\ntypedef struct {\n    const char *nome;\n    double voto;\n} Studente;\n\ndouble media(const Studente studenti[], int n) {\n    return 0.0;\n}\n\nint main(void) {\n    Studente s[] = {{\"A\", 8.0}, {\"B\", 6.0}, {\"C\", 7.0}};\n    printf(\"%.1f\\n\", media(s, 3));\n    return 0;\n}\n",
+  "starterFiles": [],
+  "learningObjectives": [
+    "Definire una struct",
+    "Elaborare array di struct"
+  ],
+  "expectedBehavior": "Per 8,6,7 stampa 7.0.",
+  "graderInstructions": "Provare almeno due insiemi di studenti non vuoti.",
+  "status": "published"
+}

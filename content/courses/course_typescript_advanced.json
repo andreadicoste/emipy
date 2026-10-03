@@ -1,0 +1,9 @@
+{
+  "externalId": "course_typescript_advanced",
+  "language": "typescript",
+  "slug": "typescript-generics-moduli-async",
+  "title": "Generics, moduli e async",
+  "description": "Costruisci API riutilizzabili con generics, keyof, moduli e Promise tipizzate in strict mode.",
+  "order": 3,
+  "status": "published"
+}

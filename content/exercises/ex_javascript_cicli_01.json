@@ -1,0 +1,15 @@
+{
+  "externalId": "ex_javascript_cicli_01",
+  "title": "Somma dei multipli",
+  "instructions": "Scrivi una funzione `sommaMultipli(n, k)` che sommi i multipli di k compresi tra 1 e n.",
+  "language": "javascript",
+  "starterCode": "function sommaMultipli(n, k) {\n  // completa\n}\n\nconsole.log(sommaMultipli(20, 3));\n",
+  "starterFiles": [],
+  "learningObjectives": [
+    "Usare un ciclo",
+    "Filtrare con il modulo"
+  ],
+  "expectedBehavior": "Per 20 e 3 restituisce 63.",
+  "graderInstructions": "Provare più coppie con k positivo.",
+  "status": "published"
+}

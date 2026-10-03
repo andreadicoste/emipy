@@ -1,0 +1,31 @@
+{
+  "externalId": "lesson_python_architettura_duck_typing",
+  "courseId": "course_python_architecture",
+  "slug": "architettura-duck-typing",
+  "title": "Duck typing",
+  "description": "Dipendi da comportamenti utili invece che da classi concrete.",
+  "order": 3,
+  "status": "published",
+  "blocks": [
+    {
+      "type": "markdown",
+      "body": "# Duck typing\n\nDipendi da comportamenti utili invece che da classi concrete.\n\nStudia il meccanismo e prova a prevedere il risultato prima di eseguire il codice."
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "filename": "main.py",
+      "code": "def dimensione(x):\n    return len(x)\n\nprint(dimensione([1, 2, 3]))\nprint(dimensione(\"ciao\"))",
+      "caption": "Esempio"
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "Metodo",
+      "body": "Modifica un valore dell'esempio e verifica se il tuo modello mentale prevede correttamente il nuovo risultato."
+    }
+  ],
+  "exerciseIds": [
+    "ex_python_architettura_duck_typing_01"
+  ]
+}

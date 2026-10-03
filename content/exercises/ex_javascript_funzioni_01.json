@@ -1,0 +1,15 @@
+{
+  "externalId": "ex_javascript_funzioni_01",
+  "title": "Massimo di tre",
+  "instructions": "Scrivi `massimo(a, b, c)` che restituisca il valore più grande senza usare `Math.max`.",
+  "language": "javascript",
+  "starterCode": "function massimo(a, b, c) {\n  // completa\n}\n\nconsole.log(massimo(4, 9, 2));\n",
+  "starterFiles": [],
+  "learningObjectives": [
+    "Restituire un valore",
+    "Ragionare sullo scope locale"
+  ],
+  "expectedBehavior": "Per 4,9,2 restituisce 9.",
+  "graderInstructions": "Provare ordini diversi e valori uguali; rispettare il divieto di Math.max.",
+  "status": "published"
+}

@@ -1,0 +1,15 @@
+{
+  "externalId": "ex_cpp_string_vector_01",
+  "title": "Media di un vector",
+  "instructions": "Scrivi `double media(const std::vector<int>& v)` per un vector non vuoto.",
+  "language": "cpp",
+  "starterCode": "#include <iostream>\n#include <vector>\n\ndouble media(const std::vector<int>& v) {\n    return 0.0;\n}\n\nint main() {\n    std::cout << media({4, 6, 8}) << std::endl;\n}\n",
+  "starterFiles": [],
+  "learningObjectives": [
+    "Usare std::vector",
+    "Passare container per const reference"
+  ],
+  "expectedBehavior": "Per {4,6,8} restituisce 6.",
+  "graderInstructions": "Provare più vector non vuoti.",
+  "status": "published"
+}

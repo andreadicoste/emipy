@@ -1,0 +1,31 @@
+{
+  "externalId": "lesson_javascript_cicli",
+  "courseId": "course_javascript_base",
+  "slug": "javascript-cicli",
+  "title": "for, while e iterazione",
+  "description": "Ripeti operazioni controllando chiaramente inizializzazione, condizione e avanzamento.",
+  "order": 3,
+  "status": "published",
+  "blocks": [
+    {
+      "type": "markdown",
+      "body": "# for, while e iterazione\n\nRipeti operazioni controllando chiaramente inizializzazione, condizione e avanzamento.\n\nIl runtime JavaScript di Emipy è da console: concentrati sul linguaggio e sui moduli, senza DOM, Node o API di rete."
+    },
+    {
+      "type": "code",
+      "language": "javascript",
+      "filename": "main.js",
+      "code": "let totale = 0;\nfor (let i = 1; i <= 5; i++) {\n  totale += i;\n}\nconsole.log(totale);",
+      "caption": "Esempio JavaScript"
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "Evita la magia implicita",
+      "body": "Quando puoi, preferisci confronti stretti e conversioni esplicite: rendono il comportamento più facile da prevedere."
+    }
+  ],
+  "exerciseIds": [
+    "ex_javascript_cicli_01"
+  ]
+}

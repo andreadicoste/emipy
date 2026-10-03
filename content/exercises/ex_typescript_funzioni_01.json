@@ -1,0 +1,15 @@
+{
+  "externalId": "ex_typescript_funzioni_01",
+  "title": "Media tipizzata",
+  "instructions": "Scrivi `media(a: number, b: number, c: number): number`.",
+  "language": "typescript",
+  "starterCode": "function media(a: number, b: number, c: number): number {\n  return 0;\n}\n\nconsole.log(media(6, 8, 10));\n",
+  "starterFiles": [],
+  "learningObjectives": [
+    "Tipizzare parametri",
+    "Tipizzare il valore di ritorno"
+  ],
+  "expectedBehavior": "Per 6,8,10 restituisce 8.",
+  "graderInstructions": "Provare altri numeri e verificare che la firma resti tipizzata.",
+  "status": "published"
+}

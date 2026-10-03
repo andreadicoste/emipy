@@ -1,0 +1,31 @@
+{
+  "externalId": "lesson_typescript_interface",
+  "courseId": "course_typescript_models",
+  "slug": "typescript-interface",
+  "title": "Interface e type alias",
+  "description": "Descrivi la forma degli oggetti e fai controllare al compilatore proprietà e tipi.",
+  "order": 1,
+  "status": "published",
+  "blocks": [
+    {
+      "type": "markdown",
+      "body": "# Interface e type alias\n\nDescrivi la forma degli oggetti e fai controllare al compilatore proprietà e tipi.\n\nTypeScript qui gira in modalità strict: usa il compilatore come feedback sul design, non come un ostacolo da aggirare con `any`."
+    },
+    {
+      "type": "code",
+      "language": "typescript",
+      "filename": "main.ts",
+      "code": "interface Utente {\n  id: number;\n  nome: string;\n  attivo: boolean;\n}\n\nconst utente: Utente = { id: 1, nome: \"Ada\", attivo: true };\nconsole.log(utente.nome);",
+      "caption": "Esempio TypeScript"
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "Prima i tipi, poi il codice",
+      "body": "Quando una funzione è poco chiara, prova prima a scriverne la firma: spesso il tipo giusto rende ovvia anche l'implementazione."
+    }
+  ],
+  "exerciseIds": [
+    "ex_typescript_interface_01"
+  ]
+}

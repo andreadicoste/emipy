@@ -1,0 +1,9 @@
+{
+  "externalId": "course_c_memory",
+  "language": "c",
+  "slug": "c-array-stringhe-puntatori",
+  "title": "Array, stringhe e puntatori",
+  "description": "Impara come C rappresenta sequenze e indirizzi in memoria, fino all'allocazione dinamica.",
+  "order": 2,
+  "status": "published"
+}

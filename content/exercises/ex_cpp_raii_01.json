@@ -1,0 +1,15 @@
+{
+  "externalId": "ex_cpp_raii_01",
+  "title": "Contatore RAII",
+  "instructions": "Crea una classe che incrementi un contatore esterno nel costruttore e lo decrementi nel distruttore.",
+  "language": "cpp",
+  "starterCode": "#include <iostream>\n\nclass Presenza {\n    // completa\n};\n\nint main() {\n    int attivi = 0;\n    {\n        Presenza p(attivi);\n        std::cout << attivi << std::endl;\n    }\n    std::cout << attivi << std::endl;\n}\n",
+  "starterFiles": [],
+  "learningObjectives": [
+    "Definire un distruttore",
+    "Collegare cleanup alla durata dell'oggetto"
+  ],
+  "expectedBehavior": "Stampa 1 dentro il blocco e 0 dopo.",
+  "graderInstructions": "Verificare il comportamento di durata; non usare eccezioni.",
+  "status": "published"
+}

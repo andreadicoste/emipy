@@ -1,0 +1,15 @@
+{
+  "externalId": "ex_python_algoritmi_due_puntatori_01",
+  "title": "Palindromo a due puntatori",
+  "instructions": "Scrivi `is_palindrome(testo)` confrontando i caratteri dalle due estremità verso il centro.",
+  "language": "python",
+  "starterCode": "def is_palindrome(testo):\n    pass\n\nprint(is_palindrome(\"radar\"))\n",
+  "starterFiles": [],
+  "learningObjectives": [
+    "Usare due indici",
+    "Ridurre i confronti"
+  ],
+  "expectedBehavior": "True per radar, False per python.",
+  "graderInstructions": "Verificare palindroma, non palindroma e stringa vuota.",
+  "status": "published"
+}

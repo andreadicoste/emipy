@@ -1,0 +1,9 @@
+{
+  "externalId": "course_python_architecture",
+  "language": "python",
+  "slug": "python-architettura",
+  "title": "OOP avanzata e architettura",
+  "description": "Organizza programmi più grandi con composizione, data model, duck typing e separazione della logica.",
+  "order": 9,
+  "status": "published"
+}

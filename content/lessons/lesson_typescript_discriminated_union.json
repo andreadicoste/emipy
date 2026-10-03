@@ -1,0 +1,31 @@
+{
+  "externalId": "lesson_typescript_discriminated_union",
+  "courseId": "course_typescript_models",
+  "slug": "typescript-discriminated-union",
+  "title": "Discriminated union",
+  "description": "Rappresenta varianti di dati con una proprietà discriminante e gestisci ogni caso.",
+  "order": 3,
+  "status": "published",
+  "blocks": [
+    {
+      "type": "markdown",
+      "body": "# Discriminated union\n\nRappresenta varianti di dati con una proprietà discriminante e gestisci ogni caso.\n\nTypeScript qui gira in modalità strict: usa il compilatore come feedback sul design, non come un ostacolo da aggirare con `any`."
+    },
+    {
+      "type": "code",
+      "language": "typescript",
+      "filename": "main.ts",
+      "code": "type Risultato =\n  | { kind: \"ok\"; valore: number }\n  | { kind: \"errore\"; messaggio: string };\n\nfunction stampa(r: Risultato): string {\n  return r.kind === \"ok\" ? String(r.valore) : r.messaggio;\n}",
+      "caption": "Esempio TypeScript"
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "Prima i tipi, poi il codice",
+      "body": "Quando una funzione è poco chiara, prova prima a scriverne la firma: spesso il tipo giusto rende ovvia anche l'implementazione."
+    }
+  ],
+  "exerciseIds": [
+    "ex_typescript_discriminated_union_01"
+  ]
+}

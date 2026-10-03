@@ -1,0 +1,31 @@
+{
+  "externalId": "lesson_typescript_readonly",
+  "courseId": "course_typescript_models",
+  "slug": "typescript-readonly",
+  "title": "readonly e dati immutabili",
+  "description": "Segnala nel tipo ciò che non dovrebbe essere modificato dopo la creazione.",
+  "order": 4,
+  "status": "published",
+  "blocks": [
+    {
+      "type": "markdown",
+      "body": "# readonly e dati immutabili\n\nSegnala nel tipo ciò che non dovrebbe essere modificato dopo la creazione.\n\nTypeScript qui gira in modalità strict: usa il compilatore come feedback sul design, non come un ostacolo da aggirare con `any`."
+    },
+    {
+      "type": "code",
+      "language": "typescript",
+      "filename": "main.ts",
+      "code": "interface Config {\n  readonly nome: string;\n  readonly versione: number;\n}\n\nconst config: Config = { nome: \"Emipy\", versione: 1 };\nconsole.log(config.nome);",
+      "caption": "Esempio TypeScript"
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "Prima i tipi, poi il codice",
+      "body": "Quando una funzione è poco chiara, prova prima a scriverne la firma: spesso il tipo giusto rende ovvia anche l'implementazione."
+    }
+  ],
+  "exerciseIds": [
+    "ex_typescript_readonly_01"
+  ]
+}

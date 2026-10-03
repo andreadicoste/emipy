@@ -1,0 +1,15 @@
+{
+  "externalId": "ex_c_array_01",
+  "title": "Massimo di un array",
+  "instructions": "Scrivi `int massimo(const int v[], int n)` che restituisca il valore massimo di un array non vuoto.",
+  "language": "c",
+  "starterCode": "#include <stdio.h>\n\nint massimo(const int v[], int n) {\n    return 0;\n}\n\nint main(void) {\n    int v[] = {-4, 12, 3, 8};\n    printf(\"%d\\n\", massimo(v, 4));\n    return 0;\n}\n",
+  "starterFiles": [],
+  "learningObjectives": [
+    "Scorrere un array",
+    "Mantenere un massimo corrente"
+  ],
+  "expectedBehavior": "Per {-4,12,3,8} restituisce 12.",
+  "graderInstructions": "Provare array con positivi, negativi e massimo in posizioni diverse.",
+  "status": "published"
+}

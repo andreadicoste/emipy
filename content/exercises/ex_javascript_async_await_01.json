@@ -1,0 +1,15 @@
+{
+  "externalId": "ex_javascript_async_await_01",
+  "title": "Somma asincrona",
+  "instructions": "Scrivi `async function sommaAsync(a, b)` che attenda due Promise risolte dai parametri e restituisca la somma.",
+  "language": "javascript",
+  "starterCode": "async function sommaAsync(a, b) {\n  // completa\n}\n\nconsole.log(await sommaAsync(7, 5));\n",
+  "starterFiles": [],
+  "learningObjectives": [
+    "Definire una funzione async",
+    "Usare await"
+  ],
+  "expectedBehavior": "Per 7 e 5 restituisce 12 tramite una funzione async.",
+  "graderInstructions": "Verificare che la funzione restituisca una Promise e produca somme corrette.",
+  "status": "published"
+}

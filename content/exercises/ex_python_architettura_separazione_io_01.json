@@ -1,0 +1,15 @@
+{
+  "externalId": "ex_python_architettura_separazione_io_01",
+  "title": "Preventivo puro",
+  "instructions": "Scrivi `calcola_totale(prezzi, sconto_percentuale)` senza input e senza dipendere da variabili globali.",
+  "language": "python",
+  "starterCode": "def calcola_totale(prezzi, sconto_percentuale):\n    pass\n\nprint(calcola_totale([10, 20], 10))\n",
+  "starterFiles": [],
+  "learningObjectives": [
+    "Separare logica e interfaccia",
+    "Scrivere funzioni testabili"
+  ],
+  "expectedBehavior": "27 per [10,20] con sconto 10%.",
+  "graderInstructions": "Verificare sconto 0, 10 e 100.",
+  "status": "published"
+}

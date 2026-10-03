@@ -1,0 +1,15 @@
+{
+  "externalId": "ex_c_file_01",
+  "title": "Scrivi e rileggi un numero",
+  "instructions": "Scrivi 123 in `numero.txt`, chiudi il file, riaprilo in lettura, leggi il valore e stampalo.",
+  "language": "c",
+  "starterCode": "#include <stdio.h>\n\nint main(void) {\n    /* usa numero.txt */\n    return 0;\n}\n",
+  "starterFiles": [],
+  "learningObjectives": [
+    "Usare fopen/fclose",
+    "Scrivere e leggere da file"
+  ],
+  "expectedBehavior": "Stampa 123 dopo averlo salvato e riletto dal file.",
+  "graderInstructions": "Verificare che il valore stampato derivi dalla rilettura del file e che gli errori di apertura siano gestiti ragionevolmente.",
+  "status": "published"
+}

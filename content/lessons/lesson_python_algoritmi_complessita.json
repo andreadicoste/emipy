@@ -1,0 +1,31 @@
+{
+  "externalId": "lesson_python_algoritmi_complessita",
+  "courseId": "course_python_algorithms",
+  "slug": "algoritmi-complessita",
+  "title": "Pensare in termini di algoritmo",
+  "description": "Scomponi un problema e riconosci quando una soluzione scala male.",
+  "order": 1,
+  "status": "published",
+  "blocks": [
+    {
+      "type": "markdown",
+      "body": "# Pensare in termini di algoritmo\n\nScomponi un problema e riconosci quando una soluzione scala male.\n\nStudia il meccanismo e prova a prevedere il risultato prima di eseguire il codice."
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "filename": "main.py",
+      "code": "def contiene(lista, target):\n    for valore in lista:\n        if valore == target:\n            return True\n    return False\n\nprint(contiene([4, 8, 15, 16, 23, 42], 15))",
+      "caption": "Esempio"
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "Metodo",
+      "body": "Modifica un valore dell'esempio e verifica se il tuo modello mentale prevede correttamente il nuovo risultato."
+    }
+  ],
+  "exerciseIds": [
+    "ex_python_algoritmi_complessita_01"
+  ]
+}

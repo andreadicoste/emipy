@@ -1,0 +1,15 @@
+{
+  "externalId": "ex_typescript_generics_01",
+  "title": "Ultimo generico",
+  "instructions": "Scrivi `ultimo<T>(valori: readonly T[]): T | undefined`.",
+  "language": "typescript",
+  "starterCode": "function ultimo<T>(valori: readonly T[]): T | undefined {\n  return undefined;\n}\n\nconsole.log(ultimo([1, 2, 3]));\nconsole.log(ultimo([\"a\", \"b\"]));\n",
+  "starterFiles": [],
+  "learningObjectives": [
+    "Definire un generic",
+    "Preservare il tipo degli elementi"
+  ],
+  "expectedBehavior": "Restituisce l'ultimo elemento o undefined per array vuoto mantenendo il tipo T.",
+  "graderInstructions": "Verificare number, string e array vuoto; non usare any.",
+  "status": "published"
+}

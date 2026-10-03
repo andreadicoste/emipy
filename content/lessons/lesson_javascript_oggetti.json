@@ -1,0 +1,31 @@
+{
+  "externalId": "lesson_javascript_oggetti",
+  "courseId": "course_javascript_data",
+  "slug": "javascript-oggetti",
+  "title": "Oggetti e destructuring",
+  "description": "Raggruppa proprietà correlate e accedi ai dati con sintassi leggibile.",
+  "order": 2,
+  "status": "published",
+  "blocks": [
+    {
+      "type": "markdown",
+      "body": "# Oggetti e destructuring\n\nRaggruppa proprietà correlate e accedi ai dati con sintassi leggibile.\n\nIl runtime JavaScript di Emipy è da console: concentrati sul linguaggio e sui moduli, senza DOM, Node o API di rete."
+    },
+    {
+      "type": "code",
+      "language": "javascript",
+      "filename": "main.js",
+      "code": "const utente = { nome: \"Ada\", punti: 42 };\nconst { nome, punti } = utente;\nconsole.log(nome, punti);",
+      "caption": "Esempio JavaScript"
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "Evita la magia implicita",
+      "body": "Quando puoi, preferisci confronti stretti e conversioni esplicite: rendono il comportamento più facile da prevedere."
+    }
+  ],
+  "exerciseIds": [
+    "ex_javascript_oggetti_01"
+  ]
+}

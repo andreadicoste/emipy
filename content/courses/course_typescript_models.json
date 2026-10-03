@@ -1,0 +1,9 @@
+{
+  "externalId": "course_typescript_models",
+  "language": "typescript",
+  "slug": "typescript-modelli-dati",
+  "title": "Modelli dati e narrowing",
+  "description": "Modella oggetti con type e interface, restringi union e usa readonly per rendere espliciti i vincoli.",
+  "order": 2,
+  "status": "published"
+}

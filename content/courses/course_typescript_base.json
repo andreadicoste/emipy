@@ -1,0 +1,9 @@
+{
+  "externalId": "course_typescript_base",
+  "language": "typescript",
+  "slug": "typescript-fondamenti",
+  "title": "Fondamenti di TypeScript",
+  "description": "Impara inferenza, annotazioni, funzioni, union e controllo statico costruendo sopra JavaScript moderno.",
+  "order": 1,
+  "status": "published"
+}

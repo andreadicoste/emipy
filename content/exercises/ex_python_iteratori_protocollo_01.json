@@ -1,0 +1,15 @@
+{
+  "externalId": "ex_python_iteratori_protocollo_01",
+  "title": "Consuma un iteratore",
+  "instructions": "Crea `primi_due(valori)` usando esplicitamente `iter()` e `next()`.",
+  "language": "python",
+  "starterCode": "def primi_due(valori):\n    pass\n\nprint(primi_due([10, 20, 30]))\n",
+  "starterFiles": [],
+  "learningObjectives": [
+    "Creare un iteratore",
+    "Consumare elementi con next"
+  ],
+  "expectedBehavior": "(10,20) con la lista di esempio.",
+  "graderInstructions": "Verificare una lista di almeno tre elementi e l'uso di iter/next.",
+  "status": "published"
+}

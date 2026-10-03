@@ -1,0 +1,15 @@
+{
+  "externalId": "ex_typescript_discriminated_union_01",
+  "title": "Area di forme",
+  "instructions": "Definisci un union discriminato `Forma` per cerchio e rettangolo e scrivi `area(forma)`.",
+  "language": "typescript",
+  "starterCode": "type Forma =\n  | { kind: \"cerchio\"; raggio: number }\n  | { kind: \"rettangolo\"; base: number; altezza: number };\n\nfunction area(forma: Forma): number {\n  return 0;\n}\n\nconsole.log(area({ kind: \"rettangolo\", base: 4, altezza: 3 }));\n",
+  "starterFiles": [],
+  "learningObjectives": [
+    "Definire una discriminated union",
+    "Fare narrowing sul discriminante"
+  ],
+  "expectedBehavior": "Rettangolo 4x3 produce 12; il cerchio usa pi*r^2.",
+  "graderInstructions": "Verificare entrambe le varianti; non usare cast per saltare il narrowing.",
+  "status": "published"
+}

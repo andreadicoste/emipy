@@ -1,0 +1,15 @@
+{
+  "externalId": "ex_c_tipi_input_01",
+  "title": "Somma di due interi",
+  "instructions": "Leggi due interi da stdin e stampa la loro somma.",
+  "language": "c",
+  "starterCode": "#include <stdio.h>\n\nint main(void) {\n    int a, b;\n    /* leggi a e b */\n    return 0;\n}\n",
+  "starterFiles": [],
+  "learningObjectives": [
+    "Leggere interi con scanf",
+    "Eseguire un calcolo aritmetico"
+  ],
+  "expectedBehavior": "Con input 7 e 5 stampa 12.",
+  "graderInstructions": "Provare almeno due coppie, inclusi valori negativi.",
+  "status": "published"
+}

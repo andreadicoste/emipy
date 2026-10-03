@@ -1,0 +1,31 @@
+{
+  "externalId": "lesson_c_condizioni",
+  "courseId": "course_c_base",
+  "slug": "c-condizioni",
+  "title": "Condizioni e operatori logici",
+  "description": "Prendi decisioni con `if`, `else if`, confronti e operatori booleani.",
+  "order": 3,
+  "status": "published",
+  "blocks": [
+    {
+      "type": "markdown",
+      "body": "# Condizioni e operatori logici\n\nPrendi decisioni con `if`, `else if`, confronti e operatori booleani.\n\nIn C è importante seguire tipi, durata dei dati e confini degli array: prova sempre a spiegare cosa contiene ogni variabile."
+    },
+    {
+      "type": "code",
+      "language": "c",
+      "filename": "main.c",
+      "code": "#include <stdio.h>\n\nint main(void) {\n    int n = 12;\n    if (n % 2 == 0) {\n        printf(\"pari\\n\");\n    } else {\n        printf(\"dispari\\n\");\n    }\n    return 0;\n}",
+      "caption": "Esempio C"
+    },
+    {
+      "type": "callout",
+      "variant": "warning",
+      "title": "Occhio alla memoria",
+      "body": "Se usi indici o puntatori, chiediti sempre quale oggetto stai leggendo o modificando e se quell'accesso è valido."
+    }
+  ],
+  "exerciseIds": [
+    "ex_c_condizioni_01"
+  ]
+}

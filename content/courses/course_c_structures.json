@@ -1,0 +1,9 @@
+{
+  "externalId": "course_c_structures",
+  "language": "c",
+  "slug": "c-struct-moduli-file",
+  "title": "Struct, moduli e algoritmi",
+  "description": "Costruisci programmi C più strutturati con struct, enum, file, funzioni modulari e algoritmi su dati.",
+  "order": 3,
+  "status": "published"
+}

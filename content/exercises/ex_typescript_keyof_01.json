@@ -1,0 +1,15 @@
+{
+  "externalId": "ex_typescript_keyof_01",
+  "title": "Seleziona proprietà",
+  "instructions": "Scrivi `pick<T, K extends keyof T>(obj: T, key: K): T[K]`.",
+  "language": "typescript",
+  "starterCode": "function pick<T, K extends keyof T>(obj: T, key: K): T[K] {\n  // completa\n}\n\nconsole.log(pick({ x: 10, y: \"ok\" }, \"y\"));\n",
+  "starterFiles": [],
+  "learningObjectives": [
+    "Usare keyof",
+    "Restituire T[K]"
+  ],
+  "expectedBehavior": "Restituisce la proprietà richiesta con tipo corretto.",
+  "graderInstructions": "Verificare chiavi diverse e assenza di any/cast superflui.",
+  "status": "published"
+}

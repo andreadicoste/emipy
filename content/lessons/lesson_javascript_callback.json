@@ -1,0 +1,31 @@
+{
+  "externalId": "lesson_javascript_callback",
+  "courseId": "course_javascript_data",
+  "slug": "javascript-callback",
+  "title": "Callback e funzioni di ordine superiore",
+  "description": "Passa comportamento come valore per rendere le funzioni configurabili.",
+  "order": 3,
+  "status": "published",
+  "blocks": [
+    {
+      "type": "markdown",
+      "body": "# Callback e funzioni di ordine superiore\n\nPassa comportamento come valore per rendere le funzioni configurabili.\n\nIl runtime JavaScript di Emipy è da console: concentrati sul linguaggio e sui moduli, senza DOM, Node o API di rete."
+    },
+    {
+      "type": "code",
+      "language": "javascript",
+      "filename": "main.js",
+      "code": "function applica(valori, operazione) {\n  return valori.map(operazione);\n}\n\nconsole.log(applica([1, 2, 3], (x) => x + 10));",
+      "caption": "Esempio JavaScript"
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "Evita la magia implicita",
+      "body": "Quando puoi, preferisci confronti stretti e conversioni esplicite: rendono il comportamento più facile da prevedere."
+    }
+  ],
+  "exerciseIds": [
+    "ex_javascript_callback_01"
+  ]
+}

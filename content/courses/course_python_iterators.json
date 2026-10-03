@@ -1,0 +1,9 @@
+{
+  "externalId": "course_python_iterators",
+  "language": "python",
+  "slug": "python-iteratori-generatori",
+  "title": "Iteratori, generatori e stile funzionale",
+  "description": "Costruisci trasformazioni lazy con iteratori, generatori e funzioni di ordine superiore.",
+  "order": 8,
+  "status": "published"
+}

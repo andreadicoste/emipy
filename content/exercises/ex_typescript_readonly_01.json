@@ -1,0 +1,15 @@
+{
+  "externalId": "ex_typescript_readonly_01",
+  "title": "Somma readonly",
+  "instructions": "Scrivi `somma(valori: readonly number[]): number` senza modificare l'array ricevuto.",
+  "language": "typescript",
+  "starterCode": "function somma(valori: readonly number[]): number {\n  return 0;\n}\n\nconst dati = [2, 4, 6] as const;\nconsole.log(somma(dati));\n",
+  "starterFiles": [],
+  "learningObjectives": [
+    "Usare readonly array",
+    "Evitare mutazioni non necessarie"
+  ],
+  "expectedBehavior": "Per [2,4,6] restituisce 12 senza mutare l'input.",
+  "graderInstructions": "Verificare firma readonly e risultato su più array.",
+  "status": "published"
+}

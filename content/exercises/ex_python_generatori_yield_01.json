@@ -1,0 +1,15 @@
+{
+  "externalId": "ex_python_generatori_yield_01",
+  "title": "Numeri pari lazy",
+  "instructions": "Scrivi un generatore `pari_fino_a(n)` che produca i pari da 0 a n incluso.",
+  "language": "python",
+  "starterCode": "def pari_fino_a(n):\n    pass\n\nprint(list(pari_fino_a(8)))\n",
+  "starterFiles": [],
+  "learningObjectives": [
+    "Usare yield",
+    "Produrre una sequenza lazy"
+  ],
+  "expectedBehavior": "[0,2,4,6,8] per 8.",
+  "graderInstructions": "Verificare limiti pari e dispari; richiedere un generatore.",
+  "status": "published"
+}

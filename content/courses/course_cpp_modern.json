@@ -1,0 +1,9 @@
+{
+  "externalId": "course_cpp_modern",
+  "language": "cpp",
+  "slug": "cpp-oop-template-raii",
+  "title": "OOP, RAII e template",
+  "description": "Progetta tipi C++ con classi, ownership esplicita, smart pointer e template senza dipendere dalle eccezioni.",
+  "order": 3,
+  "status": "published"
+}

@@ -1,0 +1,15 @@
+{
+  "externalId": "ex_cpp_algoritmi_std_01",
+  "title": "Ordina e rimuovi duplicati",
+  "instructions": "Data una copia di un vector, restituiscila ordinata senza duplicati usando algoritmi STL.",
+  "language": "cpp",
+  "starterCode": "#include <algorithm>\n#include <iostream>\n#include <vector>\n\nstd::vector<int> unici_ordinati(std::vector<int> v) {\n    return {};\n}\n\nint main() {\n    for (int x : unici_ordinati({4, 2, 4, 1, 2})) std::cout << x << \" \";\n}\n",
+  "starterFiles": [],
+  "learningObjectives": [
+    "Usare std::sort",
+    "Usare erase/unique o strategia equivalente"
+  ],
+  "expectedBehavior": "Produce 1 2 4 per l'esempio.",
+  "graderInstructions": "Verificare ordine crescente e assenza di duplicati; accettare soluzioni STL equivalenti.",
+  "status": "published"
+}

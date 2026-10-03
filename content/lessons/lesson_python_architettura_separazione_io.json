@@ -1,0 +1,31 @@
+{
+  "externalId": "lesson_python_architettura_separazione_io",
+  "courseId": "course_python_architecture",
+  "slug": "architettura-separazione-io",
+  "title": "Separare logica e I/O",
+  "description": "Mantieni i calcoli puri separati da input e stampa.",
+  "order": 4,
+  "status": "published",
+  "blocks": [
+    {
+      "type": "markdown",
+      "body": "# Separare logica e I/O\n\nMantieni i calcoli puri separati da input e stampa.\n\nStudia il meccanismo e prova a prevedere il risultato prima di eseguire il codice."
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "filename": "main.py",
+      "code": "def totale(prezzi):\n    return sum(prezzi)\n\nprint(totale([10, 5, 2]))",
+      "caption": "Esempio"
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "Metodo",
+      "body": "Modifica un valore dell'esempio e verifica se il tuo modello mentale prevede correttamente il nuovo risultato."
+    }
+  ],
+  "exerciseIds": [
+    "ex_python_architettura_separazione_io_01"
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "externalId": "ex_javascript_oggetti_01",
+  "title": "Descrivi prodotto",
+  "instructions": "Scrivi `descriviProdotto({ nome, prezzo, disponibile })` che restituisca una stringa con nome, prezzo e stato disponibilità.",
+  "language": "javascript",
+  "starterCode": "function descriviProdotto(prodotto) {\n  // completa\n}\n\nconsole.log(descriviProdotto({ nome: \"Libro\", prezzo: 12, disponibile: true }));\n",
+  "starterFiles": [],
+  "learningObjectives": [
+    "Leggere proprietà di un oggetto",
+    "Usare destructuring o accesso equivalente"
+  ],
+  "expectedBehavior": "La stringa contiene i tre dati del prodotto in modo riconoscibile.",
+  "graderInstructions": "Provare prodotti disponibili e non disponibili; non imporre una frase esatta.",
+  "status": "published"
+}

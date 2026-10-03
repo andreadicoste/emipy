@@ -1,0 +1,31 @@
+{
+  "externalId": "lesson_c_tipi_input",
+  "courseId": "course_c_base",
+  "slug": "c-tipi-input",
+  "title": "Tipi, variabili e scanf",
+  "description": "Usa interi e floating point e leggi dati dalla console in modo esplicito.",
+  "order": 2,
+  "status": "published",
+  "blocks": [
+    {
+      "type": "markdown",
+      "body": "# Tipi, variabili e scanf\n\nUsa interi e floating point e leggi dati dalla console in modo esplicito.\n\nIn C è importante seguire tipi, durata dei dati e confini degli array: prova sempre a spiegare cosa contiene ogni variabile."
+    },
+    {
+      "type": "code",
+      "language": "c",
+      "filename": "main.c",
+      "code": "#include <stdio.h>\n\nint main(void) {\n    int eta;\n    printf(\"Eta? \");\n    scanf(\"%d\", &eta);\n    printf(\"Tra un anno: %d\\n\", eta + 1);\n    return 0;\n}",
+      "caption": "Esempio C"
+    },
+    {
+      "type": "callout",
+      "variant": "warning",
+      "title": "Occhio alla memoria",
+      "body": "Se usi indici o puntatori, chiediti sempre quale oggetto stai leggendo o modificando e se quell'accesso è valido."
+    }
+  ],
+  "exerciseIds": [
+    "ex_c_tipi_input_01"
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "externalId": "ex_javascript_condizioni_01",
+  "title": "Classifica temperatura",
+  "instructions": "Data una variabile `temperatura`, stampa `freddo` sotto 10, `mite` da 10 a 24, `caldo` da 25 in su.",
+  "language": "javascript",
+  "starterCode": "const temperatura = 18;\n// completa\n",
+  "starterFiles": [],
+  "learningObjectives": [
+    "Usare if/else if/else",
+    "Usare confronti numerici"
+  ],
+  "expectedBehavior": "Con 18 indica mite; casi sotto 10 e sopra 24 sono classificati correttamente.",
+  "graderInstructions": "Valutare almeno tre temperature rappresentative; non imporre maiuscole o punteggiatura.",
+  "status": "published"
+}

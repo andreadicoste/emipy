@@ -1,0 +1,31 @@
+{
+  "externalId": "lesson_c_cicli_funzioni",
+  "courseId": "course_c_base",
+  "slug": "c-cicli-funzioni",
+  "title": "Cicli e funzioni",
+  "description": "Ripeti operazioni e sposta la logica riutilizzabile fuori da `main`.",
+  "order": 4,
+  "status": "published",
+  "blocks": [
+    {
+      "type": "markdown",
+      "body": "# Cicli e funzioni\n\nRipeti operazioni e sposta la logica riutilizzabile fuori da `main`.\n\nIn C è importante seguire tipi, durata dei dati e confini degli array: prova sempre a spiegare cosa contiene ogni variabile."
+    },
+    {
+      "type": "code",
+      "language": "c",
+      "filename": "main.c",
+      "code": "#include <stdio.h>\n\nint somma_fino_a(int n) {\n    int totale = 0;\n    for (int i = 1; i <= n; i++) totale += i;\n    return totale;\n}\n\nint main(void) {\n    printf(\"%d\\n\", somma_fino_a(5));\n    return 0;\n}",
+      "caption": "Esempio C"
+    },
+    {
+      "type": "callout",
+      "variant": "warning",
+      "title": "Occhio alla memoria",
+      "body": "Se usi indici o puntatori, chiediti sempre quale oggetto stai leggendo o modificando e se quell'accesso è valido."
+    }
+  ],
+  "exerciseIds": [
+    "ex_c_cicli_funzioni_01"
+  ]
+}

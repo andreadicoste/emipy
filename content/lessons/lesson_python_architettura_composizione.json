@@ -1,0 +1,31 @@
+{
+  "externalId": "lesson_python_architettura_composizione",
+  "courseId": "course_python_architecture",
+  "slug": "architettura-composizione",
+  "title": "Composizione prima dell'ereditarietà",
+  "description": "Combina oggetti piccoli invece di creare gerarchie profonde.",
+  "order": 1,
+  "status": "published",
+  "blocks": [
+    {
+      "type": "markdown",
+      "body": "# Composizione prima dell'ereditarietà\n\nCombina oggetti piccoli invece di creare gerarchie profonde.\n\nStudia il meccanismo e prova a prevedere il risultato prima di eseguire il codice."
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "filename": "main.py",
+      "code": "class Motore:\n    def avvia(self):\n        return \"ok\"\n\nclass Auto:\n    def __init__(self, motore):\n        self.motore = motore\n\n    def parti(self):\n        return self.motore.avvia()",
+      "caption": "Esempio"
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "Metodo",
+      "body": "Modifica un valore dell'esempio e verifica se il tuo modello mentale prevede correttamente il nuovo risultato."
+    }
+  ],
+  "exerciseIds": [
+    "ex_python_architettura_composizione_01"
+  ]
+}

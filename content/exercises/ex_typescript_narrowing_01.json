@@ -1,0 +1,15 @@
+{
+  "externalId": "ex_typescript_narrowing_01",
+  "title": "Normalizza valore",
+  "instructions": "Scrivi `normalizza(valore: string | number): string` che per stringhe faccia trim e per numeri usi `toFixed(2)`.",
+  "language": "typescript",
+  "starterCode": "function normalizza(valore: string | number): string {\n  return \"\";\n}\n\nconsole.log(normalizza(\"  ciao  \"));\nconsole.log(normalizza(3.5));\n",
+  "starterFiles": [],
+  "learningObjectives": [
+    "Usare typeof per narrowing",
+    "Gestire ogni ramo del union"
+  ],
+  "expectedBehavior": "La stringa viene trimmata e 3.5 diventa 3.50.",
+  "graderInstructions": "Verificare string e number; non usare any.",
+  "status": "published"
+}
