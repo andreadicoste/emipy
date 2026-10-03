@@ -52,3 +52,15 @@ test('legacy Python courses retain their identifiers and language', async () => 
     expect(byId.get(`course_python_${id}`)?.language).toBe('python')
   }
 })
+
+test('published curriculum covers every supported language', async () => {
+  const registry = await loadRegistry()
+  const supported: Language[] = ['python', 'c', 'cpp', 'javascript', 'typescript']
+  for (const language of supported) {
+    const courses = registry.courses.filter((item) => item.status === 'published' && item.language === language)
+    expect(courses.length).toBeGreaterThanOrEqual(3)
+    for (const course of courses) {
+      expect(registry.lessons.some((lesson) => lesson.status === 'published' && lesson.courseId === course.externalId)).toBe(true)
+    }
+  }
+})
