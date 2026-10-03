@@ -1,0 +1,9 @@
+{
+  "externalId": "course_c_base",
+  "language": "c",
+  "slug": "c-fondamenti",
+  "title": "Fondamenti di C",
+  "description": "Impara la struttura di un programma C, tipi, input/output, condizioni, cicli e funzioni.",
+  "order": 1,
+  "status": "published"
+}

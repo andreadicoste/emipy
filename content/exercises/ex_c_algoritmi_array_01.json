@@ -1,0 +1,15 @@
+{
+  "externalId": "ex_c_algoritmi_array_01",
+  "title": "Ordina e stampa",
+  "instructions": "Implementa `ordina(int v[], int n)` in ordine crescente senza usare librerie di sorting e stampa l'array ordinato.",
+  "language": "c",
+  "starterCode": "#include <stdio.h>\n\nvoid ordina(int v[], int n) {\n    /* completa */\n}\n\nint main(void) {\n    int v[] = {5, 1, 4, 2, 2};\n    ordina(v, 5);\n    for (int i = 0; i < 5; i++) printf(\"%d \", v[i]);\n    printf(\"\\n\");\n    return 0;\n}\n",
+  "starterFiles": [],
+  "learningObjectives": [
+    "Implementare un ordinamento",
+    "Modificare un array in place"
+  ],
+  "expectedBehavior": "Per {5,1,4,2,2} produce 1 2 2 4 5.",
+  "graderInstructions": "Verificare duplicati, ordine inverso e array già ordinato; non imporre bubble sort.",
+  "status": "published"
+}

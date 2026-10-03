@@ -1,0 +1,15 @@
+{
+  "externalId": "ex_c_cicli_funzioni_01",
+  "title": "Conta i multipli",
+  "instructions": "Scrivi `int conta_multipli(int n, int k)` che conti quanti interi da 1 a n sono divisibili per k.",
+  "language": "c",
+  "starterCode": "#include <stdio.h>\n\nint conta_multipli(int n, int k) {\n    return 0;\n}\n\nint main(void) {\n    printf(\"%d\\n\", conta_multipli(20, 3));\n    return 0;\n}\n",
+  "starterFiles": [],
+  "learningObjectives": [
+    "Scrivere una funzione",
+    "Usare un ciclo con una condizione"
+  ],
+  "expectedBehavior": "Per n=20 e k=3 restituisce 6.",
+  "graderInstructions": "Provare più coppie con n positivo e k non zero.",
+  "status": "published"
+}

@@ -1,0 +1,31 @@
+{
+  "externalId": "lesson_c_memoria_dinamica",
+  "courseId": "course_c_memory",
+  "slug": "c-memoria-dinamica",
+  "title": "Memoria dinamica con malloc e free",
+  "description": "Alloca memoria quando la dimensione è nota solo a runtime e rilasciala esplicitamente.",
+  "order": 4,
+  "status": "published",
+  "blocks": [
+    {
+      "type": "markdown",
+      "body": "# Memoria dinamica con malloc e free\n\nAlloca memoria quando la dimensione è nota solo a runtime e rilasciala esplicitamente.\n\nIn C è importante seguire tipi, durata dei dati e confini degli array: prova sempre a spiegare cosa contiene ogni variabile."
+    },
+    {
+      "type": "code",
+      "language": "c",
+      "filename": "main.c",
+      "code": "#include <stdio.h>\n#include <stdlib.h>\n\nint main(void) {\n    int n = 4;\n    int *v = malloc((size_t)n * sizeof *v);\n    if (v == NULL) return 1;\n    for (int i = 0; i < n; i++) v[i] = i * i;\n    printf(\"%d\\n\", v[3]);\n    free(v);\n    return 0;\n}",
+      "caption": "Esempio C"
+    },
+    {
+      "type": "callout",
+      "variant": "warning",
+      "title": "Occhio alla memoria",
+      "body": "Se usi indici o puntatori, chiediti sempre quale oggetto stai leggendo o modificando e se quell'accesso è valido."
+    }
+  ],
+  "exerciseIds": [
+    "ex_c_memoria_dinamica_01"
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "externalId": "ex_c_stringhe_01",
+  "title": "Conta vocali",
+  "instructions": "Scrivi `int conta_vocali(const char s[])` che conti a,e,i,o,u sia minuscole sia maiuscole.",
+  "language": "c",
+  "starterCode": "#include <stdio.h>\n\nint conta_vocali(const char s[]) {\n    return 0;\n}\n\nint main(void) {\n    printf(\"%d\\n\", conta_vocali(\"Emipy\"));\n    return 0;\n}\n",
+  "starterFiles": [],
+  "learningObjectives": [
+    "Scorrere una stringa C",
+    "Confrontare caratteri"
+  ],
+  "expectedBehavior": "Per Emipy restituisce 2.",
+  "graderInstructions": "Provare stringa vuota, senza vocali e con maiuscole.",
+  "status": "published"
+}

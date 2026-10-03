@@ -1,0 +1,15 @@
+{
+  "externalId": "ex_c_puntatori_01",
+  "title": "Incrementa tramite puntatore",
+  "instructions": "Scrivi `void incrementa(int *valore)` che aumenti di uno la variabile puntata.",
+  "language": "c",
+  "starterCode": "#include <stdio.h>\n\nvoid incrementa(int *valore) {\n    /* completa */\n}\n\nint main(void) {\n    int x = 41;\n    incrementa(&x);\n    printf(\"%d\\n\", x);\n    return 0;\n}\n",
+  "starterFiles": [],
+  "learningObjectives": [
+    "Dereferenziare un puntatore",
+    "Modificare una variabile del chiamante"
+  ],
+  "expectedBehavior": "Dopo la chiamata 41 diventa 42.",
+  "graderInstructions": "Verificare con almeno due valori iniziali.",
+  "status": "published"
+}

@@ -1,0 +1,31 @@
+{
+  "externalId": "lesson_c_struct_enum",
+  "courseId": "course_c_structures",
+  "slug": "c-struct-enum",
+  "title": "Struct ed enum",
+  "description": "Raggruppa dati correlati e rappresenta stati con nomi leggibili.",
+  "order": 1,
+  "status": "published",
+  "blocks": [
+    {
+      "type": "markdown",
+      "body": "# Struct ed enum\n\nRaggruppa dati correlati e rappresenta stati con nomi leggibili.\n\nIn C è importante seguire tipi, durata dei dati e confini degli array: prova sempre a spiegare cosa contiene ogni variabile."
+    },
+    {
+      "type": "code",
+      "language": "c",
+      "filename": "main.c",
+      "code": "#include <stdio.h>\n\ntypedef struct {\n    const char *nome;\n    int eta;\n} Persona;\n\nint main(void) {\n    Persona p = {\"Ada\", 36};\n    printf(\"%s %d\\n\", p.nome, p.eta);\n    return 0;\n}",
+      "caption": "Esempio C"
+    },
+    {
+      "type": "callout",
+      "variant": "warning",
+      "title": "Occhio alla memoria",
+      "body": "Se usi indici o puntatori, chiediti sempre quale oggetto stai leggendo o modificando e se quell'accesso è valido."
+    }
+  ],
+  "exerciseIds": [
+    "ex_c_struct_enum_01"
+  ]
+}

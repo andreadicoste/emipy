@@ -1,0 +1,31 @@
+{
+  "externalId": "lesson_c_primo_programma",
+  "courseId": "course_c_base",
+  "slug": "c-primo-programma",
+  "title": "Dal sorgente a main",
+  "description": "Capisci il ruolo di `main`, degli header e del valore di ritorno.",
+  "order": 1,
+  "status": "published",
+  "blocks": [
+    {
+      "type": "markdown",
+      "body": "# Dal sorgente a main\n\nCapisci il ruolo di `main`, degli header e del valore di ritorno.\n\nIn C è importante seguire tipi, durata dei dati e confini degli array: prova sempre a spiegare cosa contiene ogni variabile."
+    },
+    {
+      "type": "code",
+      "language": "c",
+      "filename": "main.c",
+      "code": "#include <stdio.h>\n\nint main(void) {\n    printf(\"Ciao, C!\\n\");\n    return 0;\n}",
+      "caption": "Esempio C"
+    },
+    {
+      "type": "callout",
+      "variant": "warning",
+      "title": "Occhio alla memoria",
+      "body": "Se usi indici o puntatori, chiediti sempre quale oggetto stai leggendo o modificando e se quell'accesso è valido."
+    }
+  ],
+  "exerciseIds": [
+    "ex_c_primo_programma_01"
+  ]
+}

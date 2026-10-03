@@ -1,0 +1,15 @@
+{
+  "externalId": "ex_c_condizioni_01",
+  "title": "Segno del numero",
+  "instructions": "Leggi un intero e stampa se è positivo, negativo o zero.",
+  "language": "c",
+  "starterCode": "#include <stdio.h>\n\nint main(void) {\n    int n;\n    scanf(\"%d\", &n);\n    /* classifica n */\n    return 0;\n}\n",
+  "starterFiles": [],
+  "learningObjectives": [
+    "Usare if/else if/else",
+    "Confrontare valori"
+  ],
+  "expectedBehavior": "Classifica correttamente valori positivi, negativi e zero.",
+  "graderInstructions": "Eseguire tre run: positivo, negativo e zero; non imporre il testo esatto se il significato è chiaro.",
+  "status": "published"
+}

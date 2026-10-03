@@ -1,0 +1,16 @@
+{
+  "externalId": "ex_c_memoria_dinamica_01",
+  "title": "Array dinamico inizializzato",
+  "instructions": "Leggi n>0, alloca un array di n interi, riempilo con i numeri da 1 a n, stampa la somma e libera la memoria.",
+  "language": "c",
+  "starterCode": "#include <stdio.h>\n#include <stdlib.h>\n\nint main(void) {\n    int n;\n    scanf(\"%d\", &n);\n    /* alloca, riempi, somma, libera */\n    return 0;\n}\n",
+  "starterFiles": [],
+  "learningObjectives": [
+    "Allocare con malloc",
+    "Liberare con free",
+    "Gestire un array dinamico"
+  ],
+  "expectedBehavior": "Con input 5 stampa 15 e termina normalmente.",
+  "graderInstructions": "Provare n=1 e n=5; verificare comportamento corretto e uso di allocazione dinamica.",
+  "status": "published"
+}

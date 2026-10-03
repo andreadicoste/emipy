@@ -1,0 +1,31 @@
+{
+  "externalId": "lesson_c_moduli",
+  "courseId": "course_c_structures",
+  "slug": "c-moduli",
+  "title": "Progettare funzioni e moduli",
+  "description": "Separa interfaccia e implementazione: header per dichiarazioni, sorgenti per definizioni.",
+  "order": 2,
+  "status": "published",
+  "blocks": [
+    {
+      "type": "markdown",
+      "body": "# Progettare funzioni e moduli\n\nSepara interfaccia e implementazione: header per dichiarazioni, sorgenti per definizioni.\n\nIn C è importante seguire tipi, durata dei dati e confini degli array: prova sempre a spiegare cosa contiene ogni variabile."
+    },
+    {
+      "type": "code",
+      "language": "c",
+      "filename": "main.c",
+      "code": "#include <stdio.h>\n\nint quadrato(int x);\n\nint quadrato(int x) {\n    return x * x;\n}\n\nint main(void) {\n    printf(\"%d\\n\", quadrato(9));\n    return 0;\n}",
+      "caption": "Esempio C"
+    },
+    {
+      "type": "callout",
+      "variant": "warning",
+      "title": "Occhio alla memoria",
+      "body": "Se usi indici o puntatori, chiediti sempre quale oggetto stai leggendo o modificando e se quell'accesso è valido."
+    }
+  ],
+  "exerciseIds": [
+    "ex_c_moduli_01"
+  ]
+}

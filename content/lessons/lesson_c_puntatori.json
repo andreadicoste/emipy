@@ -1,0 +1,31 @@
+{
+  "externalId": "lesson_c_puntatori",
+  "courseId": "course_c_memory",
+  "slug": "c-puntatori",
+  "title": "Puntatori e passaggio per indirizzo",
+  "description": "Usa indirizzi e dereferenziazione per modificare dati del chiamante.",
+  "order": 3,
+  "status": "published",
+  "blocks": [
+    {
+      "type": "markdown",
+      "body": "# Puntatori e passaggio per indirizzo\n\nUsa indirizzi e dereferenziazione per modificare dati del chiamante.\n\nIn C è importante seguire tipi, durata dei dati e confini degli array: prova sempre a spiegare cosa contiene ogni variabile."
+    },
+    {
+      "type": "code",
+      "language": "c",
+      "filename": "main.c",
+      "code": "#include <stdio.h>\n\nvoid scambia(int *a, int *b) {\n    int tmp = *a;\n    *a = *b;\n    *b = tmp;\n}\n\nint main(void) {\n    int x = 3, y = 7;\n    scambia(&x, &y);\n    printf(\"%d %d\\n\", x, y);\n    return 0;\n}",
+      "caption": "Esempio C"
+    },
+    {
+      "type": "callout",
+      "variant": "warning",
+      "title": "Occhio alla memoria",
+      "body": "Se usi indici o puntatori, chiediti sempre quale oggetto stai leggendo o modificando e se quell'accesso è valido."
+    }
+  ],
+  "exerciseIds": [
+    "ex_c_puntatori_01"
+  ]
+}

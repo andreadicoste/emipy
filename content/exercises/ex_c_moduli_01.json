@@ -1,0 +1,15 @@
+{
+  "externalId": "ex_c_moduli_01",
+  "title": "API di conversione",
+  "instructions": "Scrivi due funzioni `celsius_to_fahrenheit` e `fahrenheit_to_celsius` e usale da `main`.",
+  "language": "c",
+  "starterCode": "#include <stdio.h>\n\ndouble celsius_to_fahrenheit(double c) {\n    return 0.0;\n}\n\ndouble fahrenheit_to_celsius(double f) {\n    return 0.0;\n}\n\nint main(void) {\n    printf(\"%.1f %.1f\\n\", celsius_to_fahrenheit(0), fahrenheit_to_celsius(32));\n    return 0;\n}\n",
+  "starterFiles": [],
+  "learningObjectives": [
+    "Definire una piccola API",
+    "Separare calcolo e utilizzo"
+  ],
+  "expectedBehavior": "0 C produce 32 F e 32 F produce 0 C.",
+  "graderInstructions": "Verificare conversioni note e almeno un valore non zero.",
+  "status": "published"
+}
