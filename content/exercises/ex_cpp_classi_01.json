@@ -1,0 +1,15 @@
+{
+  "externalId": "ex_cpp_classi_01",
+  "title": "Classe Rettangolo",
+  "instructions": "Crea una classe `Rettangolo` con base e altezza nel costruttore e metodo `area() const`.",
+  "language": "cpp",
+  "starterCode": "#include <iostream>\n\nclass Rettangolo {\n    // completa\n};\n\nint main() {\n    Rettangolo r(4.0, 3.0);\n    std::cout << r.area() << std::endl;\n}\n",
+  "starterFiles": [],
+  "learningObjectives": [
+    "Definire una classe",
+    "Usare costruttore e metodo const"
+  ],
+  "expectedBehavior": "Per 4x3 restituisce 12.",
+  "graderInstructions": "Verificare più dimensioni positive.",
+  "status": "published"
+}

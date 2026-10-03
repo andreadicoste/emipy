@@ -1,0 +1,31 @@
+{
+  "externalId": "lesson_cpp_algoritmi_std",
+  "courseId": "course_cpp_stl",
+  "slug": "cpp-algoritmi-std",
+  "title": "Algoritmi standard",
+  "description": "Usa `<algorithm>` per esprimere operazioni comuni senza riscrivere i dettagli.",
+  "order": 3,
+  "status": "published",
+  "blocks": [
+    {
+      "type": "markdown",
+      "body": "# Algoritmi standard\n\nUsa `<algorithm>` per esprimere operazioni comuni senza riscrivere i dettagli.\n\nIn C++ prova a distinguere sempre valore, riferimento e ownership: questa distinzione rende il codice molto più prevedibile."
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "filename": "main.cpp",
+      "code": "#include <algorithm>\n#include <iostream>\n#include <vector>\n\nint main() {\n    std::vector<int> v{4, 1, 7, 2};\n    std::sort(v.begin(), v.end());\n    for (int x : v) std::cout << x << \" \";\n}",
+      "caption": "Esempio C++17"
+    },
+    {
+      "type": "callout",
+      "variant": "info",
+      "title": "Runtime Emipy",
+      "body": "Il percorso usa C++17. Le eccezioni sono disabilitate nel runtime, quindi gli esempi e gli esercizi evitano throw/try/catch."
+    }
+  ],
+  "exerciseIds": [
+    "ex_cpp_algoritmi_std_01"
+  ]
+}

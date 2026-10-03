@@ -1,0 +1,15 @@
+{
+  "externalId": "ex_cpp_primo_programma_01",
+  "title": "Saluto C++",
+  "instructions": "Completa il programma affinché stampi un saluto con `std::cout` e termini normalmente.",
+  "language": "cpp",
+  "starterCode": "#include <iostream>\n\nint main() {\n    // completa\n    return 0;\n}\n",
+  "starterFiles": [],
+  "learningObjectives": [
+    "Usare std::cout",
+    "Scrivere un main valido"
+  ],
+  "expectedBehavior": "Stampa un saluto e termina con codice 0.",
+  "graderInstructions": "Verificare compilazione, output non vuoto e exit code 0.",
+  "status": "published"
+}

@@ -1,0 +1,9 @@
+{
+  "externalId": "course_cpp_base",
+  "language": "cpp",
+  "slug": "cpp-fondamenti",
+  "title": "Fondamenti di C++",
+  "description": "Impara sintassi, tipi, input/output, controllo del flusso, funzioni, riferimenti e stringhe in C++17.",
+  "order": 1,
+  "status": "published"
+}

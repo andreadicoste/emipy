@@ -1,0 +1,15 @@
+{
+  "externalId": "ex_cpp_controllo_01",
+  "title": "Somma dei pari",
+  "instructions": "Leggi n e stampa la somma dei numeri pari da 1 a n.",
+  "language": "cpp",
+  "starterCode": "#include <iostream>\n\nint main() {\n    int n;\n    std::cin >> n;\n    // completa\n    return 0;\n}\n",
+  "starterFiles": [],
+  "learningObjectives": [
+    "Usare un ciclo",
+    "Filtrare con una condizione"
+  ],
+  "expectedBehavior": "Con n=6 stampa 12.",
+  "graderInstructions": "Provare n=1, 6 e un altro valore.",
+  "status": "published"
+}

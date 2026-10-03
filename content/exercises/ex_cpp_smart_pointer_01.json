@@ -1,0 +1,15 @@
+{
+  "externalId": "ex_cpp_smart_pointer_01",
+  "title": "Oggetto posseduto",
+  "instructions": "Crea con `std::make_unique` un oggetto `Messaggio` e stampane il testo senza usare `new` o `delete` espliciti.",
+  "language": "cpp",
+  "starterCode": "#include <iostream>\n#include <memory>\n#include <string>\n\nstruct Messaggio {\n    std::string testo;\n};\n\nint main() {\n    // completa\n}\n",
+  "starterFiles": [],
+  "learningObjectives": [
+    "Usare std::unique_ptr",
+    "Comprendere ownership esclusiva"
+  ],
+  "expectedBehavior": "Crea dinamicamente tramite make_unique un Messaggio e ne stampa il testo.",
+  "graderInstructions": "Verificare uso di make_unique e assenza di delete manuale.",
+  "status": "published"
+}

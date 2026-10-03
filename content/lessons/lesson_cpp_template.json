@@ -1,0 +1,31 @@
+{
+  "externalId": "lesson_cpp_template",
+  "courseId": "course_cpp_modern",
+  "slug": "cpp-template",
+  "title": "Template di funzione",
+  "description": "Scrivi algoritmi riutilizzabili per più tipi quando l'operazione richiesta è la stessa.",
+  "order": 4,
+  "status": "published",
+  "blocks": [
+    {
+      "type": "markdown",
+      "body": "# Template di funzione\n\nScrivi algoritmi riutilizzabili per più tipi quando l'operazione richiesta è la stessa.\n\nIn C++ prova a distinguere sempre valore, riferimento e ownership: questa distinzione rende il codice molto più prevedibile."
+    },
+    {
+      "type": "code",
+      "language": "cpp",
+      "filename": "main.cpp",
+      "code": "#include <iostream>\n\ntemplate <typename T>\nT massimo(T a, T b) {\n    return a > b ? a : b;\n}\n\nint main() {\n    std::cout << massimo(3, 7) << std::endl;\n}",
+      "caption": "Esempio C++17"
+    },
+    {
+      "type": "callout",
+      "variant": "info",
+      "title": "Runtime Emipy",
+      "body": "Il percorso usa C++17. Le eccezioni sono disabilitate nel runtime, quindi gli esempi e gli esercizi evitano throw/try/catch."
+    }
+  ],
+  "exerciseIds": [
+    "ex_cpp_template_01"
+  ]
+}

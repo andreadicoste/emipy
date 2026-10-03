@@ -1,0 +1,9 @@
+{
+  "externalId": "course_cpp_stl",
+  "language": "cpp",
+  "slug": "cpp-stl-algoritmi",
+  "title": "STL, container e algoritmi",
+  "description": "Usa string, vector, iteratori e algoritmi standard per scrivere C++ più espressivo e sicuro.",
+  "order": 2,
+  "status": "published"
+}

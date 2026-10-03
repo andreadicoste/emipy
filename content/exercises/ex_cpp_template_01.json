@@ -1,0 +1,15 @@
+{
+  "externalId": "ex_cpp_template_01",
+  "title": "Clamp generico",
+  "instructions": "Scrivi `template <typename T> T clamp_value(T x, T minimo, T massimo)`.",
+  "language": "cpp",
+  "starterCode": "#include <iostream>\n\ntemplate <typename T>\nT clamp_value(T x, T minimo, T massimo) {\n    return x;\n}\n\nint main() {\n    std::cout << clamp_value(12, 0, 10) << std::endl;\n}\n",
+  "starterFiles": [],
+  "learningObjectives": [
+    "Definire un template",
+    "Usare confronti su tipi generici"
+  ],
+  "expectedBehavior": "12 tra 0 e 10 produce 10; valori interni restano invariati.",
+  "graderInstructions": "Verificare int e double.",
+  "status": "published"
+}

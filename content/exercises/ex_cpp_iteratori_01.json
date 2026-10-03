@@ -1,0 +1,15 @@
+{
+  "externalId": "ex_cpp_iteratori_01",
+  "title": "Conta valori maggiori",
+  "instructions": "Scrivi una funzione che conti quanti elementi di un vector sono maggiori di una soglia.",
+  "language": "cpp",
+  "starterCode": "#include <iostream>\n#include <vector>\n\nint conta_maggiori(const std::vector<int>& v, int soglia) {\n    return 0;\n}\n\nint main() {\n    std::cout << conta_maggiori({1, 7, 3, 9}, 5) << std::endl;\n}\n",
+  "starterFiles": [],
+  "learningObjectives": [
+    "Iterare su un container",
+    "Applicare una condizione"
+  ],
+  "expectedBehavior": "Per {1,7,3,9} e soglia 5 restituisce 2.",
+  "graderInstructions": "Provare soglie diverse e vector vuoto.",
+  "status": "published"
+}

@@ -1,0 +1,15 @@
+{
+  "externalId": "ex_cpp_lambda_01",
+  "title": "Conta con predicato",
+  "instructions": "Scrivi `conta_multipli` usando `std::count_if` e una lambda che catturi il divisore.",
+  "language": "cpp",
+  "starterCode": "#include <algorithm>\n#include <iostream>\n#include <vector>\n\nint conta_multipli(const std::vector<int>& v, int k) {\n    return 0;\n}\n\nint main() {\n    std::cout << conta_multipli({2, 3, 4, 6, 8}, 2) << std::endl;\n}\n",
+  "starterFiles": [],
+  "learningObjectives": [
+    "Scrivere una lambda",
+    "Catturare una variabile"
+  ],
+  "expectedBehavior": "Per il vector di esempio e k=2 restituisce 4.",
+  "graderInstructions": "Verificare divisori diversi; richiedere count_if con lambda.",
+  "status": "published"
+}
