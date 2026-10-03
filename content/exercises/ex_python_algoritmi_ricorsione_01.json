@@ -1,0 +1,15 @@
+{
+  "externalId": "ex_python_algoritmi_ricorsione_01",
+  "title": "Somma ricorsiva",
+  "instructions": "Scrivi ricorsivamente `somma_da_uno(n)` che restituisca 1+...+n e gestisca 0.",
+  "language": "python",
+  "starterCode": "def somma_da_uno(n):\n    pass\n\nprint(somma_da_uno(5))\n",
+  "starterFiles": [],
+  "learningObjectives": [
+    "Definire un caso base",
+    "Ridurre il problema"
+  ],
+  "expectedBehavior": "15 per 5 e 0 per 0.",
+  "graderInstructions": "Verificare 0, 1 e almeno un valore maggiore.",
+  "status": "published"
+}

@@ -1,0 +1,15 @@
+{
+  "externalId": "ex_python_architettura_datamodel_01",
+  "title": "Playlist Pythonica",
+  "instructions": "Crea `Playlist` che implementi `__len__` e `__contains__`.",
+  "language": "python",
+  "starterCode": "class Playlist:\n    pass\n\np = Playlist([\"A\", \"B\", \"C\"])\nprint(len(p))\nprint(\"B\" in p)\n",
+  "starterFiles": [],
+  "learningObjectives": [
+    "Implementare metodi speciali",
+    "Integrare oggetti con la sintassi Python"
+  ],
+  "expectedBehavior": "Lunghezza 3 e appartenenza corretta.",
+  "graderInstructions": "Verificare len e in con valori presenti e assenti.",
+  "status": "published"
+}

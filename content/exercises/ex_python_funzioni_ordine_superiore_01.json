@@ -1,0 +1,15 @@
+{
+  "externalId": "ex_python_funzioni_ordine_superiore_01",
+  "title": "Filtro configurabile",
+  "instructions": "Scrivi `filtra(valori, predicato)` che tenga solo gli elementi per cui il predicato è vero.",
+  "language": "python",
+  "starterCode": "def filtra(valori, predicato):\n    pass\n\nprint(filtra([1, 2, 3, 4], lambda x: x % 2 == 0))\n",
+  "starterFiles": [],
+  "learningObjectives": [
+    "Passare funzioni",
+    "Applicare un predicato"
+  ],
+  "expectedBehavior": "[2,4] con il predicato pari.",
+  "graderInstructions": "Provare almeno due predicati diversi.",
+  "status": "published"
+}

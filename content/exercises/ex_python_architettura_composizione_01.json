@@ -1,0 +1,15 @@
+{
+  "externalId": "ex_python_architettura_composizione_01",
+  "title": "Componi un logger",
+  "instructions": "Crea `Servizio` che riceva un logger nel costruttore e lo usi nel metodo `esegui()`.",
+  "language": "python",
+  "starterCode": "class Logger:\n    def log(self, messaggio):\n        print(messaggio)\n\nclass Servizio:\n    pass\n\nServizio(Logger()).esegui()\n",
+  "starterFiles": [],
+  "learningObjectives": [
+    "Usare composizione",
+    "Iniettare una dipendenza"
+  ],
+  "expectedBehavior": "`esegui()` usa il logger ricevuto dall'esterno.",
+  "graderInstructions": "Verificare che il logger sia iniettato e chiamato; non imporre il testo.",
+  "status": "published"
+}

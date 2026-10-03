@@ -1,0 +1,31 @@
+{
+  "externalId": "lesson_python_iteratori_protocollo",
+  "courseId": "course_python_iterators",
+  "slug": "iteratori-protocollo",
+  "title": "Il protocollo di iterazione",
+  "description": "Scopri cosa succede dietro un for con `iter()` e `next()`.",
+  "order": 1,
+  "status": "published",
+  "blocks": [
+    {
+      "type": "markdown",
+      "body": "# Il protocollo di iterazione\n\nScopri cosa succede dietro un for con `iter()` e `next()`.\n\nStudia il meccanismo e prova a prevedere il risultato prima di eseguire il codice."
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "filename": "main.py",
+      "code": "it = iter([10, 20, 30])\nprint(next(it))\nprint(next(it))",
+      "caption": "Esempio"
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "Metodo",
+      "body": "Modifica un valore dell'esempio e verifica se il tuo modello mentale prevede correttamente il nuovo risultato."
+    }
+  ],
+  "exerciseIds": [
+    "ex_python_iteratori_protocollo_01"
+  ]
+}

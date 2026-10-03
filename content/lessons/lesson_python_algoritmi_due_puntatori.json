@@ -1,0 +1,31 @@
+{
+  "externalId": "lesson_python_algoritmi_due_puntatori",
+  "courseId": "course_python_algorithms",
+  "slug": "algoritmi-due-puntatori",
+  "title": "Due puntatori e finestre",
+  "description": "Muovi due indici in modo coordinato per evitare lavoro inutile.",
+  "order": 2,
+  "status": "published",
+  "blocks": [
+    {
+      "type": "markdown",
+      "body": "# Due puntatori e finestre\n\nMuovi due indici in modo coordinato per evitare lavoro inutile.\n\nStudia il meccanismo e prova a prevedere il risultato prima di eseguire il codice."
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "filename": "main.py",
+      "code": "def coppia_ordinata(numeri, target):\n    i, j = 0, len(numeri) - 1\n    while i < j:\n        somma = numeri[i] + numeri[j]\n        if somma == target:\n            return True\n        if somma < target:\n            i += 1\n        else:\n            j -= 1\n    return False",
+      "caption": "Esempio"
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "Metodo",
+      "body": "Modifica un valore dell'esempio e verifica se il tuo modello mentale prevede correttamente il nuovo risultato."
+    }
+  ],
+  "exerciseIds": [
+    "ex_python_algoritmi_due_puntatori_01"
+  ]
+}

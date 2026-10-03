@@ -1,0 +1,15 @@
+{
+  "externalId": "ex_python_architettura_duck_typing_01",
+  "title": "Writer generico",
+  "instructions": "Scrivi `salva(writer, testo)` che chiami `writer.write(testo)` e ne restituisca il risultato.",
+  "language": "python",
+  "starterCode": "def salva(writer, testo):\n    pass\n",
+  "starterFiles": [],
+  "learningObjectives": [
+    "Programmare contro un comportamento",
+    "Evitare controlli di tipo inutili"
+  ],
+  "expectedBehavior": "Funziona con qualunque oggetto che esponga write.",
+  "graderInstructions": "Usare un writer fittizio; non richiedere una classe specifica.",
+  "status": "published"
+}

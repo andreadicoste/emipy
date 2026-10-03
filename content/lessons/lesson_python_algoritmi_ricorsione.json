@@ -1,0 +1,31 @@
+{
+  "externalId": "lesson_python_algoritmi_ricorsione",
+  "courseId": "course_python_algorithms",
+  "slug": "algoritmi-ricorsione",
+  "title": "Ricorsione senza magia",
+  "description": "Usa caso base e passo ricorsivo per ridurre un problema.",
+  "order": 3,
+  "status": "published",
+  "blocks": [
+    {
+      "type": "markdown",
+      "body": "# Ricorsione senza magia\n\nUsa caso base e passo ricorsivo per ridurre un problema.\n\nStudia il meccanismo e prova a prevedere il risultato prima di eseguire il codice."
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "filename": "main.py",
+      "code": "def fattoriale(n):\n    if n <= 1:\n        return 1\n    return n * fattoriale(n - 1)\n\nprint(fattoriale(5))",
+      "caption": "Esempio"
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "Metodo",
+      "body": "Modifica un valore dell'esempio e verifica se il tuo modello mentale prevede correttamente il nuovo risultato."
+    }
+  ],
+  "exerciseIds": [
+    "ex_python_algoritmi_ricorsione_01"
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "externalId": "lesson_python_funzioni_ordine_superiore",
+  "courseId": "course_python_iterators",
+  "slug": "funzioni-ordine-superiore",
+  "title": "Funzioni come valori",
+  "description": "Passa funzioni ad altre funzioni per separare comportamento e flusso.",
+  "order": 3,
+  "status": "published",
+  "blocks": [
+    {
+      "type": "markdown",
+      "body": "# Funzioni come valori\n\nPassa funzioni ad altre funzioni per separare comportamento e flusso.\n\nStudia il meccanismo e prova a prevedere il risultato prima di eseguire il codice."
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "filename": "main.py",
+      "code": "def applica(valori, f):\n    return [f(x) for x in valori]\n\nprint(applica([1, 2, 3], lambda x: x * 10))",
+      "caption": "Esempio"
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "Metodo",
+      "body": "Modifica un valore dell'esempio e verifica se il tuo modello mentale prevede correttamente il nuovo risultato."
+    }
+  ],
+  "exerciseIds": [
+    "ex_python_funzioni_ordine_superiore_01"
+  ]
+}

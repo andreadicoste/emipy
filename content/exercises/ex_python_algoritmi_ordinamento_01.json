@@ -1,0 +1,15 @@
+{
+  "externalId": "ex_python_algoritmi_ordinamento_01",
+  "title": "Ordina in decrescente",
+  "instructions": "Implementa `ordina_decrescente(valori)` senza `sorted()` o `.sort()`.",
+  "language": "python",
+  "starterCode": "def ordina_decrescente(valori):\n    pass\n\nprint(ordina_decrescente([4, 1, 7, 2]))\n",
+  "starterFiles": [],
+  "learningObjectives": [
+    "Confrontare elementi",
+    "Scambiare posizioni"
+  ],
+  "expectedBehavior": "[7,4,2,1] per [4,1,7,2].",
+  "graderInstructions": "Verificare duplicati e lista già ordinata; rispettare il divieto di sorted/sort.",
+  "status": "published"
+}

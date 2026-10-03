@@ -1,0 +1,15 @@
+{
+  "externalId": "ex_python_pipeline_dati_01",
+  "title": "Pipeline filtra e trasforma",
+  "instructions": "Scrivi `elabora(valori)` che ignori i negativi e produca i quadrati usando almeno un generatore.",
+  "language": "python",
+  "starterCode": "def elabora(valori):\n    pass\n\nprint(list(elabora([-2, 0, 3, 4])))\n",
+  "starterFiles": [],
+  "learningObjectives": [
+    "Comporre trasformazioni",
+    "Usare generatori"
+  ],
+  "expectedBehavior": "[0,9,16] per l'esempio.",
+  "graderInstructions": "Verificare esclusione dei negativi e uso di almeno un generatore.",
+  "status": "published"
+}

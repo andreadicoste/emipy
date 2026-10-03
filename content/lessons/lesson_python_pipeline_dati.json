@@ -1,0 +1,31 @@
+{
+  "externalId": "lesson_python_pipeline_dati",
+  "courseId": "course_python_iterators",
+  "slug": "pipeline-dati",
+  "title": "Pipeline di trasformazione",
+  "description": "Combina trasformazioni piccole e lazy in una pipeline leggibile.",
+  "order": 4,
+  "status": "published",
+  "blocks": [
+    {
+      "type": "markdown",
+      "body": "# Pipeline di trasformazione\n\nCombina trasformazioni piccole e lazy in una pipeline leggibile.\n\nStudia il meccanismo e prova a prevedere il risultato prima di eseguire il codice."
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "filename": "main.py",
+      "code": "def positivi(v):\n    return (x for x in v if x >= 0)\n\ndef quadrati(v):\n    return (x * x for x in v)\n\nprint(list(quadrati(positivi([-2, 0, 3]))))",
+      "caption": "Esempio"
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "Metodo",
+      "body": "Modifica un valore dell'esempio e verifica se il tuo modello mentale prevede correttamente il nuovo risultato."
+    }
+  ],
+  "exerciseIds": [
+    "ex_python_pipeline_dati_01"
+  ]
+}

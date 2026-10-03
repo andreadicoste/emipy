@@ -1,0 +1,31 @@
+{
+  "externalId": "lesson_python_algoritmi_ordinamento",
+  "courseId": "course_python_algorithms",
+  "slug": "algoritmi-ordinamento",
+  "title": "Ordinare e ragionare sugli scambi",
+  "description": "Implementa un ordinamento semplice per capire confronti e invarianti.",
+  "order": 4,
+  "status": "published",
+  "blocks": [
+    {
+      "type": "markdown",
+      "body": "# Ordinare e ragionare sugli scambi\n\nImplementa un ordinamento semplice per capire confronti e invarianti.\n\nStudia il meccanismo e prova a prevedere il risultato prima di eseguire il codice."
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "filename": "main.py",
+      "code": "def selection_sort(v):\n    v = v[:]\n    for i in range(len(v)):\n        minimo = i\n        for j in range(i + 1, len(v)):\n            if v[j] < v[minimo]:\n                minimo = j\n        v[i], v[minimo] = v[minimo], v[i]\n    return v",
+      "caption": "Esempio"
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "Metodo",
+      "body": "Modifica un valore dell'esempio e verifica se il tuo modello mentale prevede correttamente il nuovo risultato."
+    }
+  ],
+  "exerciseIds": [
+    "ex_python_algoritmi_ordinamento_01"
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "externalId": "lesson_python_generatori_yield",
+  "courseId": "course_python_iterators",
+  "slug": "generatori-yield",
+  "title": "Generatori con yield",
+  "description": "Produci valori uno alla volta senza costruire tutto in memoria.",
+  "order": 2,
+  "status": "published",
+  "blocks": [
+    {
+      "type": "markdown",
+      "body": "# Generatori con yield\n\nProduci valori uno alla volta senza costruire tutto in memoria.\n\nStudia il meccanismo e prova a prevedere il risultato prima di eseguire il codice."
+    },
+    {
+      "type": "code",
+      "language": "python",
+      "filename": "main.py",
+      "code": "def quadrati(n):\n    for i in range(n):\n        yield i * i\n\nprint(list(quadrati(5)))",
+      "caption": "Esempio"
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "Metodo",
+      "body": "Modifica un valore dell'esempio e verifica se il tuo modello mentale prevede correttamente il nuovo risultato."
+    }
+  ],
+  "exerciseIds": [
+    "ex_python_generatori_yield_01"
+  ]
+}

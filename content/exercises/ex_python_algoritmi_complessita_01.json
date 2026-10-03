@@ -1,0 +1,15 @@
+{
+  "externalId": "ex_python_algoritmi_complessita_01",
+  "title": "Ricerca lineare",
+  "instructions": "Scrivi `trova_indice(lista, target)` che restituisca l'indice della prima occorrenza o -1.",
+  "language": "python",
+  "starterCode": "def trova_indice(lista, target):\n    pass\n\nprint(trova_indice([8, 3, 7, 3], 7))\n",
+  "starterFiles": [],
+  "learningObjectives": [
+    "Scorrere una sequenza",
+    "Terminare appena il risultato è noto"
+  ],
+  "expectedBehavior": "Con [8,3,7,3] e 7 restituisce 2; se assente restituisce -1.",
+  "graderInstructions": "Verificare elemento all'inizio, nel mezzo e assente.",
+  "status": "published"
+}
