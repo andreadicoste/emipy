@@ -1,0 +1,9 @@
+{
+  "externalId": "course_javascript_modern",
+  "language": "javascript",
+  "slug": "javascript-moduli-async",
+  "title": "Moduli, async e progettazione",
+  "description": "Organizza codice moderno con moduli, Promise, async/await, errori e piccole pipeline applicative da console.",
+  "order": 3,
+  "status": "published"
+}

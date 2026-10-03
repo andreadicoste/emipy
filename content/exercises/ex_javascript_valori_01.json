@@ -1,0 +1,15 @@
+{
+  "externalId": "ex_javascript_valori_01",
+  "title": "Converti e somma",
+  "instructions": "Leggi due righe con `input()`, convertile in numeri e stampa la somma.",
+  "language": "javascript",
+  "starterCode": "const a = input(\"a? \");\nconst b = input(\"b? \");\n// completa\n",
+  "starterFiles": [],
+  "learningObjectives": [
+    "Usare const e let",
+    "Convertire stringhe in numeri"
+  ],
+  "expectedBehavior": "Con input 7 e 5 stampa 12.",
+  "graderInstructions": "Provare almeno due coppie, incluso un valore negativo.",
+  "status": "published"
+}

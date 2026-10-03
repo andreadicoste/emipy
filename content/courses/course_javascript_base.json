@@ -1,0 +1,9 @@
+{
+  "externalId": "course_javascript_base",
+  "language": "javascript",
+  "slug": "javascript-fondamenti",
+  "title": "Fondamenti di JavaScript",
+  "description": "Impara valori, variabili, input/output, condizioni, cicli e funzioni nel runtime JavaScript di Emipy.",
+  "order": 1,
+  "status": "published"
+}

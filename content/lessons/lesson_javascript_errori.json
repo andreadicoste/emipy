@@ -1,0 +1,31 @@
+{
+  "externalId": "lesson_javascript_errori",
+  "courseId": "course_javascript_modern",
+  "slug": "javascript-errori",
+  "title": "Errori e validazione",
+  "description": "Rifiuta input non valido in modo esplicito e separa il percorso corretto da quello di errore.",
+  "order": 4,
+  "status": "published",
+  "blocks": [
+    {
+      "type": "markdown",
+      "body": "# Errori e validazione\n\nRifiuta input non valido in modo esplicito e separa il percorso corretto da quello di errore.\n\nIl runtime JavaScript di Emipy è da console: concentrati sul linguaggio e sui moduli, senza DOM, Node o API di rete."
+    },
+    {
+      "type": "code",
+      "language": "javascript",
+      "filename": "main.js",
+      "code": "function percentuale(x) {\n  if (x < 0 || x > 100) throw new Error(\"fuori intervallo\");\n  return x / 100;\n}\n\nconsole.log(percentuale(25));",
+      "caption": "Esempio JavaScript"
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "Evita la magia implicita",
+      "body": "Quando puoi, preferisci confronti stretti e conversioni esplicite: rendono il comportamento più facile da prevedere."
+    }
+  ],
+  "exerciseIds": [
+    "ex_javascript_errori_01"
+  ]
+}

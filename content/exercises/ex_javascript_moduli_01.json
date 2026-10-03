@@ -1,0 +1,15 @@
+{
+  "externalId": "ex_javascript_moduli_01",
+  "title": "API di conversione",
+  "instructions": "Scrivi due funzioni pure `celsiusToFahrenheit` e `fahrenheitToCelsius` pensate per essere esportabili.",
+  "language": "javascript",
+  "starterCode": "function celsiusToFahrenheit(c) {\n  // completa\n}\n\nfunction fahrenheitToCelsius(f) {\n  // completa\n}\n\nconsole.log(celsiusToFahrenheit(0), fahrenheitToCelsius(32));\n",
+  "starterFiles": [],
+  "learningObjectives": [
+    "Progettare funzioni indipendenti",
+    "Separare API e utilizzo"
+  ],
+  "expectedBehavior": "0 C produce 32 F e 32 F produce 0 C.",
+  "graderInstructions": "Verificare conversioni note e un valore diverso da zero.",
+  "status": "published"
+}

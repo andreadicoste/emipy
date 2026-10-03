@@ -1,0 +1,15 @@
+{
+  "externalId": "ex_javascript_errori_01",
+  "title": "Divisione sicura",
+  "instructions": "Scrivi `dividi(a, b)` che lanci un Error se b è zero e altrimenti restituisca a/b; gestisci l'errore in `main` con try/catch.",
+  "language": "javascript",
+  "starterCode": "function dividi(a, b) {\n  // completa\n}\n\ntry {\n  console.log(dividi(10, 2));\n} catch (errore) {\n  console.log(\"errore\");\n}\n",
+  "starterFiles": [],
+  "learningObjectives": [
+    "Lanciare un Error",
+    "Gestire errori con try/catch"
+  ],
+  "expectedBehavior": "10/2 produce 5; divisore zero viene gestito senza terminare brutalmente il programma.",
+  "graderInstructions": "Provare divisore valido e zero; non imporre il testo del messaggio di errore.",
+  "status": "published"
+}

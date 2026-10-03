@@ -1,0 +1,15 @@
+{
+  "externalId": "ex_javascript_callback_01",
+  "title": "Conta con predicato",
+  "instructions": "Scrivi `contaSe(valori, predicato)` che conti quanti elementi soddisfano il predicato.",
+  "language": "javascript",
+  "starterCode": "function contaSe(valori, predicato) {\n  // completa\n}\n\nconsole.log(contaSe([1, 2, 3, 4], (x) => x % 2 === 0));\n",
+  "starterFiles": [],
+  "learningObjectives": [
+    "Ricevere una callback",
+    "Invocare un predicato"
+  ],
+  "expectedBehavior": "Con il predicato pari restituisce 2.",
+  "graderInstructions": "Provare almeno due predicati differenti.",
+  "status": "published"
+}

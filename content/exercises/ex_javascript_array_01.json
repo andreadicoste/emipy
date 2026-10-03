@@ -1,0 +1,15 @@
+{
+  "externalId": "ex_javascript_array_01",
+  "title": "Filtra e raddoppia",
+  "instructions": "Scrivi `elabora(valori)` che tenga solo i positivi e li raddoppi usando metodi degli array.",
+  "language": "javascript",
+  "starterCode": "function elabora(valori) {\n  // completa\n}\n\nconsole.log(elabora([-2, 1, 3, 0]).join(\",\"));\n",
+  "starterFiles": [],
+  "learningObjectives": [
+    "Usare filter",
+    "Usare map"
+  ],
+  "expectedBehavior": "Per [-2,1,3,0] produce 2,6.",
+  "graderInstructions": "Verificare altri array; richiedere una trasformazione semantica corretta, preferibilmente con filter/map come da traccia.",
+  "status": "published"
+}

@@ -1,0 +1,31 @@
+{
+  "externalId": "lesson_javascript_promise",
+  "courseId": "course_javascript_modern",
+  "slug": "javascript-promise",
+  "title": "Promise e composizione asincrona",
+  "description": "Rappresenta un risultato futuro e trasforma il valore con then senza bloccare il modello mentale.",
+  "order": 2,
+  "status": "published",
+  "blocks": [
+    {
+      "type": "markdown",
+      "body": "# Promise e composizione asincrona\n\nRappresenta un risultato futuro e trasforma il valore con then senza bloccare il modello mentale.\n\nIl runtime JavaScript di Emipy è da console: concentrati sul linguaggio e sui moduli, senza DOM, Node o API di rete."
+    },
+    {
+      "type": "code",
+      "language": "javascript",
+      "filename": "main.js",
+      "code": "const risultato = Promise.resolve(21)\n  .then((x) => x * 2);\n\nconsole.log(await risultato);",
+      "caption": "Esempio JavaScript"
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "Evita la magia implicita",
+      "body": "Quando puoi, preferisci confronti stretti e conversioni esplicite: rendono il comportamento più facile da prevedere."
+    }
+  ],
+  "exerciseIds": [
+    "ex_javascript_promise_01"
+  ]
+}

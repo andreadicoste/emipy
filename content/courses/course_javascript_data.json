@@ -1,0 +1,9 @@
+{
+  "externalId": "course_javascript_data",
+  "language": "javascript",
+  "slug": "javascript-array-oggetti-funzioni",
+  "title": "Array, oggetti e funzioni",
+  "description": "Trasforma collezioni, modella dati con oggetti e usa callback, closure e sintassi moderna.",
+  "order": 2,
+  "status": "published"
+}

@@ -1,0 +1,31 @@
+{
+  "externalId": "lesson_javascript_condizioni",
+  "courseId": "course_javascript_base",
+  "slug": "javascript-condizioni",
+  "title": "Condizioni e uguaglianza",
+  "description": "Usa confronti stretti e operatori logici per prendere decisioni prevedibili.",
+  "order": 2,
+  "status": "published",
+  "blocks": [
+    {
+      "type": "markdown",
+      "body": "# Condizioni e uguaglianza\n\nUsa confronti stretti e operatori logici per prendere decisioni prevedibili.\n\nIl runtime JavaScript di Emipy è da console: concentrati sul linguaggio e sui moduli, senza DOM, Node o API di rete."
+    },
+    {
+      "type": "code",
+      "language": "javascript",
+      "filename": "main.js",
+      "code": "const n = 12;\nif (n % 2 === 0) {\n  console.log(\"pari\");\n} else {\n  console.log(\"dispari\");\n}",
+      "caption": "Esempio JavaScript"
+    },
+    {
+      "type": "callout",
+      "variant": "tip",
+      "title": "Evita la magia implicita",
+      "body": "Quando puoi, preferisci confronti stretti e conversioni esplicite: rendono il comportamento più facile da prevedere."
+    }
+  ],
+  "exerciseIds": [
+    "ex_javascript_condizioni_01"
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "externalId": "ex_javascript_closure_01",
+  "title": "Generatore di ID",
+  "instructions": "Scrivi `creaGeneratoreId(prefisso)` che restituisca una funzione; ogni chiamata produce prefisso seguito da un numero crescente a partire da 1.",
+  "language": "javascript",
+  "starterCode": "function creaGeneratoreId(prefisso) {\n  // completa\n}\n\nconst next = creaGeneratoreId(\"user-\");\nconsole.log(next());\nconsole.log(next());\n",
+  "starterFiles": [],
+  "learningObjectives": [
+    "Creare una closure",
+    "Conservare stato privato"
+  ],
+  "expectedBehavior": "Le prime due chiamate producono user-1 e user-2.",
+  "graderInstructions": "Verificare che due generatori separati mantengano stati indipendenti.",
+  "status": "published"
+}
