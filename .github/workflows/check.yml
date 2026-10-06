@@ -1,18 +1,70 @@
 name: Check
+
 on:
   pull_request:
   push:
     branches: [main]
+
+permissions:
+  contents: read
+
 jobs:
   check:
     runs-on: ubuntu-latest
+    env:
+      DATABASE_URL: file:./data/emipy.db
+      BETTER_AUTH_SECRET: ci-only-secret-that-is-at-least-32-characters-long
+      BETTER_AUTH_URL: http://localhost:3000
+      APP_ORIGIN: http://localhost:3000
+      PLAYWRIGHT_CHROMIUM_PATH: /usr/bin/google-chrome
     steps:
       - uses: actions/checkout@v4
+
       - uses: oven-sh/setup-bun@v2
-        with: { bun-version: 1.4.2 }
-      - run: bun install --frozen-lockfile
-      - run: bun run content:validate
-      - run: bun run db:generate
-      - run: bun run typecheck
-      - run: bun run build
-      - run: bun test src/lib/c-runtime/compiler.test.ts src/lib/curriculum.server.test.ts src/lib/javascript-runtime/engine.test.ts src/lib/typescript-runtime/compiler.test.ts
+        with:
+          bun-version: 1.4.2
+
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+
+      - name: Validate curriculum
+        run: bun run content:validate
+
+      - name: Generate Prisma client
+        run: bun run db:generate
+
+      - name: Typecheck
+        run: bun run typecheck
+
+      - name: Build
+        run: bun run build
+
+      - name: Unit and integration tests
+        run: bun test src/lib/c-runtime/compiler.test.ts src/lib/curriculum.server.test.ts src/lib/javascript-runtime/engine.test.ts src/lib/typescript-runtime/compiler.test.ts
+
+      - name: Prepare smoke-test database
+        run: |
+          mkdir -p data
+          touch data/emipy.db
+          bun run db:deploy
+
+      - name: Verify runner browser
+        run: test -x "$PLAYWRIGHT_CHROMIUM_PATH"
+
+      - name: Start production server
+        run: |
+          bun run start > /tmp/emipy-server.log 2>&1 &
+          echo $! > /tmp/emipy-server.pid
+
+          for i in {1..30}; do
+            if curl -fsS http://localhost:3000/api/health >/dev/null; then
+              exit 0
+            fi
+            sleep 1
+          done
+
+          cat /tmp/emipy-server.log
+          exit 1
+
+      - name: Public smoke test
+        run: bunx playwright test tests/public-smoke.spec.ts
