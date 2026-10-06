@@ -16,6 +16,7 @@ jobs:
       BETTER_AUTH_SECRET: ci-only-secret-that-is-at-least-32-characters-long
       BETTER_AUTH_URL: http://localhost:3000
       APP_ORIGIN: http://localhost:3000
+      PLAYWRIGHT_CHROMIUM_PATH: /usr/bin/google-chrome
     steps:
       - uses: actions/checkout@v4
 
@@ -47,8 +48,8 @@ jobs:
           touch data/emipy.db
           bun run db:deploy
 
-      - name: Install Chromium
-        run: bunx playwright install --with-deps chromium
+      - name: Verify runner browser
+        run: test -x "$PLAYWRIGHT_CHROMIUM_PATH"
 
       - name: Start production server
         run: |
