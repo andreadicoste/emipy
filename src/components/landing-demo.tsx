@@ -8,13 +8,13 @@ import { useDemoRuntime } from '@/hooks/use-demo-runtime'
 import { cn } from 'cn'
 
 const CodeEditor = lazy(() => import('./code-editor').then((module) => ({ default: module.CodeEditor })))
-const INITIAL_CODE = `// Una piccola idea. Un primo esperimento.
+const INITIAL_CODE = `// Leggi un input e scrivi nella console.
 const nome = input("Come ti chiami? ");
 console.log("Ciao, " + nome + "! Benvenuto in Emipy.");
 
 const idee = ["scrivi", "prova", "scopri"];
 for (const idea of idee) {
-    console.log("→ " + idea);
+    console.log(idea);
 }
 
 // Ora tocca a te: cambia qualcosa e premi START.
@@ -33,7 +33,7 @@ export default function LandingDemo() {
   useEffect(() => { if (runtime.status === 'waiting') inputRef.current?.focus() }, [runtime.status])
   return <div className="landing-live-demo">
     <header className="landing-demo-toolbar ide-toolbar">
-      <span className="flex items-center gap-2 text-sm font-semibold"><HugeiconsIcon icon={File01Icon} className="size-4" aria-hidden="true" />Il tuo esperimento</span>
+      <span className="flex items-center gap-2 text-sm font-semibold"><HugeiconsIcon icon={File01Icon} className="size-4" aria-hidden="true" />Demo JavaScript</span>
       <div className="flex items-center gap-2">
         <Button variant="ghost" size="sm" disabled={running} onClick={() => { setCode(INITIAL_CODE); setInput(''); runtime.clearOutput() }}>Reset</Button>
         {runtime.status === 'error' ? <Button size="sm" onClick={runtime.retry}>Riprova</Button> : <Button size="sm" disabled={runtime.status === 'loading'} onClick={() => { setInput(''); if (running) runtime.stop(); else runtime.run(code) }}><HugeiconsIcon icon={running ? StopIcon : PlayIcon} aria-hidden="true" />{running ? 'STOP' : 'START'}</Button>}
