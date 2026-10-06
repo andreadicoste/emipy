@@ -1,6 +1,13 @@
 {
   "name": "emipy",
+  "description": "Browser-native programming learning environment for Python, C, C++, JavaScript and TypeScript.",
   "private": true,
+  "license": "Apache-2.0",
+  "homepage": "https://emipy.andreadicoste.site",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/andreadicoste/emipy.git"
+  },
   "type": "module",
   "imports": {
     "#/*": "./src/*"
