@@ -154,6 +154,62 @@ button { cursor: pointer; }
 .output-scroll { white-space: pre-wrap; overflow-wrap: anywhere; font: 13px/1.55 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
 .dark .brand-wordmark { filter: invert(1); }
 
+/* Public playground: the same surfaces and typography as the learning workspace. */
+.landing-page { max-width: 1200px; margin: 0 auto; padding: 0 32px; }
+.landing-nav { display: flex; align-items: center; justify-content: space-between; min-height: 96px; border-bottom: 1px solid var(--border); }
+.landing-text-link { font-size: 13px; font-weight: 600; color: var(--muted-foreground); text-decoration: none; padding: 12px 0; }
+.landing-text-link:hover { color: var(--foreground); }
+.landing-text-link:focus-visible { outline: 2px solid var(--ring); outline-offset: 4px; }
+.landing-hero { display: flex; align-items: center; flex-direction: column; gap: 24px; text-align: center; padding: 80px 0 64px; }
+.landing-hero h1 { margin: 0; font-size: clamp(36px, 5.6vw, 68px); line-height: 1.1; font-weight: 600; letter-spacing: -.065em; }
+.landing-start-word { position: relative; white-space: nowrap; }
+.landing-start-word::after { content: ''; position: absolute; bottom: -6px; left: 0; right: 0; height: 5px; border-radius: 100%; background: var(--brand-accent); transform: rotate(-2deg); }
+.landing-dot { color: var(--brand-accent); }
+.landing-hero > p { margin: 0; color: var(--muted-foreground); font-size: 17px; line-height: 1.8; }
+.landing-hero-note { color: var(--muted-foreground); font-size: 12px; }
+.landing-demo-section { scroll-margin-top: 24px; }
+.landing-demo-heading { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 0 4px 20px; }
+.landing-eyebrow { color: var(--muted-foreground); font-size: 10px; font-weight: 700; letter-spacing: .14em; margin: 0 0 8px; }
+.landing-demo-heading h2 { margin: 0; font-size: 19px; font-weight: 600; letter-spacing: -.035em; }
+.landing-demo-frame { display: grid; grid-template-columns: 64px minmax(0, 1fr) 64px; overflow: hidden; border: 1px solid var(--border); border-radius: 12px; background: var(--ide-canvas); box-shadow: 0 20px 60px rgb(0 0 0 / 6%), 0 2px 8px rgb(0 0 0 / 3%); }
+.landing-empty-sidebar { padding: 18px; background: var(--panel); border-right: 1px solid var(--border); }
+.landing-empty-sidebar-right { background: var(--files-panel); border-right: 0; border-left: 1px solid var(--border); }
+.landing-demo-center { min-width: 0; }
+.landing-demo-placeholder { min-height: 560px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 24px; padding: 24px; background: var(--monaco-bg); text-align: center; }
+.landing-demo-placeholder p { font-size: 12px; color: var(--muted-foreground); }
+.landing-preview-code { font: 15px/2 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-align: left; margin-bottom: 16px; }
+.landing-preview-code span { color: var(--muted-foreground); }
+.landing-preview-code strong { font-weight: 400; }
+.landing-preview-code em { font-style: normal; }
+.landing-live-demo { height: 560px; display: flex; flex-direction: column; gap: 8px; padding: 0 8px 8px; }
+.landing-demo-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 8px; min-height: 52px; padding: 0 4px; }
+.landing-editor, .landing-console { display: flex; flex-direction: column; min-height: 0; overflow: hidden; border: 1px solid var(--border); border-radius: 6px; }
+.landing-editor { flex: 1; background: var(--monaco-bg); }
+.landing-console { height: 190px; flex-shrink: 0; background: var(--code-bg); }
+.landing-panel-heading { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 34px; padding: 0 12px; border-bottom: 1px solid var(--border); font-size: 11px; flex-shrink: 0; }
+.landing-demo-caption { text-align: center; font-size: 12px; line-height: 1.8; color: var(--muted-foreground); margin: 20px 0 0; }
+.landing-details { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 40px; padding: 64px 4px; }
+.landing-detail-number { font: 10px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; letter-spacing: .1em; color: var(--muted-foreground); }
+.landing-details h2 { margin: 14px 0 10px; font-size: 18px; font-weight: 600; letter-spacing: -.035em; }
+.landing-details p { margin: 0; font-size: 14px; line-height: 1.8; color: var(--muted-foreground); }
+.landing-footer { display: flex; justify-content: space-between; align-items: center; gap: 16px; border-top: 1px solid var(--border); padding: 20px 0 28px; font-size: 12px; color: var(--muted-foreground); }
+.landing-footer .landing-dot { margin: 0 8px; }
+@media (max-width: 640px) {
+  .landing-page { padding: 0 16px; }
+  .landing-nav { min-height: 76px; }
+  .landing-hero { padding: 52px 0 44px; }
+  .landing-hero > p { font-size: 15px; }
+  .landing-demo-heading { align-items: flex-start; flex-direction: column; }
+  .landing-demo-frame { grid-template-columns: minmax(0, 1fr); }
+  .landing-empty-sidebar { display: none; }
+  .landing-preview-code { font-size: 12px; }
+  .landing-demo-toolbar > span { font-size: 12px; }
+  .landing-panel-heading { gap: 8px; padding: 0 8px; }
+  .landing-demo-toolbar button, .landing-console button { min-height: 40px; }
+  .landing-details { grid-template-columns: 1fr; gap: 28px; padding: 44px 4px; }
+  .landing-footer { flex-wrap: wrap; }
+}
+
 .app-view-enter { animation: app-view-enter 200ms ease-out both; }
 @keyframes app-view-enter {
   from { opacity: 0; transform: translateY(4px); }

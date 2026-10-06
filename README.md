@@ -13,6 +13,18 @@ The server is responsible for authentication, persistence, curriculum state and 
 
 ## Highlights
 
+The public home page includes a small, on-demand JavaScript playground. It uses
+Monaco and the existing QuickJS Worker without authentication, database writes,
+AI calls, or loading the other language runtimes. Code lives only in the current
+tab. Demo executions have a 10-second watchdog (paused while awaiting input) and
+a 64 KiB output limit; STOP terminates the Worker.
+
+The playground requires HTTPS or localhost and the same COOP/COEP headers as the
+full application. It is currently served by the application, not a separate
+static-only deployment. Browser execution reduces server computation, but does
+not protect the origin or a home connection from DDoS traffic; protection must
+be provided by the hosting/network layer.
+
 - **Five languages:** Python, C11, C++17, JavaScript and TypeScript.
 - **Browser-native execution:** isolated Web Workers and WebAssembly runtimes.
 - **Real editor experience:** Monaco, multi-file projects and a terminal with interactive stdin.
